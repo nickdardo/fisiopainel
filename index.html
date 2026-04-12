@@ -354,28 +354,35 @@ const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 const sb=supabase.createClient(SUPA_URL,SUPA_KEY);
 
 // ══ STATE ══
-// ── SESSÃO ──
-const TIMEOUT_MS = 10 * 60 * 1000; // 10 minutos
+// ── SESSÃO (cookies + localStorage) ──
+const TIMEOUT_MS = 10 * 60 * 1000; // 10 minutos inatividade
 let session = null;
 let _lastActivity = Date.now();
 
 function saveSession(s){
-  try{
-    localStorage.setItem('fp_session', JSON.stringify(s));
-    sessionStorage.setItem('fp_session', JSON.stringify(s));
-  }catch(e){}
+  const str = JSON.stringify(s);
+  // Cookie: dura 30 dias
+  document.cookie = 'fp_s=' + encodeURIComponent(str) + '; path=/; max-age=' + (30*24*60*60) + '; SameSite=Lax';
+  try{ localStorage.setItem('fp_session', str); }catch(e){}
 }
 
 function clearSession(){
+  document.cookie = 'fp_s=; path=/; max-age=0';
   try{ localStorage.removeItem('fp_session'); }catch(e){}
-  try{ sessionStorage.removeItem('fp_session'); }catch(e){}
 }
 
 function readSession(){
+  // 1) Tentar cookie
   try{
-    const v = localStorage.getItem('fp_session') || sessionStorage.getItem('fp_session');
-    return v ? JSON.parse(v) : null;
-  }catch(e){ return null; }
+    const m = document.cookie.match(/(?:^|;\s*)fp_s=([^;]*)/);
+    if(m && m[1]){ const v = JSON.parse(decodeURIComponent(m[1])); if(v && v.id) return v; }
+  }catch(e){}
+  // 2) Fallback localStorage
+  try{
+    const v = localStorage.getItem('fp_session');
+    if(v){ const p = JSON.parse(v); if(p && p.id) return p; }
+  }catch(e){}
+  return null;
 }
 let patients=[],records=[],users=[];
 let editPat=null,editUsr=null;
@@ -487,19 +494,23 @@ async function doLogin(){
 function showErr(msg){const e=document.getElementById('login-error');e.textContent=msg;e.style.display='block';}
 
 async function bootApp(){
+  // Garantir que app aparece sempre, independente de erros
   document.getElementById('login-page').style.display='none';
   document.getElementById('app-page').style.display='flex';
-  // nav
-  const av=document.getElementById('nav-av');
-  av.textContent=ini(session.nome);av.style.cssText=AV_STYLE[session.role]||AV_STYLE.cliente;
-  document.getElementById('nav-name').textContent=session.nome;
-  document.getElementById('nav-role').textContent=session.role==='admin'?'👑 Admin':'👤 Cliente';
-  await loadAll();
-  buildSidebar();
-  showPage('registro');
-  // update last_seen on login and every 2 min
+  try{
+    const av=document.getElementById('nav-av');
+    av.textContent=ini(session.nome||'?');
+    av.style.cssText=AV_STYLE[session.role]||AV_STYLE.cliente;
+    document.getElementById('nav-name').textContent=session.nome||'';
+    document.getElementById('nav-role').textContent=session.role==='admin'?'👑 Admin':'👤 Cliente';
+  }catch(e){}
+  try{ await loadAll(); }catch(e){ patients=[];records=[];users=[]; }
+  try{ buildSidebar(); }catch(e){}
+  try{ showPage('registro'); }catch(e){}
+  if(!window._lastSeenTimer){
+    window._lastSeenTimer = setInterval(updateLastSeen, 120000);
+  }
   updateLastSeen();
-  setInterval(updateLastSeen, 120000);
 }
 
 function doLogout(){

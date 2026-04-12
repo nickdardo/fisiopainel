@@ -295,10 +295,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
       </div>
       <div class="msec">Convênio</div>
       <div class="fgrid">
-        <div class="fg"><span class="lbl">Prontuário</span><input id="pm-pront" placeholder="Ex: 357834"/></div>
-        <div class="fg"><span class="lbl">Convênio</span><select id="pm-conv"><option>IASEP</option><option>UNIMED</option><option>Particular</option><option>Outro</option></select></div>
-        <div class="fg"><span class="lbl">Matrícula</span><input id="pm-mat" placeholder="Ex: 8733502"/></div>
-        <div class="fg"><span class="lbl">Validade</span><input type="text" id="pm-val" placeholder="dd/mm/aaaa" maxlength="10" oninput="maskDate(this)" inputmode="numeric"/></div>
+        <div class="fg full"><span class="lbl">Convênio</span><select id="pm-conv"><option>IASEP</option><option>UNIMED</option><option>Particular</option><option>Outro</option></select></div>
       </div>
       <div class="msec">Endereço</div>
       <div class="fgrid">
@@ -623,9 +620,9 @@ function renderRegistro(){
           <span class="lbl">Clínica</span>
           <input type="text" id="reg-clinica" placeholder="Digite o nome da clínica..." autocomplete="off"
             value="${lastClinica}"
-            oninput="lastClinica=this.value;localStorage.setItem('fp_clinica',this.value);filterClinicas(this.value)"
+            oninput="this.value=this.value.toUpperCase();lastClinica=this.value;localStorage.setItem('fp_clinica',this.value);filterClinicas(this.value)"
             onfocus="filterClinicas(this.value)"
-            style="font-weight:500"/>
+            style="font-weight:500;text-transform:uppercase"/>
           <div class="pd" id="clinica-dd" style="display:none"></div>
           <div style="font-size:11px;color:var(--n4);margin-top:3px">Salva automaticamente para o próximo registro</div>
         </div>
@@ -843,7 +840,7 @@ function renderPacientes(){
     </div>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>Nº</th><th>Nome</th><th>Prontuário</th><th>Convênio</th><th>Matrícula</th><th>Validade</th><th>Sessões</th><th>Última</th><th></th></tr></thead>
+        <thead><tr><th>Nº</th><th>Nome</th><th>Convênio</th><th>Sessões</th><th>Última</th><th></th></tr></thead>
         <tbody id="pac-tbody">${pacTbodyHTML(patients)}</tbody>
       </table>
     </div>`;
@@ -861,7 +858,6 @@ function pacTbodyHTML(pats){
     const pR=records.filter(r=>r.pat_id===p.id);
     const tC=pR.filter(r=>r.code==='T').length;
     const last=[...pR].sort((a,b)=>b.date.localeCompare(a.date))[0];
-    const valOk=!p.validade||new Date(p.validade)>=new Date();
     const cs=CONV_STYLE[p.convenio]||CONV_STYLE['Outro'];
     const idade=calcIdade(p.data_nasc);
     const sx={'F':'♀','M':'♂','O':'–'}[p.sexo]||'';
@@ -869,10 +865,10 @@ function pacTbodyHTML(pats){
       <td style="color:var(--n4);font-size:12px">${i+1}</td>
       <td><div style="font-weight:500;color:var(--n7)">${p.nome}</div>
           <div style="font-size:11px;color:var(--n4)">${sx}${idade?` ${idade} anos`:''}</div></td>
-      <td style="color:var(--n5)">${p.prontuario||'—'}</td>
+
       <td><span class="bdg" style="${cs}">${p.convenio}</span></td>
-      <td style="color:var(--n5)">${p.matricula||'—'}</td>
-      <td style="color:${valOk?'var(--n5)':'var(--red)'};font-weight:${valOk?400:600}">${p.validade?fmtDate(p.validade):'—'}</td>
+
+
       <td style="font-weight:700;color:var(--grn)">${tC}</td>
       <td style="color:var(--n4);font-size:12px">${last?fmtDate(last.date):'—'}</td>
       <td><div style="display:flex;gap:.25rem">
@@ -892,10 +888,10 @@ function openPatModal(id){
   document.getElementById('pm-cpf').value=editPat.cpf||'';
   document.getElementById('pm-rg').value=editPat.rg||'';
   document.getElementById('pm-tel').value=editPat.tel||'';
-  document.getElementById('pm-pront').value=editPat.prontuario||'';
+
   document.getElementById('pm-conv').value=editPat.convenio||'IASEP';
-  document.getElementById('pm-mat').value=editPat.matricula||'';
-  document.getElementById('pm-val').value=isoToBr(editPat.validade)||'';
+
+
   document.getElementById('pm-end').value=editPat.endereco||'';
   document.getElementById('pm-bairro').value=editPat.bairro||'';
   document.getElementById('pm-cidade').value=editPat.cidade||'';
@@ -906,7 +902,7 @@ function openPatModal(id){
 async function savePaciente(){
   const nome=document.getElementById('pm-nome').value.trim();
   if(!nome){toast('⚠ Informe o nome',true);return;}
-  const data={nome,data_nasc:brToIso(document.getElementById('pm-nasc').value)||null,sexo:document.getElementById('pm-sexo').value||null,cpf:document.getElementById('pm-cpf').value.trim(),rg:document.getElementById('pm-rg').value.trim(),tel:document.getElementById('pm-tel').value.trim(),prontuario:document.getElementById('pm-pront').value.trim(),convenio:document.getElementById('pm-conv').value,matricula:document.getElementById('pm-mat').value.trim(),validade:brToIso(document.getElementById('pm-val').value)||null,endereco:document.getElementById('pm-end').value.trim(),bairro:document.getElementById('pm-bairro').value.trim(),cidade:document.getElementById('pm-cidade').value.trim(),uf:document.getElementById('pm-uf').value||null};
+  const data={nome,data_nasc:brToIso(document.getElementById('pm-nasc').value)||null,sexo:document.getElementById('pm-sexo').value||null,cpf:document.getElementById('pm-cpf').value.trim(),rg:document.getElementById('pm-rg').value.trim(),tel:document.getElementById('pm-tel').value.trim(),convenio:document.getElementById('pm-conv').value,endereco:document.getElementById('pm-end').value.trim(),bairro:document.getElementById('pm-bairro').value.trim(),cidade:document.getElementById('pm-cidade').value.trim(),uf:document.getElementById('pm-uf').value||null};
   const{data:d,error}=await sb.from('patients').update(data).eq('id',editPat.id).select().single();
   if(error){toast('Erro ao salvar',true);return;}
   patients=patients.map(p=>p.id===editPat.id?d:p);

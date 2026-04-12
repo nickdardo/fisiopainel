@@ -1061,8 +1061,8 @@ function printReport(){
   .sl{font-size:9px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.05em}.sv{font-size:1.3rem;font-weight:700}
   .ftr{margin-top:14px;padding-top:8px;border-top:1px solid #ddd;font-size:10px;color:#888;display:flex;justify-content:space-between}
   @media print{body{padding:12px}@page{margin:1cm;size:A4 landscape}}</style></head><body>
-  <div class="htitle">ATENDIMENTOS IASEP SAÚDE CENTER</div>
-  <div class="hsub">${periodo}${convLabel} &nbsp;·&nbsp; Emitido em ${now} &nbsp;·&nbsp; ${session.nome}</div>
+  <div class="htitle">${relClinica?relClinica.toUpperCase():'ATENDIMENTOS IASEP SAÚDE CENTER'}</div>
+  <div class="hsub">${periodo}${convLabel}${clinicaLabel} &nbsp;·&nbsp; Emitido em ${now} &nbsp;·&nbsp; ${session.nome}</div>
   <div class="stats">
     <div class="stat"><div class="sl">Sessões T</div><div class="sv" style="color:#1B5E20">${T}</div></div>
     <div class="stat"><div class="sl">Avaliações</div><div class="sv" style="color:#0D47A1">${AV}</div></div>
@@ -1070,7 +1070,7 @@ function printReport(){
     <div class="stat"><div class="sl">Total</div><div class="sv">${T+AV+FNJ}</div></div>
   </div>
   ${tableHTML}
-  <div class="ftr"><span>FisioPainel · Desenvolvido por Eduardo Ribeiro</span><span>${periodo}${convLabel}</span></div>
+  <div class="ftr"><span>FisioPainel · Desenvolvido por Eduardo Ribeiro</span><span>${periodo}${convLabel}${clinicaLabel}</span></div>
   <script>window.onload=()=>{window.print()}<\/script></body></html>`);
   w.document.close();
 }

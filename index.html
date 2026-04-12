@@ -735,7 +735,7 @@ function selectPat(id){
   document.getElementById('new-pat-box').style.display='none';
   document.getElementById('pat-sel-box').style.display='block';
   document.getElementById('psel-name').textContent=selPat.nome;
-  document.getElementById('psel-info').textContent=`${selPat.convenio} · Matrícula: ${selPat.matricula||'—'}`;
+  document.getElementById('psel-info').textContent=selPat.convenio||'';
   const last=lastRec(selPat.id);
   document.getElementById('psel-next').textContent=`Próxima: T${nextT(selPat.id)} · Último: ${last?fmtDate(last.date):'nenhum'}`;
   updateCodePrev();
@@ -755,9 +755,7 @@ function startNewPat(){
   document.getElementById('pat-sel-box').style.display='none';
   document.getElementById('new-pat-box').style.display='block';
   document.getElementById('np-nome').value=q;
-  document.getElementById('np-pront').value='';
-  document.getElementById('np-mat').value='';
-  document.getElementById('np-val').value='';
+
   document.getElementById('np-conv').value='IASEP';
 }
 
@@ -770,7 +768,7 @@ function cancelNewPat(){
 async function confirmNewPat(){
   const nome=document.getElementById('np-nome').value.trim();
   if(!nome){toast('⚠ Informe o nome',true);return;}
-  const data={nome,prontuario:document.getElementById('np-pront').value.trim(),convenio:document.getElementById('np-conv').value,matricula:document.getElementById('np-mat').value.trim(),validade:brToIso(document.getElementById('np-val').value)||null,owner_id:session.id};
+  const data={nome,convenio:document.getElementById('np-conv').value,owner_id:session.id};
   const{data:d,error}=await sb.from('patients').insert(data).select().single();
   if(error){toast('Erro ao criar paciente',true);return;}
   patients.push(d);patients.sort((a,b)=>a.nome.localeCompare(b.nome));
@@ -779,7 +777,7 @@ async function confirmNewPat(){
   document.getElementById('pat-search').value=d.nome;
   document.getElementById('pat-sel-box').style.display='block';
   document.getElementById('psel-name').textContent=d.nome;
-  document.getElementById('psel-info').textContent=`${d.convenio} · Matrícula: ${d.matricula||'—'}`;
+  document.getElementById('psel-info').textContent=d.convenio||'';
   document.getElementById('psel-next').textContent='Primeira sessão: T1';
   toast(`✓ Paciente "${d.nome}" cadastrado!`);
   updateCodePrev();

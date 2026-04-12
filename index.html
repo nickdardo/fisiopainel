@@ -1117,11 +1117,11 @@ function renderMensal(){
   if(!pats.length){document.getElementById('rel-tabela').innerHTML='<div class="empty" style="padding:2rem"><div class="empty-icon">📊</div><div class="empty-text">Nenhum atendimento.</div></div>';return;}
   const dayH=days.map(({date,dt})=>`<th class="dc">${dt.getDate()}<br><span style="font-size:9px;opacity:.7">${DIAS_PT[dt.getDay()]}</span></th>`).join('');
   const rows=pats.map((p,i)=>{
-    const cells=days.map(({date})=>{const r=records.find(x=>x.pat_id===p.id&&x.date===date);if(!r)return'<td class="cc"></td>';const lbl=r.code==='T'?`T${r.t_num}`:r.code;const cls=r.code==='T'?'ct':r.code==='AV'?'cav':'cfnj';return`<td class="cc ${cls}">${lbl}</td>`;}).join('');
+    const _fc=relFilter==='T'?'T':relFilter;const cells=days.map(({date})=>{const r=records.find(x=>x.pat_id===p.id&&x.date===date&&x.code===_fc);if(!r)return'<td class="cc"></td>';const lbl=r.code==='T'?`T${r.t_num}`:r.code;const col=r.code==='T'?'':r.code==='AV'?'color:#185FA5':'color:#5B21B6';const cls=r.code==='T'?'ct':r.code==='AV'?'cav':'';return`<td class="cc ${cls}" style="${col};font-weight:700">${lbl}</td>`;}).join('');
     const tT=records.filter(r=>r.pat_id===p.id&&r.code===(relFilter==='T'?'T':relFilter)&&r.date?.startsWith(`${relAno}-${mm}`)).length;
     return`<tr><td style="color:var(--n4);font-size:11px;text-align:center">${i+1}</td><td class="nc">${p.nome}</td>${cells}<td style="text-align:center;font-weight:700;color:var(--grn)">${tT}</td></tr>`;
   }).join('');
-  const totR=days.map(({date})=>{const c=records.filter(r=>r.date===date&&r.code==='T'&&(relConv?patients.find(p=>p.id===r.pat_id)?.convenio===relConv:true)).length;return`<td style="text-align:center">${c||''}</td>`;}).join('');
+  const _fc2=relFilter==='T'?'T':relFilter;const totR=days.map(({date})=>{const c=records.filter(r=>r.date===date&&r.code===_fc2&&(relConv?patients.find(p=>p.id===r.pat_id)?.convenio===relConv:true)).length;return`<td style="text-align:center">${c||''}</td>`;}).join('');
   document.getElementById('rel-tabela').innerHTML=`<table class="rel-tbl"><thead><tr><th>Nº</th><th class="nc" style="text-align:left">PACIENTE</th>${dayH}<th>T</th></tr></thead><tbody>${rows}</tbody><tfoot><tr><td colspan="2" style="text-align:left;padding-left:1rem">TOTAL</td>${totR}<td>${T}</td></tr></tfoot></table>`;
 }
 

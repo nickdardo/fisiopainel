@@ -502,7 +502,7 @@ async function bootApp(){
     av.textContent=ini(session.nome||'?');
     av.style.cssText=AV_STYLE[session.role]||AV_STYLE.cliente;
     document.getElementById('nav-name').textContent=session.nome||'';
-    document.getElementById('nav-role').textContent=session.role==='admin'?'👑 Admin':'👤 Cliente';
+    document.getElementById('nav-role').textContent=session.role==='admin'?'👑 Admin':'🩺 Fisioterapeuta';
   }catch(e){}
   try{ await loadAll(); }catch(e){ patients=[];records=[];users=[]; }
   try{ buildSidebar(); }catch(e){}
@@ -807,7 +807,6 @@ function renderPacientes(){
   mc.innerHTML=`
     <div class="sec-hdr">
       <span class="sec-title">Pacientes</span>
-      <button class="btn btn-p btn-sm" onclick="openPatModal(null)">+ Novo Paciente</button>
     </div>
     <div style="margin-bottom:1rem">
       <input type="text" id="pac-s" placeholder="🔍  Buscar paciente..." oninput="filterPacTbl()" style="max-width:360px"/>
@@ -1330,7 +1329,7 @@ function usrListHTML(){
   return users.map(u=>{
     const isSelf=u.id===session.id;
     const avStyle=AV_STYLE[u.role]||AV_STYLE.cliente;
-    const rlbl=u.role==='admin'?'👑 Admin':'👤 Cliente';
+    const rlbl=u.role==='admin'?'👑 Admin':'🩺 Fisioterapeuta';
     const rbdg=u.role==='admin'?'bdg-admin':'bdg-cli';
     let statusBdg='';
     if(u.role!=='admin'){

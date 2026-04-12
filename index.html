@@ -176,8 +176,42 @@ tbody td{padding:.75rem 1rem;vertical-align:middle}
 .access-denied{text-align:center;padding:4rem 2rem;color:var(--g4)}
 .month-tabs{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
 
-@media(max-width:900px){.sidebar{display:none}.stats{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.content{padding:1rem}.stats{grid-template-columns:1fr 1fr}.fgrid{grid-template-columns:1fr}.full{grid-column:1}.qp{grid-template-columns:1fr}}
+
+/* ONLINE DOT */
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;display:inline-block}
+.dot-on{background:#22c55e;box-shadow:0 0 0 0 rgba(34,197,94,.4);animation:pulse-on 1.8s infinite}
+.dot-off{background:#ef4444}
+@keyframes pulse-on{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}70%{box-shadow:0 0 0 7px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;border-radius:6px}
+.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all .2s}
+.hamburger:hover{background:rgba(255,255,255,.1)}
+
+/* SIDEBAR OVERLAY (mobile) */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:90}
+.sidebar-overlay.open{display:block}
+
+@media(max-width:900px){
+  .hamburger{display:flex}
+  .sidebar{
+    position:fixed;top:56px;left:-240px;height:calc(100vh - 56px);
+    z-index:95;transition:left .25s ease;box-shadow:none;
+  }
+  .sidebar.open{left:0;box-shadow:var(--shm)}
+  .stats{grid-template-columns:1fr 1fr}
+  .qp{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .content{padding:1rem}
+  .stats{grid-template-columns:1fr 1fr}
+  .fgrid{grid-template-columns:1fr}
+  .full{grid-column:1}
+  .qp{grid-template-columns:1fr}
+  .nav-user span:not(.nav-badge){display:none}
+  .modal{max-width:100%!important}
+  .sec-hdr{flex-direction:column;align-items:flex-start}
+}
 
 /* PRINT */
 @media print{
@@ -211,8 +245,14 @@ tbody td{padding:.75rem 1rem;vertical-align:middle}
 
 <!-- APP -->
 <div id="app-page" style="display:none;flex-direction:column;min-height:100vh">
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
   <nav class="nav">
-    <span class="nav-brand">Fisio<span>Painel</span></span>
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <span class="nav-brand">Fisio<span>Painel</span></span>
+    </div>
     <div class="nav-right">
       <div class="nav-user">
         <div class="nav-avatar" id="nav-av"></div>
@@ -328,6 +368,15 @@ const ini=n=>n.split(' ').map(p=>p[0]).join('').slice(0,2).toUpperCase();
 const MESES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const MS=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const nextT=patId=>records.filter(r=>r.pat_id===patId&&r.code==='T').length+1;
+const fmtDatetime=d=>{
+  if(!d)return'—';
+  const dt=new Date(d);const now=new Date();
+  const diff=Math.floor((now-dt)/1000);
+  if(diff<60)return'agora mesmo';
+  if(diff<3600)return`há ${Math.floor(diff/60)}min`;
+  if(diff<86400)return`há ${Math.floor(diff/3600)}h`;
+  return`em ${dt.toLocaleDateString('pt-BR')}`;
+};
 const lastRec=patId=>[...records].filter(r=>r.pat_id===patId).sort((a,b)=>b.date.localeCompare(a.date))[0]||null;
 const can=p=>{if(!session)return false;if(session.role==='admin')return true;return['registro','pacientes','relatorio'].includes(p);};
 const AV_STYLE={admin:'background:var(--am0);color:var(--am5)',cliente:'background:var(--t0);color:var(--t7)'};
@@ -385,6 +434,9 @@ async function bootApp(){
   await loadAll();
   buildSidebar();
   showPage('registro');
+  // update last_seen on login and every 2 min
+  updateLastSeen();
+  setInterval(updateLastSeen, 120000);
 }
 
 function doLogout(){
@@ -412,11 +464,12 @@ function buildSidebar(){
         <span class="si-icon">${t.icon}</span>${t.label}
       </button>`
     ).join('')+
-    `<div class="sidebar-footer">FisioPainel<br>v1.0</div>`;
+    `<div class="sidebar-footer">FisioPainel<br>v1.0 · Online<br><span style="color:var(--g4);font-size:10px;margin-top:4px;display:block">Desenvolvido por Eduardo Ribeiro</span></div>`;
 }
 
 function showPage(p){
   curPage=p;
+  closeSidebar();
   document.querySelectorAll('.sidebar-item').forEach(el=>el.classList.remove('active'));
   const si=document.getElementById('si-'+p);if(si)si.classList.add('active');
   const mc=document.getElementById('main-content');
@@ -995,8 +1048,11 @@ async function renderClientes(){
       <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem;flex-wrap:wrap">
         <div style="width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;background:var(--t0);color:var(--t7);flex-shrink:0">${ini(u.nome)}</div>
         <div style="flex:1;min-width:0">
-          <div style="font-weight:600;font-size:15px">${u.nome}</div>
-          <div style="font-size:12px;color:var(--g4)">@${u.login}</div>
+          <div style="display:flex;align-items:center;gap:7px">
+            <span class="dot ${(u.last_seen&&(now-new Date(u.last_seen))<300000)?'dot-on':'dot-off'}" title="${(u.last_seen&&(now-new Date(u.last_seen))<300000)?'Online':'Offline'}"></span>
+            <span style="font-weight:600;font-size:15px">${u.nome}</span>
+          </div>
+          <div style="font-size:12px;color:var(--g4);margin-top:2px">@${u.login} · ${(u.last_seen&&(now-new Date(u.last_seen))<300000)?'<span style="color:#22c55e;font-weight:500">Online agora</span>':(u.last_seen?'Visto '+fmtDatetime(u.last_seen):'Nunca acessou')}</div>
         </div>
         <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
           ${statusBadge(u)}
@@ -1033,7 +1089,28 @@ async function renderClientes(){
     ${clientes.length?cards:'<div class="empty"><div class="empty-icon">👥</div><div class="empty-text">Nenhum cliente cadastrado ainda.</div></div>'}`;
 }
 
-async function toggleAtivo(id,ativo,nome){
+async 
+function toggleSidebar(){
+  const sb=document.getElementById('sidebar');
+  const ov=document.getElementById('sidebar-overlay');
+  if(!sb||!ov)return;
+  sb.classList.toggle('open');
+  ov.classList.toggle('open');
+}
+
+function closeSidebar(){
+  const sb=document.getElementById('sidebar');
+  const ov=document.getElementById('sidebar-overlay');
+  if(sb)sb.classList.remove('open');
+  if(ov)ov.classList.remove('open');
+}
+
+async function updateLastSeen(){
+  if(!session)return;
+  await sb.from('users').update({last_seen:new Date().toISOString()}).eq('id',session.id);
+}
+
+function toggleAtivo(id,ativo,nome){
   const acao=ativo?'suspender':'ativar';
   if(!confirm(`Deseja ${acao} o acesso de ${nome}?`))return;
   const {error}=await sb.from('users').update({ativo:!ativo}).eq('id',id);

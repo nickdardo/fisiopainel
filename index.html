@@ -218,6 +218,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 <div id="login-page">
   <div class="login-bg">
     <div class="login-card">
+      <div id="login-panel">
       <div class="login-logo">Fisio<span>Painel</span></div>
       <div class="login-sub">Sistema de Gestão de Atendimentos</div>
       <div class="login-error" id="login-error"></div>
@@ -231,6 +232,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
       </div>
       <button onclick="showRegister()" style="margin-top:.75rem;width:100%;padding:.75rem;background:transparent;color:#A78BFA;border:1px solid #3A3A3C;border-radius:var(--rs);font-family:var(--FB);font-size:14px;font-weight:500;cursor:pointer;transition:all .15s" onmouseover="this.style.borderColor='#7C3AED';this.style.background='#1E0A3C'" onmouseout="this.style.borderColor='#3A3A3C';this.style.background='transparent'">Criar minha conta →</button>
       <p class="login-hint">Desenvolvido por Eduardo Ribeiro</p>
+      </div>
     </div>
   </div>
 </div>
@@ -442,7 +444,7 @@ function buildSidebar(){
         <span class="sidebar-icon">${t.icon}</span>${t.label}
       </button>`
     ).join('')+
-    `<div class="sidebar-footer">FisioPainel &nbsp;v1.0<br>
+    `<div class="sidebar-footer">FisioPainel &nbsp;v2.1<br>
      <span style="color:var(--n4)">Desenvolvido por Eduardo Ribeiro</span></div>`;
 }
 
@@ -482,25 +484,19 @@ function showErr(msg){const e=document.getElementById('login-error');e.textConte
 function showRegErr(msg){const e=document.getElementById('reg-error');e.textContent=msg;e.style.display='block';}
 
 function showRegister(){
-  document.querySelector('.login-card > div:not(#register-panel)') && 
-    [...document.querySelector('.login-card').children].forEach(el=>{
-      if(el.id!=='register-panel') el.style.display='none';
-    });
-  // Hide all direct children except register-panel
-  const card=document.querySelector('.login-card');
-  [...card.children].forEach(el=>{ if(el.id!=='register-panel') el.style.display='none'; });
+  document.getElementById('login-panel').style.display='none';
   document.getElementById('register-panel').style.display='block';
   document.getElementById('reg-error').style.display='none';
   document.getElementById('reg-nome').value='';
   document.getElementById('reg-login').value='';
   document.getElementById('reg-pass').value='';
   document.getElementById('reg-pass2').value='';
+  setTimeout(()=>document.getElementById('reg-nome').focus(),100);
 }
 
 function showLogin(){
-  const card=document.querySelector('.login-card');
-  [...card.children].forEach(el=>{ if(el.id!=='register-panel') el.style.display=''; });
   document.getElementById('register-panel').style.display='none';
+  document.getElementById('login-panel').style.display='block';
   document.getElementById('login-error').style.display='none';
 }
 

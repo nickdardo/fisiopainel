@@ -411,6 +411,7 @@ let patients=[],records=[],users=[];
 let editPat=null,editUsr=null;
 let selPat=null,selCode=null;
 let curPage='registro';
+let maxT=10;
 let relTipo='mensal',relMes=new Date().getMonth(),relAno=new Date().getFullYear(),relConv='',relClinica='';
 let lastClinica=localStorage.getItem('fp_clinica')||'';
 
@@ -423,6 +424,25 @@ const MESES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agos
 const MS=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const DIAS_PT=['DOM','SEG','TER','QUA','QUI','SEX','SAB'];
 const nextT=pid=>records.filter(r=>r.pat_id===pid&&r.code==='T').length+1;
+
+function renderTButtons(){
+  return Array.from({length:maxT},(_,i)=>`<button class="cbtn cbtn-T" id="cb-T${i+1}" onclick="selectCode('T${i+1}')">T${i+1}</button>`).join('');
+}
+
+function addMoreT(){
+  maxT+=10;
+  const wrap=document.getElementById('t-buttons-wrap');
+  if(!wrap)return;
+  wrap.innerHTML=renderTButtons();
+  // Re-apply selected state
+  if(selCode&&selCode.startsWith('T')){
+    const tb=document.getElementById('cb-'+selCode);
+    if(tb)tb.classList.add('sel');
+  }
+  // Scroll to show new buttons
+  wrap.scrollIntoView({behavior:'smooth',block:'nearest'});
+  toast(`✓ Sessões até T${maxT} disponíveis`);
+}
 const lastRec=pid=>[...records].filter(r=>r.pat_id===pid).sort((a,b)=>b.date.localeCompare(a.date))[0]||null;
 const can=p=>{if(!session)return false;if(session.role==='admin')return true;return['registro','pacientes','relatorio','perfil'].includes(p);};
 const calcIdade=nasc=>{if(!nasc)return null;const d=new Date(nasc+'T12:00:00');const h=new Date();let i=h.getFullYear()-d.getFullYear();if(h.getMonth()<d.getMonth()||(h.getMonth()===d.getMonth()&&h.getDate()<d.getDate()))i--;return i;};
@@ -656,12 +676,14 @@ function renderRegistro(){
         </div>
         <div class="fg" style="margin-bottom:1.25rem">
           <span class="lbl" style="margin-bottom:.4rem">Sessões</span>
-          <div class="cpicker" style="margin-bottom:.4rem">
-            ${Array.from({length:10},(_,i)=>`<button class="cbtn cbtn-T" id="cb-T${i+1}" onclick="selectCode('T${i+1}')">T${i+1}</button>`).join('')}
+          <div class="cpicker" id="t-buttons-wrap" style="margin-bottom:.4rem;flex-wrap:wrap">
+            ${renderTButtons()}
           </div>
-          <div class="cpicker">
+          <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.4rem;flex-wrap:wrap">
             <button class="cbtn cbtn-AV" id="cb-AV" onclick="selectCode('AV')">AV (Avaliação)</button>
             <button class="cbtn cbtn-FNJ" id="cb-FNJ" onclick="selectCode('FNJ')">FNJ (Faltou)</button>
+            <div style="flex:1"></div>
+            <button onclick="addMoreT()" style="background:#F0EFEB;border:1px solid #D3D1C7;border-radius:var(--rs);padding:.35rem .75rem;font-size:13px;font-weight:600;cursor:pointer;color:#333;display:flex;align-items:center;gap:4px">+ Mais sessões</button>
           </div>
           <div id="code-prev" style="margin-top:.5rem;font-size:13px;color:var(--n5)"></div>
         </div>
@@ -672,7 +694,7 @@ function renderRegistro(){
         <div id="recent-list">${recentHTML()}</div>
       </div>
     </div>`;
-  selPat=null;selCode=null;
+  selPat=null;selCode=null;maxT=10;
   document.addEventListener('click',e=>{if(!e.target.closest('.pd-wrap')){const d=document.getElementById('pat-dd');if(d)d.style.display='none';const d2=document.getElementById('clinica-dd');if(d2)d2.style.display='none';}},{once:true});
 }
 
@@ -782,7 +804,8 @@ async function confirmNewPat(){
 
 function selectCode(c){
   selCode=c;
-  for(let i=1;i<=10;i++){const b=document.getElementById('cb-T'+i);if(b)b.classList.remove('sel');}
+  // Clear all T buttons dynamically
+  for(let i=1;i<=maxT;i++){const b=document.getElementById('cb-T'+i);if(b)b.classList.remove('sel');}
   ['AV','FNJ'].forEach(x=>{const b=document.getElementById('cb-'+x);if(b)b.classList.remove('sel');});
   const tb=document.getElementById('cb-'+c);if(tb)tb.classList.add('sel');
   updateCodePrev();
@@ -827,15 +850,64 @@ async function deleteRecord(id){
 }
 
 // ══ PACIENTES ══
+let _pacSelectMode=false;
+
+function togglePacSelect(){
+  _pacSelectMode=!_pacSelectMode;
+  const btn=document.getElementById('pac-sel-btn');
+  const delBtn=document.getElementById('pac-del-btn');
+  const thChk=document.getElementById('pac-th-chk');
+  if(btn)btn.textContent=_pacSelectMode?'✕ Cancelar':'☑ Selecionar';
+  document.querySelectorAll('.pac-chk-cell').forEach(el=>el.style.display=_pacSelectMode?'':'none');
+  if(thChk)thChk.style.display=_pacSelectMode?'':'none';
+  if(delBtn)delBtn.style.display='none';
+  if(!_pacSelectMode){
+    document.querySelectorAll('.pac-chk').forEach(el=>el.checked=false);
+    const chkAll=document.getElementById('pac-chk-all');if(chkAll)chkAll.checked=false;
+  }
+}
+
+function toggleAllPacChk(chk){
+  document.querySelectorAll('.pac-chk').forEach(el=>el.checked=chk.checked);
+  onPacChkChange();
+}
+
+function onPacChkChange(){
+  const cnt=document.querySelectorAll('.pac-chk:checked').length;
+  const delBtn=document.getElementById('pac-del-btn');
+  if(delBtn){
+    delBtn.style.display=cnt>0?'':'none';
+    delBtn.textContent=`Excluir ${cnt} selecionado${cnt!==1?'s':''}`;
+  }
+}
+
+async function deleteSelectedPacs(){
+  const ids=[...document.querySelectorAll('.pac-chk:checked')].map(el=>el.value);
+  if(!ids.length)return;
+  const nomes=ids.map(id=>patients.find(p=>p.id===id)?.nome||'?');
+  if(!confirm(`Excluir ${ids.length} paciente${ids.length!==1?'s':''}?\n${nomes.join(', ')}\n\nTodos os registros serão removidos.`))return;
+  for(const id of ids){
+    await sb.from('records').delete().eq('pat_id',id);
+    await sb.from('patients').delete().eq('id',id);
+    patients=patients.filter(p=>p.id!==id);
+    records=records.filter(r=>r.pat_id!==id);
+  }
+  toast(`✓ ${ids.length} paciente${ids.length!==1?'s':''} excluído${ids.length!==1?'s':''}`);
+  _pacSelectMode=false;
+  renderPacientes();
+}
+
 function renderPacientes(){
   document.getElementById('main-content').innerHTML=`
     <div class="sec-hdr"><span class="sec-title">Pacientes</span></div>
-    <div style="margin-bottom:1rem">
+    <div style="display:flex;gap:.75rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap">
       <input type="text" id="pac-s" placeholder="🔍  Buscar paciente..." oninput="filterPacTbl()" style="max-width:360px"/>
+      <button class="btn btn-g btn-sm" id="pac-sel-btn" onclick="togglePacSelect()">☑ Selecionar</button>
+      <button class="btn btn-d btn-sm" id="pac-del-btn" style="display:none" onclick="deleteSelectedPacs()">Excluir selecionados</button>
     </div>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th>Nº</th><th>Nome</th><th>Convênio</th><th>Sessões</th><th>Última</th><th></th></tr></thead>
+        <thead><tr><th id="pac-th-chk" style="display:none;width:36px"><input type="checkbox" id="pac-chk-all" onclick="toggleAllPacChk(this)"/></th><th>Nº</th><th>Nome</th><th>Convênio</th><th>Sessões</th><th>Última</th><th></th></tr></thead>
         <tbody id="pac-tbody">${pacTbodyHTML(patients)}</tbody>
       </table>
     </div>`;
@@ -856,7 +928,8 @@ function pacTbodyHTML(pats){
     const cs=CONV_STYLE[p.convenio]||CONV_STYLE['Outro'];
     const idade=calcIdade(p.data_nasc);
     const sx={'F':'♀','M':'♂','O':'–'}[p.sexo]||'';
-    return`<tr>
+    return`<tr id="pac-row-${p.id}">
+      <td class="pac-chk-cell" style="display:none;text-align:center"><input type="checkbox" class="pac-chk" value="${p.id}" onchange="onPacChkChange()"/></td>
       <td style="color:var(--n4);font-size:12px">${i+1}</td>
       <td><div style="font-weight:500;color:var(--n7)">${p.nome}</div>
           <div style="font-size:11px;color:var(--n4)">${sx}${idade?` ${idade} anos`:''}</div></td>

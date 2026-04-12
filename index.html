@@ -345,11 +345,13 @@ function closeM(id){document.getElementById(id).style.display='none';}
 
 // ══ DATA ══
 async function loadAll(){
-  const [pr,rr,ur]=await Promise.all([
-    sb.from('patients').select('*').order('nome'),
-    sb.from('records').select('*').order('date',{ascending:false}),
-    sb.from('users').select('*').order('nome'),
-  ]);
+  let pq=sb.from('patients').select('*').order('nome');
+  let rq=sb.from('records').select('*').order('date',{ascending:false});
+  if(session.role!=='admin'){
+    pq=pq.eq('owner_id',session.id);
+    rq=rq.eq('owner_id',session.id);
+  }
+  const [pr,rr,ur]=await Promise.all([pq,rq,sb.from('users').select('*').order('nome')]);
   patients=pr.data||[];records=rr.data||[];users=ur.data||[];
 }
 
@@ -363,6 +365,10 @@ async function doLogin(){
   const {data,error}=await sb.from('users').select('*').eq('login',login).eq('pass_hash',hp(pass)).maybeSingle();
   btn.textContent='Entrar →';btn.disabled=false;
   if(error||!data){showErr('Usuário ou senha incorretos.');return;}
+  if(!data.ativo){showErr('Conta suspensa. Contate o administrador.');return;}
+  if(data.role!=='admin'&&data.expires_at&&new Date(data.expires_at)<new Date()){
+    showErr('Seu acesso expirou. Contate o administrador.');return;
+  }
   session=data;localStorage.setItem('fp_session',JSON.stringify(session));
   await bootApp();
 }
@@ -396,6 +402,7 @@ function buildSidebar(){
     {id:'registro',icon:'📋',label:'Registrar'},
     {id:'pacientes',icon:'👥',label:'Pacientes'},
     {id:'relatorio',icon:'📊',label:'Relatório'},
+    {id:'clientes',icon:'👁️',label:'Visão Geral',admin:true},
     {id:'usuarios',icon:'⚙️',label:'Usuários',admin:true},
   ];
   const sb=document.getElementById('sidebar');
@@ -419,6 +426,7 @@ function showPage(p){
   if(p==='registro')renderRegistro();
   else if(p==='pacientes')renderPacientes();
   else if(p==='relatorio')renderRelatorio();
+  else if(p==='clientes')renderClientes();
   else if(p==='usuarios')renderUsuarios();
 }
 
@@ -549,7 +557,7 @@ async function saveRegistro(){
   const tMatch=selCode.match(/^T(\d+)$/);
   const tNum=tMatch?parseInt(tMatch[1]):null;
   const dbCode=tMatch?'T':selCode;
-  const {data,error}=await sb.from('records').insert({pat_id:selPat.id,date,code:dbCode,t_num:tNum,reg_by:session.id}).select().single();
+  const {data,error}=await sb.from('records').insert({pat_id:selPat.id,date,code:dbCode,t_num:tNum,reg_by:session.id,owner_id:session.id}).select().single();
   btn.textContent='✓ Salvar Atendimento';btn.disabled=false;
   if(error){toast('Erro ao salvar',true);return;}
   records.unshift(data);
@@ -675,7 +683,8 @@ async function savePaciente(){
     patients=patients.map(p=>p.id===editPat.id?d:p);
     toast('✓ Paciente atualizado');
   } else {
-    const {data:d,error}=await sb.from('patients').insert(data).select().single();
+    const patData={...data,owner_id:editPat?.owner_id||session.id};
+    const {data:d,error}=await sb.from('patients').insert(patData).select().single();
     if(error){toast('Erro ao salvar',true);return;}
     patients.push(d);patients.sort((a,b)=>a.nome.localeCompare(b.nome));
     toast('✓ Paciente cadastrado');
@@ -896,7 +905,37 @@ function printReport(isPDF){
     <span>${periodo}${convLabel}</span>
   </div>
   ${isPDF?'<script>window.onload=()=>{window.print();}<\/script>':'<script>window.onload=()=>{window.print();}<\/script>'}
-  </body></html>`;
+  
+<!-- MODAL ACESSO -->
+<div class="mbd" id="ac-modal" style="display:none" onclick="if(event.target===this)closeM('ac-modal')">
+  <div class="modal" style="max-width:380px">
+    <div class="mhdr"><span class="mtitle">Configurar Acesso</span><button class="mclose" onclick="closeM('ac-modal')">✕</button></div>
+    <div class="mbody">
+      <input type="hidden" id="ac-uid"/>
+      <div style="font-weight:600;font-size:15px;margin-bottom:1rem" id="ac-nome"></div>
+      <div class="fg" style="margin-bottom:1rem">
+        <span class="lbl">Período de acesso</span>
+        <select id="ac-period" style="font-size:15px;padding:.75rem 1rem">
+          <option value="30d">📅 30 dias</option>
+          <option value="2m">📅 2 meses</option>
+          <option value="3m">📅 3 meses</option>
+          <option value="6m">📅 6 meses</option>
+          <option value="1a">📅 1 ano</option>
+          <option value="ilimitado">♾️ Ilimitado</option>
+        </select>
+      </div>
+      <div style="padding:.75rem 1rem;background:var(--t0);border-radius:var(--rs);font-size:13px;color:var(--t7)">
+        O acesso começa a contar a partir de hoje. O cliente será bloqueado automaticamente ao expirar.
+      </div>
+    </div>
+    <div class="mfooter">
+      <button class="btn btn-g btn-sm" onclick="closeM('ac-modal')">Cancelar</button>
+      <button class="btn btn-p btn-sm" onclick="saveAcesso()">✓ Confirmar</button>
+    </div>
+  </div>
+</div>
+
+</body></html>`;
 
   const w=window.open('','_blank','width=1000,height=700');
   w.document.write(html);
@@ -920,6 +959,115 @@ function exportCSV(){
   toast('✓ CSV exportado');
 }
 
+
+// ══ VISÃO GERAL ADMIN ══
+async function renderClientes(){
+  const mc=document.getElementById('main-content');
+  mc.innerHTML='<div class="loading"><div class="spinner"></div> Carregando...</div>';
+  // load all data fresh
+  const [pr,rr,ur]=await Promise.all([
+    sb.from('patients').select('*'),
+    sb.from('records').select('*'),
+    sb.from('users').select('*').order('nome'),
+  ]);
+  const allPats=pr.data||[];const allRecs=rr.data||[];const allUsers=ur.data||[];
+  const clientes=allUsers.filter(u=>u.role!=='admin');
+  const now=new Date();
+
+  const statusBadge=(u)=>{
+    if(!u.ativo)return`<span class="bdg" style="background:var(--co0);color:var(--co5)">Suspensa</span>`;
+    if(u.expires_at&&new Date(u.expires_at)<now)return`<span class="bdg" style="background:var(--am0);color:var(--am5)">Expirada</span>`;
+    if(!u.expires_at)return`<span class="bdg" style="background:var(--t0);color:var(--t7)">Ilimitado</span>`;
+    const dias=Math.ceil((new Date(u.expires_at)-now)/(1000*60*60*24));
+    if(dias<=7)return`<span class="bdg" style="background:var(--am0);color:var(--am5)">${dias}d restantes</span>`;
+    return`<span class="bdg" style="background:var(--t0);color:var(--t7)">Ativo</span>`;
+  };
+
+  const cards=clientes.map(u=>{
+    const uPats=allPats.filter(p=>p.owner_id===u.id).length;
+    const uRecs=allRecs.filter(r=>r.owner_id===u.id);
+    const uT=uRecs.filter(r=>r.code==='T').length;
+    const uFNJ=uRecs.filter(r=>r.code==='FNJ').length;
+    const exp=u.expires_at?new Date(u.expires_at).toLocaleDateString('pt-BR'):'Sem limite';
+    const dias=u.expires_at?Math.ceil((new Date(u.expires_at)-now)/(1000*60*60*24)):null;
+    const diasColor=dias!==null&&dias<=7?'var(--co3)':dias!==null&&dias<=30?'var(--am3)':'var(--t5)';
+    return`<div style="background:#fff;border-radius:var(--r);border:1px solid var(--g2);padding:1.25rem 1.5rem;box-shadow:var(--sh);margin-bottom:1rem">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem;flex-wrap:wrap">
+        <div style="width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;background:var(--t0);color:var(--t7);flex-shrink:0">${ini(u.nome)}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-weight:600;font-size:15px">${u.nome}</div>
+          <div style="font-size:12px;color:var(--g4)">@${u.login}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+          ${statusBadge(u)}
+          <button class="btn btn-g btn-sm" onclick="toggleAtivo('${u.id}',${u.ativo},'${u.nome}')">${u.ativo?'⏸ Suspender':'▶ Ativar'}</button>
+          <button class="btn btn-p btn-sm" onclick="openAcessoModal('${u.id}','${u.nome}')">⏱ Acesso</button>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1rem">
+        <div style="background:var(--g0);border-radius:var(--rs);padding:.75rem 1rem">
+          <div style="font-size:10px;color:var(--g4);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Pacientes</div>
+          <div style="font-family:var(--FT);font-size:1.5rem;color:var(--g8)">${uPats}</div>
+        </div>
+        <div style="background:var(--g0);border-radius:var(--rs);padding:.75rem 1rem">
+          <div style="font-size:10px;color:var(--g4);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Sessões T</div>
+          <div style="font-family:var(--FT);font-size:1.5rem;color:var(--t5)">${uT}</div>
+        </div>
+        <div style="background:var(--g0);border-radius:var(--rs);padding:.75rem 1rem">
+          <div style="font-size:10px;color:var(--g4);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Faltas FNJ</div>
+          <div style="font-family:var(--FT);font-size:1.5rem;color:var(--co3)">${uFNJ}</div>
+        </div>
+        <div style="background:var(--g0);border-radius:var(--rs);padding:.75rem 1rem">
+          <div style="font-size:10px;color:var(--g4);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Acesso até</div>
+          <div style="font-size:13px;font-weight:600;color:${diasColor};margin-top:4px">${exp}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  mc.innerHTML=`
+    <div class="sec-hdr">
+      <span class="sec-title">Visão Geral dos Clientes</span>
+      <span style="font-size:13px;color:var(--g4)">${clientes.length} cliente${clientes.length!==1?'s':''}</span>
+    </div>
+    ${clientes.length?cards:'<div class="empty"><div class="empty-icon">👥</div><div class="empty-text">Nenhum cliente cadastrado ainda.</div></div>'}`;
+}
+
+async function toggleAtivo(id,ativo,nome){
+  const acao=ativo?'suspender':'ativar';
+  if(!confirm(`Deseja ${acao} o acesso de ${nome}?`))return;
+  const {error}=await sb.from('users').update({ativo:!ativo}).eq('id',id);
+  if(error){toast('Erro ao atualizar',true);return;}
+  toast(`✓ Acesso de ${nome} ${ativo?'suspenso':'ativado'}`);
+  renderClientes();
+}
+
+function openAcessoModal(uid,nome){
+  document.getElementById('ac-uid').value=uid;
+  document.getElementById('ac-nome').textContent=nome;
+  document.getElementById('ac-period').value='30d';
+  openM('ac-modal');
+}
+
+async function saveAcesso(){
+  const uid=document.getElementById('ac-uid').value;
+  const period=document.getElementById('ac-period').value;
+  let expires=null;
+  if(period!=='ilimitado'){
+    const now=new Date();
+    const map={'30d':30,'2m':60,'3m':90,'6m':180,'1a':365};
+    const dias=map[period]||30;
+    expires=new Date(now.getTime()+dias*24*60*60*1000).toISOString();
+  }
+  const {error}=await sb.from('users').update({expires_at:expires,ativo:true}).eq('id',uid);
+  if(error){toast('Erro ao salvar',true);return;}
+  const nome=document.getElementById('ac-nome').textContent;
+  const labels={'30d':'30 dias','2m':'2 meses','3m':'3 meses','6m':'6 meses','1a':'1 ano','ilimitado':'ilimitado'};
+  toast(`✓ Acesso de ${nome} definido: ${labels[period]}`);
+  closeM('ac-modal');
+  renderClientes();
+}
+
 // ══ USUÁRIOS ══
 function renderUsuarios(){
   const mc=document.getElementById('main-content');
@@ -935,18 +1083,29 @@ function renderUsuarios(){
 }
 
 function usrListHTML(){
+  const now=new Date();
   return users.map(u=>{
     const isSelf=u.id===session.id;
     const avStyle=AV_STYLE[u.role]||AV_STYLE.cliente;
     const rlbl=u.role==='admin'?'👑 Admin':'👤 Cliente';
     const rbdg=u.role==='admin'?'bdg-admin':'bdg-cli';
+    let statusBdg='';
+    if(u.role!=='admin'){
+      if(!u.ativo) statusBdg=`<span class="bdg" style="background:var(--co0);color:var(--co5)">Suspensa</span>`;
+      else if(u.expires_at&&new Date(u.expires_at)<now) statusBdg=`<span class="bdg" style="background:var(--am0);color:var(--am5)">Expirada</span>`;
+      else if(u.expires_at){
+        const d=Math.ceil((new Date(u.expires_at)-now)/(1000*60*60*24));
+        statusBdg=d<=7?`<span class="bdg" style="background:var(--am0);color:var(--am5)">${d}d restantes</span>`:`<span class="bdg" style="background:var(--t0);color:var(--t7)">Ativo · até ${new Date(u.expires_at).toLocaleDateString('pt-BR')}</span>`;
+      } else statusBdg=`<span class="bdg" style="background:var(--t0);color:var(--t7)">Ilimitado</span>`;
+    }
     return`<div class="ucard">
       <div class="uav" style="${avStyle}">${ini(u.nome)}</div>
       <div style="flex:1;min-width:0">
         <div style="font-weight:600;font-size:15px">${u.nome}${isSelf?' <span style="font-size:11px;color:var(--g4)">(você)</span>':''}</div>
-        <div style="font-size:12px;color:var(--g4);margin-top:2px">@${u.login} · <span class="bdg ${rbdg}">${rlbl}</span></div>
+        <div style="font-size:12px;color:var(--g4);margin-top:2px">@${u.login} · <span class="bdg ${rbdg}">${rlbl}</span> ${statusBdg}</div>
       </div>
-      <div style="display:flex;gap:.4rem">
+      <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+        ${u.role!=='admin'?`<button class="btn btn-pu btn-sm" onclick="openAcessoModal('${u.id}','${u.nome}')">⏱ Acesso</button>`:''}
         <button class="btn btn-g btn-sm" onclick="openUsrModal('${u.id}')">✏ Editar</button>
         ${!isSelf?`<button class="btn btn-d btn-sm" onclick="deleteUser('${u.id}')">✕</button>`:''}
       </div>
@@ -1023,5 +1182,35 @@ window.addEventListener('DOMContentLoaded',async()=>{
   }
 });
 </script>
+
+<!-- MODAL ACESSO -->
+<div class="mbd" id="ac-modal" style="display:none" onclick="if(event.target===this)closeM('ac-modal')">
+  <div class="modal" style="max-width:380px">
+    <div class="mhdr"><span class="mtitle">Configurar Acesso</span><button class="mclose" onclick="closeM('ac-modal')">✕</button></div>
+    <div class="mbody">
+      <input type="hidden" id="ac-uid"/>
+      <div style="font-weight:600;font-size:15px;margin-bottom:1rem" id="ac-nome"></div>
+      <div class="fg" style="margin-bottom:1rem">
+        <span class="lbl">Período de acesso</span>
+        <select id="ac-period" style="font-size:15px;padding:.75rem 1rem">
+          <option value="30d">📅 30 dias</option>
+          <option value="2m">📅 2 meses</option>
+          <option value="3m">📅 3 meses</option>
+          <option value="6m">📅 6 meses</option>
+          <option value="1a">📅 1 ano</option>
+          <option value="ilimitado">♾️ Ilimitado</option>
+        </select>
+      </div>
+      <div style="padding:.75rem 1rem;background:var(--t0);border-radius:var(--rs);font-size:13px;color:var(--t7)">
+        O acesso começa a contar a partir de hoje. O cliente será bloqueado automaticamente ao expirar.
+      </div>
+    </div>
+    <div class="mfooter">
+      <button class="btn btn-g btn-sm" onclick="closeM('ac-modal')">Cancelar</button>
+      <button class="btn btn-p btn-sm" onclick="saveAcesso()">✓ Confirmar</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

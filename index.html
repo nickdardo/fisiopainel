@@ -354,7 +354,35 @@ const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 const sb=supabase.createClient(SUPA_URL,SUPA_KEY);
 
 // ══ STATE ══
-let session=JSON.parse(localStorage.getItem('fp_session')||'null');
+// ── SESSÃO COM TIMEOUT DE INATIVIDADE ──
+const TIMEOUT_MS = 10 * 60 * 1000; // 10 minutos
+
+function getSession(){
+  try{
+    const s=localStorage.getItem('fp_session');
+    const t=localStorage.getItem('fp_activity');
+    if(!s||!t) return null;
+    if(Date.now()-parseInt(t)>TIMEOUT_MS){ clearSession(); return null; }
+    return JSON.parse(s);
+  }catch(e){return null;}
+}
+
+function clearSession(){
+  localStorage.removeItem('fp_session');
+  localStorage.removeItem('fp_activity');
+}
+
+function saveSession(s){
+  localStorage.setItem('fp_session',JSON.stringify(s));
+  touchActivity();
+}
+
+function touchActivity(){
+  localStorage.setItem('fp_activity', Date.now().toString());
+}
+
+let session=getSession();
+let _actTimer=null;
 let patients=[],records=[],users=[];
 let editPat=null,editUsr=null;
 let selPat=null,selCode=null;
@@ -459,7 +487,7 @@ async function doLogin(){
   if(data.role!=='admin'&&data.expires_at&&new Date(data.expires_at)<new Date()){
     showErr('Seu acesso expirou. Contate o administrador.');return;
   }
-  session=data;localStorage.setItem('fp_session',JSON.stringify(session));
+  session=data;saveSession(session);
   await bootApp();
 }
 function showErr(msg){const e=document.getElementById('login-error');e.textContent=msg;e.style.display='block';}
@@ -481,7 +509,7 @@ async function bootApp(){
 }
 
 function doLogout(){
-  session=null;localStorage.removeItem('fp_session');
+  session=null;clearSession();
   document.getElementById('app-page').style.display='none';
   document.getElementById('login-page').style.display='';
   document.getElementById('lu').value='';document.getElementById('lp').value='';
@@ -1293,9 +1321,28 @@ async function saveSenha(){
 
 // ══ INIT ══
 window.addEventListener('DOMContentLoaded',()=>{
-  // Restaurar sessão direto do localStorage — sem nenhuma chamada ao servidor
-  // O usuário só é deslogado explicitamente (botão Sair) ou se o admin suspender
-  if(session) bootApp();
+  session=getSession();
+  if(session){
+    touchActivity();
+    bootApp();
+  }
+
+  // Rastrear atividade do usuário (reseta o timer)
+  ['click','keydown','mousemove','touchstart','scroll'].forEach(ev=>{
+    document.addEventListener(ev, ()=>{
+      if(session) touchActivity();
+    }, {passive:true});
+  });
+
+  // Verificar timeout a cada 30 segundos
+  setInterval(()=>{
+    if(!session) return;
+    const t=localStorage.getItem('fp_activity');
+    if(!t||Date.now()-parseInt(t)>TIMEOUT_MS){
+      toast('Sessão expirada por inatividade. Faça login novamente.', true);
+      setTimeout(()=>doLogout(), 2000);
+    }
+  }, 30000);
 });
 </script>
 

@@ -354,35 +354,23 @@ const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 const sb=supabase.createClient(SUPA_URL,SUPA_KEY);
 
 // ══ STATE ══
-// ── SESSÃO COM TIMEOUT DE INATIVIDADE ──
+// ── SESSÃO ──
+// Sessão persiste no localStorage (sobrevive a refresh/fechar aba)
+// Timer de inatividade vive só em memória (reseta ao refresh — isso é intencional)
 const TIMEOUT_MS = 10 * 60 * 1000; // 10 minutos
+let session = null;
+let _lastActivity = Date.now();
+let _timeoutInterval = null;
 
-function getSession(){
-  try{
-    const s=localStorage.getItem('fp_session');
-    const t=localStorage.getItem('fp_activity');
-    if(!s||!t) return null;
-    if(Date.now()-parseInt(t)>TIMEOUT_MS){ clearSession(); return null; }
-    return JSON.parse(s);
-  }catch(e){return null;}
+try { session = JSON.parse(localStorage.getItem('fp_session') || 'null'); } catch(e) { session = null; }
+
+function saveSession(s){
+  localStorage.setItem('fp_session', JSON.stringify(s));
 }
 
 function clearSession(){
   localStorage.removeItem('fp_session');
-  localStorage.removeItem('fp_activity');
 }
-
-function saveSession(s){
-  localStorage.setItem('fp_session',JSON.stringify(s));
-  touchActivity();
-}
-
-function touchActivity(){
-  localStorage.setItem('fp_activity', Date.now().toString());
-}
-
-let session=getSession();
-let _actTimer=null;
 let patients=[],records=[],users=[];
 let editPat=null,editUsr=null;
 let selPat=null,selCode=null;
@@ -487,7 +475,7 @@ async function doLogin(){
   if(data.role!=='admin'&&data.expires_at&&new Date(data.expires_at)<new Date()){
     showErr('Seu acesso expirou. Contate o administrador.');return;
   }
-  session=data;saveSession(session);
+  session=data; saveSession(session);
   await bootApp();
 }
 function showErr(msg){const e=document.getElementById('login-error');e.textContent=msg;e.style.display='block';}
@@ -509,7 +497,7 @@ async function bootApp(){
 }
 
 function doLogout(){
-  session=null;clearSession();
+  session=null; clearSession();
   document.getElementById('app-page').style.display='none';
   document.getElementById('login-page').style.display='';
   document.getElementById('lu').value='';document.getElementById('lp').value='';
@@ -1321,26 +1309,23 @@ async function saveSenha(){
 
 // ══ INIT ══
 window.addEventListener('DOMContentLoaded',()=>{
-  session=getSession();
-  if(session){
-    touchActivity();
-    bootApp();
-  }
+  // Restaurar sessão do localStorage (persiste entre refreshes)
+  try { session = JSON.parse(localStorage.getItem('fp_session') || 'null'); } catch(e) { session = null; }
 
-  // Rastrear atividade do usuário (reseta o timer)
-  ['click','keydown','mousemove','touchstart','scroll'].forEach(ev=>{
-    document.addEventListener(ev, ()=>{
-      if(session) touchActivity();
-    }, {passive:true});
+  if(session) bootApp();
+
+  // Timer de inatividade — só em memória, reseta ao abrir/atualizar a página
+  _lastActivity = Date.now();
+  ['click','keydown','mousedown','touchstart','scroll'].forEach(ev=>{
+    document.addEventListener(ev, ()=>{ _lastActivity = Date.now(); }, {passive:true});
   });
 
-  // Verificar timeout a cada 30 segundos
-  setInterval(()=>{
+  // Checar inatividade a cada 30s
+  _timeoutInterval = setInterval(()=>{
     if(!session) return;
-    const t=localStorage.getItem('fp_activity');
-    if(!t||Date.now()-parseInt(t)>TIMEOUT_MS){
-      toast('Sessão expirada por inatividade. Faça login novamente.', true);
-      setTimeout(()=>doLogout(), 2000);
+    if(Date.now() - _lastActivity > TIMEOUT_MS){
+      toast('Sessão encerrada por inatividade.', true);
+      setTimeout(doLogout, 1500);
     }
   }, 30000);
 });

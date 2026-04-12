@@ -135,7 +135,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle}
 .popt:last-child{border-bottom:none}
 .popt .on{font-weight:500}.popt .os{font-size:11px;color:var(--g4)}
 .cpicker{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.25rem}
-.cbtn{padding:.45rem 1rem;border-radius:var(--rs);font-size:13px;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all .12s}
+.cbtn{padding:.4rem .7rem;border-radius:var(--rs);font-size:13px;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all .12s}
 .cbtn-T{background:var(--t0);color:var(--t7);border-color:var(--t1)}.cbtn-T.sel{background:var(--t5);color:#fff;border-color:var(--t5)}
 .cbtn-AV{background:var(--bl0);color:var(--bl5);border-color:var(--bl1)}.cbtn-AV.sel{background:var(--bl5);color:#fff;border-color:var(--bl5)}
 .cbtn-FNJ{background:var(--co0);color:var(--co5);border-color:var(--co1)}.cbtn-FNJ.sel{background:var(--co5);color:#fff;border-color:var(--co5)}
@@ -417,9 +417,12 @@ function renderRegistro(){
         </div>
         <div class="fg" style="margin-bottom:1.25rem">
           <span class="lbl">Código</span>
+          <div style="margin-bottom:.5rem">
+            <div style="font-size:10px;color:var(--g4);margin-bottom:.35rem;font-weight:600">SESSÕES</div>
+            <div class="cpicker"><button class="cbtn cbtn-T" id="cb-T1" onclick="selectCode('T1')">T1</button><button class="cbtn cbtn-T" id="cb-T2" onclick="selectCode('T2')">T2</button><button class="cbtn cbtn-T" id="cb-T3" onclick="selectCode('T3')">T3</button><button class="cbtn cbtn-T" id="cb-T4" onclick="selectCode('T4')">T4</button><button class="cbtn cbtn-T" id="cb-T5" onclick="selectCode('T5')">T5</button><button class="cbtn cbtn-T" id="cb-T6" onclick="selectCode('T6')">T6</button><button class="cbtn cbtn-T" id="cb-T7" onclick="selectCode('T7')">T7</button><button class="cbtn cbtn-T" id="cb-T8" onclick="selectCode('T8')">T8</button><button class="cbtn cbtn-T" id="cb-T9" onclick="selectCode('T9')">T9</button><button class="cbtn cbtn-T" id="cb-T10" onclick="selectCode('T10')">T10</button></div>
+          </div>
           <div class="cpicker">
-            <button class="cbtn cbtn-T" id="cb-T"   onclick="selectCode('T')">T (Sessão)</button>
-            <button class="cbtn cbtn-AV" id="cb-AV"  onclick="selectCode('AV')">AV (Avaliação)</button>
+            <button class="cbtn cbtn-AV" id="cb-AV" onclick="selectCode('AV')">AV (Avaliação)</button>
             <button class="cbtn cbtn-FNJ" id="cb-FNJ" onclick="selectCode('FNJ')">FNJ (Faltou)</button>
           </div>
           <div id="code-prev" style="margin-top:.5rem;font-size:13px;color:var(--g4)"></div>
@@ -480,14 +483,19 @@ function selectPat(id){
 
 function selectCode(c){
   selCode=c;
-  ['T','AV','FNJ'].forEach(x=>{const b=document.getElementById('cb-'+x);if(b)b.classList.toggle('sel',x===c);});
+  // clear all buttons
+  for(let i=1;i<=10;i++){const b=document.getElementById('cb-T'+i);if(b)b.classList.remove('sel');}
+  ['AV','FNJ'].forEach(x=>{const b=document.getElementById('cb-'+x);if(b)b.classList.remove('sel');});
+  // activate selected
+  const tb=document.getElementById('cb-'+c);if(tb)tb.classList.add('sel');
   updateCodePrev();
 }
 
 function updateCodePrev(){
   const el=document.getElementById('code-prev');if(!el)return;
   if(!selCode){el.textContent='';return;}
-  if(selCode==='T'&&selPat){el.textContent=`→ Será registrado como T${nextT(selPat.id)}`;el.style.color='var(--t5)';}
+  const tMatch=selCode.match(/^T(\d+)$/);
+  if(tMatch){el.textContent=`→ Registrar sessão ${selCode}`;el.style.color='var(--t5)';}
   else if(selCode==='AV'){el.textContent='→ Avaliação inicial';el.style.color='var(--bl5)';}
   else if(selCode==='FNJ'){el.textContent='→ Faltou sem justificativa';el.style.color='var(--co3)';}
 }
@@ -499,18 +507,21 @@ async function saveRegistro(){
   if(!date){toast('⚠ Informe a data',true);return;}
   const btn=document.getElementById('save-reg-btn');
   btn.textContent='Salvando...';btn.disabled=true;
-  const tNum=selCode==='T'?nextT(selPat.id):null;
-  const {data,error}=await sb.from('records').insert({pat_id:selPat.id,date,code:selCode,t_num:tNum,reg_by:session.id}).select().single();
+  const tMatch=selCode.match(/^T(\d+)$/);
+  const tNum=tMatch?parseInt(tMatch[1]):null;
+  const dbCode=tMatch?'T':selCode;
+  const {data,error}=await sb.from('records').insert({pat_id:selPat.id,date,code:dbCode,t_num:tNum,reg_by:session.id}).select().single();
   btn.textContent='✓ Salvar Atendimento';btn.disabled=false;
   if(error){toast('Erro ao salvar',true);return;}
   records.unshift(data);
-  const lbl=selCode==='T'?`T${tNum}`:selCode;
+  const lbl=tNum?`T${tNum}`:selCode;
   toast(`✓ ${selPat.nome.split(' ')[0]} — ${lbl} em ${fmtDate(date)}`);
   selPat=null;selCode=null;
   document.getElementById('pat-search').value='';
   document.getElementById('pat-sel-box').style.display='none';
   document.getElementById('code-prev').textContent='';
-  ['T','AV','FNJ'].forEach(x=>{const b=document.getElementById('cb-'+x);if(b)b.classList.remove('sel');});
+  for(let i=1;i<=10;i++){const b=document.getElementById('cb-T'+i);if(b)b.classList.remove('sel');}
+  ['AV','FNJ'].forEach(x=>{const b=document.getElementById('cb-'+x);if(b)b.classList.remove('sel');});
   const rl=document.getElementById('recent-list');if(rl)rl.innerHTML=recentHTML();
   renderRegistro();
 }

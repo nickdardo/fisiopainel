@@ -676,6 +676,11 @@ function renderRegistro(){
             style="font-weight:500;text-transform:uppercase"/>
           <div class="pd" id="clinica-dd" style="display:none"></div>
           <div style="font-size:11px;color:var(--n4);margin-top:3px">Salva automaticamente para o próximo registro</div>
+          <div id="clinica-tags" style="display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.5rem">
+            ${[...new Set(records.filter(r=>r.clinica).map(r=>r.clinica))].sort().map(c=>`
+              <button onclick="selectClinica('${c.replace(/'/g,'\'')}')" style="padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid #D3D1C7;background:${lastClinica===c?'#111':'#F0EFEB'};color:${lastClinica===c?'#fff':'#333'};transition:all .12s">${c}</button>
+            `).join('')}
+          </div>
         </div>
 
         <div class="fg pd-wrap" style="margin-bottom:.75rem">
@@ -766,6 +771,15 @@ function selectClinica(c){
   if(inp)inp.value=c;
   const dd=document.getElementById('clinica-dd');
   if(dd)dd.style.display='none';
+  // Update tag highlights
+  const tags=document.getElementById('clinica-tags');
+  if(tags){
+    tags.querySelectorAll('button').forEach(b=>{
+      const isActive=b.textContent.trim()===c;
+      b.style.background=isActive?'#111':'#F0EFEB';
+      b.style.color=isActive?'#fff':'#333';
+    });
+  }
 }
 
 function filterPats(q){

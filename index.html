@@ -280,7 +280,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle}
         <div class="fg"><span class="lbl">Sexo</span>
           <select id="pm-sexo"><option value="">Selecione</option><option value="F">Feminino</option><option value="M">Masculino</option><option value="O">Outro</option></select>
         </div>
-        <div class="fg"><span class="lbl">CPF</span><input id="pm-cpf" placeholder="000.000.000-00"/></div>
+        <div class="fg"><span class="lbl">CPF</span><input id="pm-cpf" placeholder="000.000.000-00" maxlength="14" oninput="maskCPF(this)" inputmode="numeric"/></div>
         <div class="fg"><span class="lbl">RG</span><input id="pm-rg" placeholder="Ex: 2402559"/></div>
         <div class="fg"><span class="lbl">Celular</span><input id="pm-tel" placeholder="(91) 99999-0000"/></div>
       </div>
@@ -371,10 +371,19 @@ const nextT=patId=>records.filter(r=>r.pat_id===patId&&r.code==='T').length+1;
 
 // Date mask: auto-format dd/mm/aaaa as user types
 function maskDate(el){
-  let v=el.value.replace(/\D/g,'');
+  let v=el.value.replace(/[^\d]/g,'');
   if(v.length>2) v=v.slice(0,2)+'/'+v.slice(2);
   if(v.length>5) v=v.slice(0,5)+'/'+v.slice(5);
   el.value=v.slice(0,10);
+}
+
+// CPF mask: auto-format 000.000.000-00
+function maskCPF(el){
+  let v=el.value.replace(/[^\d]/g,'');
+  if(v.length>3) v=v.slice(0,3)+'.'+v.slice(3);
+  if(v.length>7) v=v.slice(0,7)+'.'+v.slice(7);
+  if(v.length>11) v=v.slice(0,11)+'-'+v.slice(11);
+  el.value=v.slice(0,14);
 }
 
 // Convert dd/mm/aaaa → yyyy-mm-dd for DB
@@ -1276,20 +1285,17 @@ async function saveSenha(){
 // ══ INIT ══
 window.addEventListener('DOMContentLoaded',async()=>{
   if(session){
+    // Usar sessão salva diretamente — sem re-validar no servidor
+    // Isso garante que o app funcione mesmo com rede lenta
+    await bootApp();
+    // Validar em background (sem deslogar em caso de erro de rede)
     try{
-      const {data,error}=await sb.from('users').select('*').eq('id',session.id).maybeSingle();
+      const {data}=await sb.from('users').select('id,ativo,expires_at,role').eq('id',session.id).maybeSingle();
       if(data){
-        // user still exists — update cache
         if(data.ativo===false){doLogout();return;}
         if(data.role!=='admin'&&data.expires_at&&new Date(data.expires_at)<new Date()){doLogout();return;}
-        session=data;localStorage.setItem('fp_session',JSON.stringify(session));
       }
-      // if data is null due to network, keep cached session and boot anyway
-      await bootApp();
-    }catch(e){
-      // network error: use cached session
-      await bootApp();
-    }
+    }catch(e){ /* ignora erro de rede */ }
   }
 });
 </script>

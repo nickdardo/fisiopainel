@@ -178,6 +178,19 @@ tbody td{padding:.75rem 1rem;vertical-align:middle}
 
 @media(max-width:900px){.sidebar{display:none}.stats{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.content{padding:1rem}.stats{grid-template-columns:1fr 1fr}.fgrid{grid-template-columns:1fr}.full{grid-column:1}.qp{grid-template-columns:1fr}}
+
+/* PRINT */
+@media print{
+  body{background:#fff;font-size:12px}
+  .nav,.sidebar,.sec-hdr button,.msr,.btn{display:none!important}
+  .app-body{display:block}
+  .content{padding:0;max-width:100%}
+  .stats{grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+  .stat{border:1px solid #ccc;padding:8px 12px}
+  .card{box-shadow:none;border:1px solid #ccc;padding:12px}
+  .rel-tbl thead th{background:#04342C!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cbw{display:none}
+}
 </style>
 </head>
 <body>
@@ -691,13 +704,17 @@ function renderRelatorio(){
   mc.innerHTML=`
     <div class="sec-hdr">
       <span class="sec-title">Relatório</span>
-      <button class="btn btn-g btn-sm" onclick="exportCSV()">⬇ Exportar CSV</button>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <button class="btn btn-g btn-sm" onclick="exportCSV()">⬇ CSV</button>
+        <button class="btn btn-g btn-sm" onclick="printReport(false)">🖨️ Imprimir</button>
+        <button class="btn btn-p btn-sm" onclick="printReport(true)">📄 Exportar PDF</button>
+      </div>
     </div>
     <div class="msr">
-      <select onchange="relTipo=this.value;doRelatorio()"><option value="mensal"${relTipo==='mensal'?' selected':''}>Mensal</option><option value="anual"${relTipo==='anual'?' selected':''}>Anual</option></select>
+      <select id="rel-tipo-sel" onchange="relTipo=this.value;doRelatorio()"><option value="mensal"${relTipo==='mensal'?' selected':''}>Mensal</option><option value="anual"${relTipo==='anual'?' selected':''}>Anual</option></select>
       <select id="rel-mes-sel" onchange="relMes=Number(this.value);doRelatorio()" ${relTipo==='anual'?'style="display:none"':''}>${mesOpts}</select>
-      <select onchange="relAno=Number(this.value);doRelatorio()">${anoOpts}</select>
-      <select onchange="relConv=this.value;doRelatorio()">
+      <select id="rel-ano-sel" onchange="relAno=Number(this.value);doRelatorio()">${anoOpts}</select>
+      <select id="rel-conv-sel" onchange="relConv=this.value;doRelatorio()">
         <option value="">Todos os convênios</option>
         <option value="IASEP"${relConv==='IASEP'?' selected':''}>IASEP</option>
         <option value="UNIMED"${relConv==='UNIMED'?' selected':''}>UNIMED</option>
@@ -766,6 +783,124 @@ function renderAnual(){
   }).join('');
   const totR=Array.from({length:12},(_,m)=>{const mm=String(m+1).padStart(2,'0');const t=yR.filter(r=>r.code==='T'&&r.date?.startsWith(`${relAno}-${mm}`)).length;return`<td style="text-align:center">${t||''}</td>`;}).join('');
   document.getElementById('rel-tabela').innerHTML=`<table class="rel-tbl"><thead><tr><th>Nº</th><th class="nc" style="text-align:left">PACIENTE</th>${hdr}<th>TOTAL</th></tr></thead><tbody>${rows||'<tr><td colspan="15" style="text-align:center;padding:1.5rem;color:var(--g4)">Nenhum registro.</td></tr>'}</tbody><tfoot><tr><td colspan="2" style="text-align:left;padding-left:1rem">TOTAL</td>${totR}<td>${T}</td></tr></tfoot></table>`;
+}
+
+function printReport(isPDF){
+  const tipo=relTipo;
+  const mes=relMes;
+  const ano=relAno;
+  const conv=relConv;
+  const periodo=tipo==='anual'?`Anual — ${ano}`:`${MESES[mes]} de ${ano}`;
+  const convLabel=conv?` · ${conv}`:'';
+
+  // stats
+  const mm=String(mes+1).padStart(2,'0');
+  const fR=conv?records.filter(r=>patients.find(p=>p.id===r.pat_id)?.convenio===conv):records;
+  const base=tipo==='anual'?fR.filter(r=>r.date?.startsWith(String(ano))):fR.filter(r=>r.date?.startsWith(`${ano}-${mm}`));
+  const T=base.filter(r=>r.code==='T').length;
+  const AV=base.filter(r=>r.code==='AV').length;
+  const FNJ=base.filter(r=>r.code==='FNJ').length;
+
+  // build table
+  let tableHTML='';
+  if(tipo==='mensal'){
+    const dim=new Date(ano,mes+1,0).getDate();
+    const days=[];
+    for(let d=1;d<=dim;d++){const dt=new Date(ano,mes,d);if(dt.getDay()>0&&dt.getDay()<6)days.push(`${ano}-${mm}-${String(d).padStart(2,'0')}`);}
+    const pIds=[...new Set(base.map(r=>r.pat_id))];
+    const pats=patients.filter(p=>pIds.includes(p.id)&&(!conv||p.convenio===conv));
+    const dayH=days.map(d=>{const dt=new Date(d+'T12:00:00');return`<th style="text-align:center;min-width:32px;font-size:10px">${dt.getDate()}<br><span style="font-size:9px;opacity:.7">${'DSTQQSS'[dt.getDay()]}</span></th>`;}).join('');
+    const rows=pats.map((p,i)=>{
+      const cells=days.map(d=>{const r=records.find(x=>x.pat_id===p.id&&x.date===d);if(!r)return'<td></td>';const lbl=r.code==='T'?`T${r.t_num}`:r.code;const col=r.code==='T'?'#085041':r.code==='AV'?'#185FA5':'#993C1D';return`<td style="text-align:center;font-weight:700;font-size:10px;color:${col}">${lbl}</td>`;}).join('');
+      const tT=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(`${ano}-${mm}`)).length;
+      return`<tr style="background:${i%2===1?'#f8f7f4':'#fff'}"><td style="text-align:center;color:#888;font-size:10px">${i+1}</td><td style="font-weight:500;font-size:12px;padding:5px 8px">${p.nome}</td>${cells}<td style="text-align:center;font-weight:700;color:#085041">${tT}</td></tr>`;
+    }).join('');
+    const totR=days.map(d=>{const c=records.filter(r=>r.date===d&&r.code==='T'&&(conv?patients.find(p=>p.id===r.pat_id)?.convenio===conv:true)).length;return`<td style="text-align:center;font-weight:700;font-size:11px">${c||''}</td>`;}).join('');
+    tableHTML=`<table style="width:100%;border-collapse:collapse;font-size:12px">
+      <thead><tr style="background:#04342C;color:#fff">
+        <th style="padding:6px 8px;text-align:center;font-size:10px">Nº</th>
+        <th style="padding:6px 8px;text-align:left;font-size:11px;min-width:160px">PACIENTE</th>
+        ${dayH}
+        <th style="padding:6px 8px;text-align:center;font-size:10px">T</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+      <tfoot><tr style="background:#EEEDE8;border-top:2px solid #D3D1C7">
+        <td colspan="2" style="padding:5px 8px;font-weight:700;font-size:11px">TOTAL</td>${totR}
+        <td style="text-align:center;font-weight:700">${T}</td>
+      </tr></tfoot>
+    </table>`;
+  } else {
+    const pIds=[...new Set(base.map(r=>r.pat_id))];
+    const pats=patients.filter(p=>pIds.includes(p.id)&&(!conv||p.convenio===conv));
+    const hdr=MS.map(m=>`<th style="padding:5px 4px;text-align:center;font-size:10px">${m}</th>`).join('');
+    const rows=pats.map((p,i)=>{
+      const cols=Array.from({length:12},(_,m)=>{const mm2=String(m+1).padStart(2,'0');const t=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(`${ano}-${mm2}`)).length;return`<td style="text-align:center;font-size:11px;color:${t?'#085041':'#ccc'};font-weight:${t?700:400}">${t||''}</td>`;}).join('');
+      const tot=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(String(ano))).length;
+      return`<tr style="background:${i%2===1?'#f8f7f4':'#fff'}"><td style="text-align:center;color:#888;font-size:10px">${i+1}</td><td style="font-weight:500;font-size:12px;padding:5px 8px">${p.nome}</td>${cols}<td style="text-align:center;font-weight:700;color:#085041">${tot}</td></tr>`;
+    }).join('');
+    const totR=Array.from({length:12},(_,m)=>{const mm2=String(m+1).padStart(2,'0');const t=base.filter(r=>r.code==='T'&&r.date?.startsWith(`${ano}-${mm2}`)).length;return`<td style="text-align:center;font-weight:700;font-size:11px">${t||''}</td>`;}).join('');
+    tableHTML=`<table style="width:100%;border-collapse:collapse;font-size:12px">
+      <thead><tr style="background:#04342C;color:#fff">
+        <th style="padding:6px 8px;text-align:center;font-size:10px">Nº</th>
+        <th style="padding:6px 8px;text-align:left;font-size:11px;min-width:160px">PACIENTE</th>
+        ${hdr}
+        <th style="padding:6px 8px;text-align:center;font-size:10px">TOTAL</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+      <tfoot><tr style="background:#EEEDE8;border-top:2px solid #D3D1C7">
+        <td colspan="2" style="padding:5px 8px;font-weight:700;font-size:11px">TOTAL</td>${totR}
+        <td style="text-align:center;font-weight:700">${T}</td>
+      </tr></tfoot>
+    </table>`;
+  }
+
+  const now=new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+  const html=`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/>
+  <title>Relatório ${periodo}</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',Arial,sans-serif;color:#2C2C2A;padding:24px;font-size:13px}
+    .hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #04342C}
+    .brand{font-size:1.6rem;font-weight:700;color:#04342C}
+    .brand span{color:#1D9E75}
+    .hdr-right{text-align:right;font-size:12px;color:#888}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+    .stat{border:1px solid #D3D1C7;border-radius:8px;padding:10px 14px}
+    .sl{font-size:10px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+    .sv{font-size:1.7rem;font-weight:700;line-height:1}
+    .sv-t{color:#0F6E56}.sv-av{color:#185FA5}.sv-fnj{color:#D85A30}.sv-tot{color:#2C2C2A}
+    .tbl-wrap{overflow:auto;border-radius:8px;border:1px solid #D3D1C7}
+    .ftr{margin-top:20px;padding-top:10px;border-top:1px solid #D3D1C7;font-size:11px;color:#888;display:flex;justify-content:space-between}
+    @media print{body{padding:16px}@page{margin:1.5cm;size:A4 landscape}}
+  </style></head><body>
+  <div class="hdr">
+    <div>
+      <div class="brand">Fisio<span>Painel</span></div>
+      <div style="font-size:13px;color:#5F5E5A;margin-top:4px">Relatório de Atendimentos</div>
+      <div style="font-size:13px;font-weight:600;color:#04342C;margin-top:2px">${periodo}${convLabel}</div>
+    </div>
+    <div class="hdr-right">
+      <div>Emitido em ${now}</div>
+      <div style="margin-top:4px">Por: ${session.nome}</div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="sl">Sessões T</div><div class="sv sv-t">${T}</div></div>
+    <div class="stat"><div class="sl">Avaliações</div><div class="sv sv-av">${AV}</div></div>
+    <div class="stat"><div class="sl">Faltas FNJ</div><div class="sv sv-fnj">${FNJ}</div></div>
+    <div class="stat"><div class="sl">Total</div><div class="sv sv-tot">${T+AV+FNJ}</div></div>
+  </div>
+  <div class="tbl-wrap">${tableHTML}</div>
+  <div class="ftr">
+    <span>FisioPainel — Sistema de Gestão de Atendimentos</span>
+    <span>${periodo}${convLabel}</span>
+  </div>
+  ${isPDF?'<script>window.onload=()=>{window.print();}<\/script>':'<script>window.onload=()=>{window.print();}<\/script>'}
+  </body></html>`;
+
+  const w=window.open('','_blank','width=1000,height=700');
+  w.document.write(html);
+  w.document.close();
 }
 
 function exportCSV(){

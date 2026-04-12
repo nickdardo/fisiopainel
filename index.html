@@ -1049,14 +1049,24 @@ function renderRelatorio(){
         ${[...new Set(records.filter(r=>r.clinica).map(r=>r.clinica))].sort().map(c=>`<option value="${c}"${relClinica===c?' selected':''}>${c}</option>`).join('')}
       </select>
     </div>
-    <div class="rel-filter-btns">
-      <button class="rel-fbtn rel-fbtn-T${relFilter==='T'?' active':''}" onclick="relFilter='T';doRelatorio()">Atendimentos T</button>
-      <button class="rel-fbtn rel-fbtn-OA${relFilter==='OA'?' active':''}" onclick="relFilter='OA';doRelatorio()">Outros Atendimentos</button>
-      <button class="rel-fbtn rel-fbtn-AV${relFilter==='AV'?' active':''}" onclick="relFilter='AV';doRelatorio()">Avaliação</button>
+    <div class="rel-filter-btns" id="rel-filter-btns">
+      <button class="rel-fbtn rel-fbtn-T${relFilter==='T'?' active':''}" onclick="setRelFilter('T')">Atendimentos T</button>
+      <button class="rel-fbtn rel-fbtn-OA${relFilter==='OA'?' active':''}" onclick="setRelFilter('OA')">Outros Atendimentos</button>
+      <button class="rel-fbtn rel-fbtn-AV${relFilter==='AV'?' active':''}" onclick="setRelFilter('AV')">Avaliação</button>
     </div>
     <div class="stats" id="rel-stats"></div>
     <div id="rel-chart-card" style="display:none" class="card"><div class="card-title">Atendimentos por mês — ${relAno}</div><div id="rel-chart"></div></div>
     <div class="card" style="padding:0;overflow:hidden"><div class="rel-wrap" id="rel-tabela"></div></div>`;
+  doRelatorio();
+}
+
+function setRelFilter(f){
+  relFilter=f;
+  // Update button active classes
+  document.querySelectorAll('.rel-fbtn').forEach(b=>b.classList.remove('active'));
+  const map={'T':'.rel-fbtn-T','OA':'.rel-fbtn-OA','AV':'.rel-fbtn-AV'};
+  const btn=document.querySelector(map[f]);
+  if(btn)btn.classList.add('active');
   doRelatorio();
 }
 

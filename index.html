@@ -1110,7 +1110,7 @@ async function updateLastSeen(){
   await sb.from('users').update({last_seen:new Date().toISOString()}).eq('id',session.id);
 }
 
-function toggleAtivo(id,ativo,nome){
+async function toggleAtivo(id,ativo,nome){
   const acao=ativo?'suspender':'ativar';
   if(!confirm(`Deseja ${acao} o acesso de ${nome}?`))return;
   const {error}=await sb.from('users').update({ativo:!ativo}).eq('id',id);

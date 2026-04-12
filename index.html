@@ -726,7 +726,7 @@ function renderRegistro(){
         <div id="recent-list">${recentHTML()}</div>
       </div>
     </div>`;
-  selPat=null;selCode=null;maxT=10;
+  selPat=null;selCode=null;maxT=20;
   document.addEventListener('click',e=>{if(!e.target.closest('.pd-wrap')){const d=document.getElementById('pat-dd');if(d)d.style.display='none';const d2=document.getElementById('clinica-dd');if(d2)d2.style.display='none';}},{once:true});
 }
 

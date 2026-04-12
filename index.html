@@ -282,7 +282,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle}
         </div>
         <div class="fg"><span class="lbl">CPF</span><input id="pm-cpf" placeholder="000.000.000-00" maxlength="14" oninput="maskCPF(this)" inputmode="numeric"/></div>
         <div class="fg"><span class="lbl">RG</span><input id="pm-rg" placeholder="Ex: 2402559"/></div>
-        <div class="fg"><span class="lbl">Celular</span><input id="pm-tel" placeholder="(91) 99999-0000"/></div>
+        <div class="fg"><span class="lbl">Celular</span><input id="pm-tel" placeholder="(91) 99999-0000" maxlength="15" oninput="maskTel(this)" inputmode="numeric"/></div>
       </div>
       <div style="font-size:11px;font-weight:700;color:var(--t5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem">Convênio</div>
       <div class="fgrid" style="margin-bottom:1rem">
@@ -384,6 +384,15 @@ function maskCPF(el){
   if(v.length>7) v=v.slice(0,7)+'.'+v.slice(7);
   if(v.length>11) v=v.slice(0,11)+'-'+v.slice(11);
   el.value=v.slice(0,14);
+}
+
+// Celular mask: (XX) XXXXX-XXXX
+function maskTel(el){
+  let v=el.value.replace(/[^\d]/g,'');
+  if(v.length>0) v='('+v;
+  if(v.length>3) v=v.slice(0,3)+') '+v.slice(3);
+  if(v.length>10) v=v.slice(0,10)+'-'+v.slice(10);
+  el.value=v.slice(0,15);
 }
 
 // Convert dd/mm/aaaa → yyyy-mm-dd for DB
@@ -1283,20 +1292,10 @@ async function saveSenha(){
 }
 
 // ══ INIT ══
-window.addEventListener('DOMContentLoaded',async()=>{
-  if(session){
-    // Usar sessão salva diretamente — sem re-validar no servidor
-    // Isso garante que o app funcione mesmo com rede lenta
-    await bootApp();
-    // Validar em background (sem deslogar em caso de erro de rede)
-    try{
-      const {data}=await sb.from('users').select('id,ativo,expires_at,role').eq('id',session.id).maybeSingle();
-      if(data){
-        if(data.ativo===false){doLogout();return;}
-        if(data.role!=='admin'&&data.expires_at&&new Date(data.expires_at)<new Date()){doLogout();return;}
-      }
-    }catch(e){ /* ignora erro de rede */ }
-  }
+window.addEventListener('DOMContentLoaded',()=>{
+  // Restaurar sessão direto do localStorage — sem nenhuma chamada ao servidor
+  // O usuário só é deslogado explicitamente (botão Sair) ou se o admin suspender
+  if(session) bootApp();
 });
 </script>
 

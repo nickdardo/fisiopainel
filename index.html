@@ -276,7 +276,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle}
       <div style="font-size:11px;font-weight:700;color:var(--t5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem">Dados Pessoais</div>
       <div class="fgrid" style="margin-bottom:1rem">
         <div class="fg full"><span class="lbl">Nome completo *</span><input id="pm-nome" placeholder="Nome do paciente"/></div>
-        <div class="fg"><span class="lbl">Data de nascimento</span><input type="date" id="pm-nasc"/></div>
+        <div class="fg"><span class="lbl">Data de nascimento</span><input type="text" id="pm-nasc" placeholder="dd/mm/aaaa" maxlength="10" oninput="maskDate(this)" inputmode="numeric"/></div>
         <div class="fg"><span class="lbl">Sexo</span>
           <select id="pm-sexo"><option value="">Selecione</option><option value="F">Feminino</option><option value="M">Masculino</option><option value="O">Outro</option></select>
         </div>
@@ -368,6 +368,29 @@ const ini=n=>n.split(' ').map(p=>p[0]).join('').slice(0,2).toUpperCase();
 const MESES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const MS=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const nextT=patId=>records.filter(r=>r.pat_id===patId&&r.code==='T').length+1;
+
+// Date mask: auto-format dd/mm/aaaa as user types
+function maskDate(el){
+  let v=el.value.replace(/\D/g,'');
+  if(v.length>2) v=v.slice(0,2)+'/'+v.slice(2);
+  if(v.length>5) v=v.slice(0,5)+'/'+v.slice(5);
+  el.value=v.slice(0,10);
+}
+
+// Convert dd/mm/aaaa → yyyy-mm-dd for DB
+function brToIso(d){
+  if(!d||d.length!==10)return null;
+  const [dd,mm,aaaa]=d.split('/');
+  if(!dd||!mm||!aaaa||aaaa.length!==4)return null;
+  return `${aaaa}-${mm}-${dd}`;
+}
+
+// Convert yyyy-mm-dd → dd/mm/aaaa for display
+function isoToBr(d){
+  if(!d)return'';
+  const [aaaa,mm,dd]=d.slice(0,10).split('-');
+  return `${dd}/${mm}/${aaaa}`;
+}
 const fmtDatetime=d=>{
   if(!d)return'—';
   const dt=new Date(d);const now=new Date();
@@ -694,7 +717,7 @@ function openPatModal(id){
   editPat=id?patients.find(p=>p.id===id):null;
   document.getElementById('pm-title').textContent=editPat?'Editar Paciente':'Novo Paciente';
   document.getElementById('pm-nome').value=editPat?.nome||'';
-  document.getElementById('pm-nasc').value=editPat?.data_nasc||'';
+  document.getElementById('pm-nasc').value=editPat?.data_nasc?isoToBr(editPat.data_nasc):'';
   document.getElementById('pm-sexo').value=editPat?.sexo||'';
   document.getElementById('pm-cpf').value=editPat?.cpf||'';
   document.getElementById('pm-rg').value=editPat?.rg||'';
@@ -716,7 +739,7 @@ async function savePaciente(){
   const calcIdade=(nasc)=>{if(!nasc)return null;const d=new Date(nasc+'T12:00:00');const hoje=new Date();let i=hoje.getFullYear()-d.getFullYear();if(hoje.getMonth()<d.getMonth()||(hoje.getMonth()===d.getMonth()&&hoje.getDate()<d.getDate()))i--;return i;};
   const data={
     nome,
-    data_nasc:document.getElementById('pm-nasc').value||null,
+    data_nasc:brToIso(document.getElementById('pm-nasc').value)||null,
     sexo:document.getElementById('pm-sexo').value||null,
     cpf:document.getElementById('pm-cpf').value.trim(),
     rg:document.getElementById('pm-rg').value.trim(),
@@ -1253,9 +1276,20 @@ async function saveSenha(){
 // ══ INIT ══
 window.addEventListener('DOMContentLoaded',async()=>{
   if(session){
-    const {data}=await sb.from('users').select('*').eq('id',session.id).maybeSingle();
-    if(data){session=data;localStorage.setItem('fp_session',JSON.stringify(session));await bootApp();}
-    else doLogout();
+    try{
+      const {data,error}=await sb.from('users').select('*').eq('id',session.id).maybeSingle();
+      if(data){
+        // user still exists — update cache
+        if(data.ativo===false){doLogout();return;}
+        if(data.role!=='admin'&&data.expires_at&&new Date(data.expires_at)<new Date()){doLogout();return;}
+        session=data;localStorage.setItem('fp_session',JSON.stringify(session));
+      }
+      // if data is null due to network, keep cached session and boot anyway
+      await bootApp();
+    }catch(e){
+      // network error: use cached session
+      await bootApp();
+    }
   }
 });
 </script>

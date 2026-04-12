@@ -9,195 +9,185 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --t0:#E1F5EE;--t1:#9FE1CB;--t2:#5DCAA5;--t3:#1D9E75;--t5:#0F6E56;--t7:#085041;--t9:#04342C;
-  --g0:#F8F7F4;--g1:#EEEDE8;--g2:#D3D1C7;--g4:#888780;--g6:#5F5E5A;--g8:#2C2C2A;
-  --am0:#FAEEDA;--am1:#FAC775;--am5:#854F0B;
-  --co0:#FAECE7;--co1:#F5C4B3;--co3:#D85A30;--co5:#993C1D;
-  --bl0:#E6F1FB;--bl1:#B5D4F4;--bl5:#185FA5;
-  --gr0:#EAF3DE;--gr5:#3B6D11;
-  --pu0:#EEEDFE;--pu5:#534AB7;
+  --p0:#F0EEFF;--p1:#C8B8FF;--p2:#A78BFA;--p3:#7C3AED;--p5:#6D28D9;--p7:#4C1D95;--p9:#1E0A3C;
+  --n0:#111114;--n1:#1C1C1E;--n2:#2C2C2E;--n3:#3A3A3C;--n4:#636366;--n5:#8E8E93;--n6:#AEAEB2;--n7:#F5F5F7;
+  --red:#FF453A;--red0:#2D0A0A;
+  --amb:#FFD60A;--amb0:#2D1A00;--amb5:#7D5000;
+  --grn:#30D158;--grn0:#0A2D16;
+  --blu:#0A84FF;--blu0:#0A1A2D;
   --FT:'DM Serif Display',serif;
   --FB:'DM Sans',sans-serif;
-  --r:12px;--rs:8px;--sh:0 1px 3px rgba(0,0,0,.07);--shm:0 4px 16px rgba(0,0,0,.12);
+  --r:14px;--rs:9px;
+  --sh:0 1px 4px rgba(0,0,0,.3);--shm:0 8px 32px rgba(0,0,0,.5);
 }
-body{font-family:var(--FB);background:var(--g0);color:var(--g8);min-height:100vh;font-size:15px}
+body{font-family:var(--FB);background:var(--n0);color:var(--n7);min-height:100vh;font-size:15px}
 
-/* LOGIN */
-.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--t9);padding:1rem}
-.login-card{background:#fff;border-radius:20px;padding:2.5rem;width:100%;max-width:400px;box-shadow:var(--shm)}
-.login-logo{font-family:var(--FT);font-size:2rem;color:var(--t7);margin-bottom:.25rem}
-.login-logo span{color:var(--t3)}
-.login-sub{font-size:13px;color:var(--g4);margin-bottom:2rem}
+/* ── LOGIN ── */
+.login-bg{min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 60% 40%,var(--p9) 0%,var(--n0) 70%);padding:1rem}
+.login-card{background:var(--n1);border:1px solid var(--n3);border-radius:20px;padding:2.5rem;width:100%;max-width:400px;box-shadow:var(--shm)}
+.login-logo{font-family:var(--FT);font-size:2.2rem;color:var(--n7);margin-bottom:.2rem}
+.login-logo span{color:var(--p2)}
+.login-sub{font-size:13px;color:var(--n5);margin-bottom:2rem}
 .login-field{margin-bottom:1rem}
-.login-field label{display:block;font-size:11px;font-weight:700;color:var(--g6);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
-.login-field input{width:100%;padding:.65rem 1rem;border:1px solid var(--g2);border-radius:var(--rs);font-family:var(--FB);font-size:14px;outline:none;transition:border-color .15s}
-.login-field input:focus{border-color:var(--t3)}
-.login-error{background:var(--co0);color:var(--co5);font-size:13px;padding:.6rem .85rem;border-radius:var(--rs);margin-bottom:1rem;display:none}
+.login-field label{display:block;font-size:11px;font-weight:700;color:var(--n5);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.login-field input{width:100%;padding:.7rem 1rem;border:1px solid var(--n3);border-radius:var(--rs);font-family:var(--FB);font-size:14px;color:var(--n7);background:var(--n2);outline:none;transition:border-color .15s}
+.login-field input:focus{border-color:var(--p3)}
+.login-error{background:var(--red0);color:#FF6B6B;font-size:13px;padding:.6rem .85rem;border-radius:var(--rs);margin-bottom:1rem;display:none}
+.login-hint{font-size:11px;color:var(--n4);text-align:center;margin-top:1rem}
 
-/* NAV */
-.nav{background:var(--t9);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
-.nav-brand{font-family:var(--FT);font-size:1.3rem;color:#fff}
-.nav-brand span{color:var(--t2)}
+/* ── NAV ── */
+.nav{background:#0D0D14;border-bottom:1px solid var(--n2);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
+.nav-brand{font-family:var(--FT);font-size:1.35rem;color:var(--n7)}
+.nav-brand span{color:var(--p2)}
 .nav-right{display:flex;align-items:center;gap:.75rem}
-.nav-user{font-size:13px;color:var(--t1);display:flex;align-items:center;gap:8px}
+.nav-user{font-size:13px;color:var(--n6);display:flex;align-items:center;gap:8px}
 .nav-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
-.nav-badge{font-size:11px;padding:2px 9px;border-radius:999px;background:rgba(255,255,255,.12);color:var(--t1);font-weight:600}
-.logout-btn{background:transparent;border:1px solid rgba(255,255,255,.2);color:var(--t1);font-size:12px;padding:.3rem .75rem;border-radius:var(--rs);cursor:pointer;font-family:var(--FB)}
-.logout-btn:hover{background:rgba(255,255,255,.1)}
+.nav-badge{font-size:11px;padding:2px 9px;border-radius:999px;background:var(--p9);color:var(--p1);font-weight:600;border:1px solid var(--p7)}
+.logout-btn{background:transparent;border:1px solid var(--n3);color:var(--n5);font-size:12px;padding:.3rem .75rem;border-radius:var(--rs);cursor:pointer;font-family:var(--FB);transition:all .12s}
+.logout-btn:hover{background:var(--n2);color:var(--n7)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;border-radius:6px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--n7);border-radius:2px}
 
-/* LAYOUT */
-.app-body{display:flex;flex:1;min-height:calc(100vh - 56px)}
+/* ── LAYOUT ── */
+.app-body{display:flex;min-height:calc(100vh - 56px)}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:90}
+.sidebar-overlay.open{display:block}
 
-/* SIDEBAR */
-.sidebar{width:220px;min-width:220px;background:#fff;border-right:1px solid var(--g2);padding:1.25rem 0;display:flex;flex-direction:column;gap:2px;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
-.sidebar-section{padding:0 1rem .4rem;font-size:10px;font-weight:700;color:var(--g4);letter-spacing:.08em;text-transform:uppercase;margin-top:.5rem}
-.sidebar-item{display:flex;align-items:center;gap:10px;padding:.6rem 1.25rem;cursor:pointer;border:none;background:transparent;width:100%;text-align:left;font-family:var(--FB);font-size:14px;color:var(--g6);border-right:3px solid transparent;transition:all .12s}
-.sidebar-item:hover{background:var(--g0);color:var(--g8)}
-.sidebar-item.active{background:var(--t0);color:var(--t7);font-weight:500;border-right-color:var(--t3)}
-.sidebar-item .si-icon{font-size:15px;width:18px;text-align:center}
-.sidebar-footer{margin-top:auto;padding:1rem;border-top:1px solid var(--g1);font-size:11px;color:var(--g4)}
+/* ── SIDEBAR ── */
+.sidebar{width:220px;min-width:220px;background:var(--n1);border-right:1px solid var(--n2);padding:1rem 0;display:flex;flex-direction:column;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;transition:left .25s}
+.sidebar-section{padding:0 1rem .4rem;font-size:10px;font-weight:700;color:var(--n4);letter-spacing:.08em;text-transform:uppercase;margin-top:.5rem}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:.65rem 1.25rem;cursor:pointer;border:none;background:transparent;width:100%;text-align:left;font-family:var(--FB);font-size:14px;color:var(--n5);border-right:3px solid transparent;transition:all .12s}
+.sidebar-item:hover{background:var(--n2);color:var(--n7)}
+.sidebar-item.active{background:var(--p9);color:var(--p1);font-weight:500;border-right-color:var(--p3)}
+.sidebar-icon{width:18px;text-align:center;font-size:15px}
+.sidebar-footer{margin-top:auto;padding:1rem;border-top:1px solid var(--n2);font-size:11px;color:var(--n4);line-height:1.6}
 
-/* CONTENT */
-.content{flex:1;padding:1.5rem;overflow:auto;max-width:1100px}
+/* ── CONTENT ── */
+.content{flex:1;padding:1.5rem;min-width:0}
 
-/* STATS */
+/* ── STATS ── */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.25rem}
-.stat{background:#fff;border-radius:var(--r);border:1px solid var(--g2);padding:1rem 1.25rem;box-shadow:var(--sh)}
-.stat-label{font-size:10px;color:var(--g4);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
-.stat-value{font-family:var(--FT);font-size:1.8rem;color:var(--g8);line-height:1}
-.stat-sub{font-size:12px;color:var(--g4);margin-top:4px}
+.stat{background:var(--n1);border:1px solid var(--n2);border-radius:var(--r);padding:1rem 1.25rem}
+.stat-label{font-size:10px;color:var(--n5);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.stat-value{font-family:var(--FT);font-size:1.8rem;line-height:1;color:var(--n7)}
+.stat-sub{font-size:12px;color:var(--n4);margin-top:4px}
 
-/* CARDS */
-.card{background:#fff;border-radius:var(--r);border:1px solid var(--g2);box-shadow:var(--sh);padding:1.5rem;margin-bottom:1rem}
-.card-title{font-family:var(--FT);font-size:1.15rem;margin-bottom:1.1rem}
+/* ── CARDS ── */
+.card{background:var(--n1);border:1px solid var(--n2);border-radius:var(--r);padding:1.5rem;margin-bottom:1rem}
+.card-title{font-family:var(--FT);font-size:1.15rem;margin-bottom:1rem;color:var(--n7)}
 
-/* SECTION HEADER */
+/* ── SECTION HEADER ── */
 .sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
-.sec-title{font-family:var(--FT);font-size:1.3rem}
+.sec-title{font-family:var(--FT);font-size:1.3rem;color:var(--n7)}
 
-/* FORMS */
+/* ── FORMS ── */
 .fg{display:flex;flex-direction:column;gap:4px}
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
 .full{grid-column:1/-1}
-.lbl{font-size:11px;font-weight:700;color:var(--g6);text-transform:uppercase;letter-spacing:.04em}
-input,select,textarea{padding:.55rem .85rem;border:1px solid var(--g2);border-radius:var(--rs);font-family:var(--FB);font-size:14px;color:var(--g8);background:#fff;outline:none;transition:border-color .15s;width:100%}
-input:focus,select:focus,textarea:focus{border-color:var(--t3)}
-input::placeholder{color:var(--g2)}
+.lbl{font-size:11px;font-weight:700;color:var(--n5);text-transform:uppercase;letter-spacing:.04em}
+input,select,textarea{padding:.55rem .85rem;border:1px solid var(--n3);border-radius:var(--rs);font-family:var(--FB);font-size:14px;color:var(--n7);background:var(--n2);outline:none;transition:border-color .15s;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--p3)}
+input::placeholder,textarea::placeholder{color:var(--n4)}
+select option{background:var(--n2);color:var(--n7)}
 
-/* BTNS */
-.btn{padding:.6rem 1.25rem;border-radius:var(--rs);font-family:var(--FB);font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:6px;transition:background .12s}
-.btn-p{background:var(--t5);color:#fff}.btn-p:hover{background:var(--t7)}
-.btn-g{background:transparent;color:var(--g6);border:1px solid var(--g2)}.btn-g:hover{background:var(--g1)}
-.btn-d{background:transparent;color:var(--co5);border:1px solid var(--co1)}.btn-d:hover{background:var(--co0)}
-.btn-pu{background:var(--pu0);color:var(--pu5);border:1px solid #CECBF6}.btn-pu:hover{background:#CECBF6}
+/* ── BTNS ── */
+.btn{padding:.6rem 1.25rem;border-radius:var(--rs);font-family:var(--FB);font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:6px;transition:all .12s;white-space:nowrap}
+.btn-p{background:var(--p5);color:#fff}.btn-p:hover{background:var(--p7)}
+.btn-g{background:transparent;color:var(--n6);border:1px solid var(--n3)}.btn-g:hover{background:var(--n2)}
+.btn-d{background:transparent;color:var(--red);border:1px solid #3A1010}.btn-d:hover{background:var(--red0)}
+.btn-amb{background:var(--amb0);color:var(--amb);border:1px solid #3A2A00}.btn-amb:hover{opacity:.85}
+.btn-grn{background:var(--grn0);color:var(--grn);border:1px solid #0A3A1A}.btn-grn:hover{opacity:.85}
 .btn-sm{padding:.35rem .85rem;font-size:13px}
 .btn-xs{padding:.22rem .65rem;font-size:12px}
-.btn-full{width:100%;justify-content:center}
+.btn-full{width:100%;justify-content:center;padding:.75rem}
 
-/* BADGES */
+/* ── BADGES ── */
 .bdg{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700}
-.bdg-T{background:var(--t0);color:var(--t7)}
-.bdg-AV{background:var(--bl0);color:var(--bl5)}
-.bdg-FNJ{background:var(--co0);color:var(--co5)}
-.bdg-iasep{background:var(--t0);color:var(--t7)}
-.bdg-unimed{background:var(--gr0);color:var(--gr5)}
-.bdg-part{background:var(--g1);color:var(--g6)}
-.bdg-admin{background:var(--am0);color:var(--am5)}
-.bdg-cli{background:var(--t0);color:var(--t7)}
+.bdg-T{background:#0A2D16;color:var(--grn)}
+.bdg-AV{background:var(--blu0);color:var(--blu)}
+.bdg-FNJ{background:var(--red0);color:var(--red)}
+.bdg-admin{background:var(--amb0);color:var(--amb)}
+.bdg-fisio{background:var(--p9);color:var(--p1)}
+.bdg-iasep{background:var(--p9);color:var(--p1)}
+.bdg-unimed{background:var(--grn0);color:var(--grn)}
+.bdg-part{background:var(--n2);color:var(--n5)}
 
-/* TABLE */
-.tbl-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--g2)}
+/* ── TABLE ── */
+.tbl-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--n2)}
 table{width:100%;border-collapse:collapse;font-size:13px}
-thead th{padding:.7rem 1rem;text-align:left;font-size:10px;font-weight:700;color:var(--g4);text-transform:uppercase;letter-spacing:.06em;background:var(--g0);border-bottom:1px solid var(--g2);white-space:nowrap}
-tbody tr{border-bottom:1px solid var(--g1);transition:background .1s}
+thead th{padding:.7rem 1rem;text-align:left;font-size:10px;font-weight:700;color:var(--n5);text-transform:uppercase;letter-spacing:.06em;background:var(--n2);border-bottom:1px solid var(--n3);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--n2);transition:background .1s}
 tbody tr:last-child{border-bottom:none}
-tbody tr:hover{background:var(--g0)}
-tbody td{padding:.75rem 1rem;vertical-align:middle}
+tbody tr:hover{background:var(--n2)}
+tbody td{padding:.75rem 1rem;vertical-align:middle;color:var(--n7)}
 
-/* RELATORIO */
+/* ── REL TABLE ── */
 .rel-wrap{overflow-x:auto}
 .rel-tbl{border-collapse:collapse;font-size:12px;width:100%}
-.rel-tbl th,.rel-tbl td{border:1px solid var(--g2);padding:.35rem .5rem;white-space:nowrap}
-.rel-tbl thead th{background:var(--t9);color:#fff;text-align:center;font-size:11px;font-weight:600}
-.rel-tbl thead th.dc{min-width:46px}
-.rel-tbl tbody tr:nth-child(even){background:var(--g0)}
-.rel-tbl tbody td.nc{background:#fff;font-weight:500;min-width:180px;max-width:220px;overflow:hidden;text-overflow:ellipsis;position:sticky;left:0;z-index:1;border-right:2px solid var(--g2)}
+.rel-tbl th,.rel-tbl td{border:1px solid var(--n3);padding:.35rem .5rem;white-space:nowrap;color:var(--n7)}
+.rel-tbl thead th{background:var(--p9);color:var(--p1);text-align:center;font-size:10px;font-weight:700}
+.rel-tbl thead th.dc{min-width:44px}
+.rel-tbl tbody tr:nth-child(even){background:var(--n2)}
+.rel-tbl tbody td.nc{background:var(--n1);color:var(--n7);font-weight:500;min-width:180px;max-width:220px;overflow:hidden;text-overflow:ellipsis;position:sticky;left:0;z-index:1;border-right:2px solid var(--n3)}
 .rel-tbl tbody td.cc{text-align:center;font-weight:700;font-size:11px}
-.rel-tbl tbody td.cc.ct{color:var(--t7)}.rel-tbl tbody td.cc.cav{color:var(--bl5)}.rel-tbl tbody td.cc.cfnj{color:var(--co5)}
-.rel-tbl tfoot td{background:var(--g1);font-weight:700;text-align:center;font-size:11px;border-top:2px solid var(--g2)}
+.rel-tbl tbody td.ct{color:var(--grn)}.rel-tbl tbody td.cav{color:var(--blu)}.rel-tbl tbody td.cfnj{color:var(--red)}
+.rel-tbl tfoot td{background:var(--n2);color:var(--n7);font-weight:700;text-align:center;font-size:11px;border-top:2px solid var(--n3)}
 
-/* REGISTRO */
+/* ── REGISTRO ── */
 .qp{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .pd-wrap{position:relative}
-.pd{position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid var(--g2);border-top:none;border-radius:0 0 var(--rs) var(--rs);z-index:50;max-height:200px;overflow-y:auto;box-shadow:var(--shm)}
-.popt{padding:.6rem .85rem;cursor:pointer;font-size:14px;border-bottom:1px solid var(--g1)}
-.popt:hover{background:var(--t0)}
-.popt:last-child{border-bottom:none}
-.popt .on{font-weight:500}.popt .os{font-size:11px;color:var(--g4)}
-.cpicker{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.25rem}
+.pd{position:absolute;top:100%;left:0;right:0;background:var(--n2);border:1px solid var(--n3);border-top:none;border-radius:0 0 var(--rs) var(--rs);z-index:50;max-height:200px;overflow-y:auto;box-shadow:var(--shm)}
+.popt{padding:.6rem .85rem;cursor:pointer;font-size:14px;border-bottom:1px solid var(--n3);color:var(--n7)}
+.popt:hover{background:var(--p9)}
+.popt .on{font-weight:500}.popt .os{font-size:11px;color:var(--n4)}
+.cpicker{display:flex;gap:.4rem;flex-wrap:wrap}
 .cbtn{padding:.4rem .7rem;border-radius:var(--rs);font-size:13px;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all .12s}
-.cbtn-T{background:var(--t0);color:var(--t7);border-color:var(--t1)}.cbtn-T.sel{background:var(--t5);color:#fff;border-color:var(--t5)}
-.cbtn-AV{background:var(--bl0);color:var(--bl5);border-color:var(--bl1)}.cbtn-AV.sel{background:var(--bl5);color:#fff;border-color:var(--bl5)}
-.cbtn-FNJ{background:var(--co0);color:var(--co5);border-color:var(--co1)}.cbtn-FNJ.sel{background:var(--co5);color:#fff;border-color:var(--co5)}
+.cbtn-T{background:var(--grn0);color:var(--grn);border-color:#0A3A1A}.cbtn-T.sel{background:var(--grn);color:#000;border-color:var(--grn)}
+.cbtn-AV{background:var(--blu0);color:var(--blu);border-color:#0A2040}.cbtn-AV.sel{background:var(--blu);color:#fff;border-color:var(--blu)}
+.cbtn-FNJ{background:var(--red0);color:var(--red);border-color:#3A1010}.cbtn-FNJ.sel{background:var(--red);color:#fff;border-color:var(--red)}
 
-/* USUARIOS */
-.ucard{background:#fff;border-radius:var(--r);border:1px solid var(--g2);padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;margin-bottom:.65rem;box-shadow:var(--sh)}
-.uav{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0}
+/* ── ONLINE DOT ── */
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;display:inline-block}
+.dot-on{background:var(--grn);box-shadow:0 0 0 0 rgba(48,209,88,.4);animation:pulse-on 2s infinite}
+.dot-off{background:var(--n3)}
+@keyframes pulse-on{0%{box-shadow:0 0 0 0 rgba(48,209,88,.5)}70%{box-shadow:0 0 0 7px rgba(48,209,88,0)}100%{box-shadow:0 0 0 0 rgba(48,209,88,0)}}
 
-/* MODAL */
-.mbd{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem}
-.modal{background:#fff;border-radius:var(--r);width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:var(--shm)}
-.mhdr{padding:1.25rem 1.5rem 1rem;border-bottom:1px solid var(--g2);display:flex;align-items:center;justify-content:space-between}
-.mtitle{font-family:var(--FT);font-size:1.15rem}
-.mclose{background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--g4);width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:4px}
-.mclose:hover{background:var(--g1)}
-.mbody{padding:1.25rem 1.5rem}
-.mfooter{padding:1rem 1.5rem;border-top:1px solid var(--g2);display:flex;gap:.5rem;justify-content:flex-end}
+/* ── USERS ── */
+.ucard{background:var(--n1);border:1px solid var(--n2);border-radius:var(--r);padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;margin-bottom:.65rem}
+.uav{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0}
 
-/* LOADING */
-.loading{display:flex;align-items:center;justify-content:center;padding:3rem;color:var(--g4)}
-.spinner{width:24px;height:24px;border:3px solid var(--g2);border-top-color:var(--t3);border-radius:50%;animation:spin .7s linear infinite;margin-right:10px}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* MISC */
-.empty{text-align:center;padding:2.5rem;color:var(--g4)}
-.empty-icon{font-size:2rem;margin-bottom:.5rem}
-.empty-text{font-size:14px;color:var(--g6)}
-.toast{position:fixed;bottom:1.5rem;right:1.5rem;color:#fff;padding:.75rem 1.25rem;border-radius:var(--r);font-size:14px;font-weight:500;z-index:999;box-shadow:var(--shm);animation:sup .2s ease}
-@keyframes sup{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
-.msr{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-bottom:1.25rem}
-.msr select{padding:.45rem .75rem;font-size:14px;border:1px solid var(--g2);border-radius:var(--rs);font-family:var(--FB);background:#fff;outline:none}
-.msr select:focus{border-color:var(--t3)}
+/* ── CHART ── */
 .cbw{display:flex;align-items:flex-end;gap:6px;height:110px;margin-top:1rem}
 .cbc{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1}
-.cbb{width:100%;border-radius:4px 4px 0 0;background:var(--t3);min-height:4px}
-.cbl{font-size:10px;color:var(--g4);text-align:center;white-space:nowrap}
-.cbv{font-size:11px;font-weight:600;color:var(--t7)}
-.access-denied{text-align:center;padding:4rem 2rem;color:var(--g4)}
-.month-tabs{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.cbb{width:100%;border-radius:4px 4px 0 0;background:var(--p3);min-height:4px}
+.cbl{font-size:10px;color:var(--n4);text-align:center;white-space:nowrap}
+.cbv{font-size:11px;font-weight:600;color:var(--p1)}
 
+/* ── MODAL ── */
+.mbd{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem}
+.modal{background:var(--n1);border:1px solid var(--n3);border-radius:var(--r);width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:var(--shm)}
+.mhdr{padding:1.25rem 1.5rem 1rem;border-bottom:1px solid var(--n2);display:flex;align-items:center;justify-content:space-between}
+.mtitle{font-family:var(--FT);font-size:1.15rem;color:var(--n7)}
+.mclose{background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--n4);width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:4px}
+.mclose:hover{background:var(--n2);color:var(--n7)}
+.mbody{padding:1.25rem 1.5rem}
+.mfooter{padding:1rem 1.5rem;border-top:1px solid var(--n2);display:flex;gap:.5rem;justify-content:flex-end}
+.msec{font-size:11px;font-weight:700;color:var(--p1);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem;margin-top:1rem}
 
-/* ONLINE DOT */
-.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;display:inline-block}
-.dot-on{background:#22c55e;box-shadow:0 0 0 0 rgba(34,197,94,.4);animation:pulse-on 1.8s infinite}
-.dot-off{background:#ef4444}
-@keyframes pulse-on{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}70%{box-shadow:0 0 0 7px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
-
-/* HAMBURGER */
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;border-radius:6px}
-.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all .2s}
-.hamburger:hover{background:rgba(255,255,255,.1)}
-
-/* SIDEBAR OVERLAY (mobile) */
-.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:90}
-.sidebar-overlay.open{display:block}
+/* ── MISC ── */
+.msr{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-bottom:1.25rem}
+.msr select{padding:.45rem .75rem;font-size:14px;border:1px solid var(--n3);border-radius:var(--rs);font-family:var(--FB);background:var(--n2);color:var(--n7);outline:none}
+.empty{text-align:center;padding:2.5rem;color:var(--n4)}
+.empty-icon{font-size:2.5rem;margin-bottom:.5rem}
+.empty-text{font-size:14px;color:var(--n5)}
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;color:#fff;padding:.75rem 1.25rem;border-radius:var(--r);font-size:14px;font-weight:500;z-index:999;box-shadow:var(--shm);animation:sup .2s ease;max-width:320px}
+@keyframes sup{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
+.access-denied{text-align:center;padding:4rem 2rem;color:var(--n4)}
+.divider{height:1px;background:var(--n2);margin:1rem 0}
 
 @media(max-width:900px){
   .hamburger{display:flex}
-  .sidebar{
-    position:fixed;top:56px;left:-240px;height:calc(100vh - 56px);
-    z-index:95;transition:left .25s ease;box-shadow:none;
-  }
+  .sidebar{position:fixed;top:56px;left:-240px;height:calc(100vh - 56px);z-index:95;box-shadow:none}
   .sidebar.open{left:0;box-shadow:var(--shm)}
   .stats{grid-template-columns:1fr 1fr}
   .qp{grid-template-columns:1fr}
@@ -207,23 +197,12 @@ tbody td{padding:.75rem 1rem;vertical-align:middle}
   .stats{grid-template-columns:1fr 1fr}
   .fgrid{grid-template-columns:1fr}
   .full{grid-column:1}
-  .qp{grid-template-columns:1fr}
   .nav-user span:not(.nav-badge){display:none}
-  .modal{max-width:100%!important}
-  .sec-hdr{flex-direction:column;align-items:flex-start}
 }
-
-/* PRINT */
 @media print{
-  body{background:#fff;font-size:12px}
-  .nav,.sidebar,.sec-hdr button,.msr,.btn{display:none!important}
+  .nav,.sidebar,.sidebar-overlay,.sec-hdr button,.msr,.btn{display:none!important}
   .app-body{display:block}
   .content{padding:0;max-width:100%}
-  .stats{grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
-  .stat{border:1px solid #ccc;padding:8px 12px}
-  .card{box-shadow:none;border:1px solid #ccc;padding:12px}
-  .rel-tbl thead th{background:#04342C!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .cbw{display:none}
 }
 </style>
 </head>
@@ -231,26 +210,25 @@ tbody td{padding:.75rem 1rem;vertical-align:middle}
 
 <!-- LOGIN -->
 <div id="login-page">
-  <div class="login-page">
+  <div class="login-bg">
     <div class="login-card">
       <div class="login-logo">Fisio<span>Painel</span></div>
       <div class="login-sub">Sistema de Gestão de Atendimentos</div>
       <div class="login-error" id="login-error"></div>
       <div class="login-field"><label>Usuário</label><input type="text" id="lu" placeholder="seu.usuario" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()"/></div>
       <div class="login-field"><label>Senha</label><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-      <button class="btn btn-p btn-full" style="margin-top:.5rem;padding:10px;font-size:14px" onclick="doLogin()" id="login-btn">Entrar →</button>
+      <button class="btn btn-p btn-full" onclick="doLogin()" id="login-btn" style="margin-top:.5rem">Entrar →</button>
+      <p class="login-hint">Desenvolvido por Eduardo Ribeiro</p>
     </div>
   </div>
 </div>
 
 <!-- APP -->
 <div id="app-page" style="display:none;flex-direction:column;min-height:100vh">
-  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <div class="sidebar-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
   <nav class="nav">
     <div style="display:flex;align-items:center;gap:.75rem">
-      <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></button>
       <span class="nav-brand">Fisio<span>Painel</span></span>
     </div>
     <div class="nav-right">
@@ -263,7 +241,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle}
     </div>
   </nav>
   <div class="app-body">
-    <aside class="sidebar" id="sidebar"></aside>
+    <aside class="sidebar" id="sidebarEl"></aside>
     <main class="content" id="main-content"></main>
   </div>
 </div>
@@ -271,34 +249,31 @@ tbody td{padding:.75rem 1rem;vertical-align:middle}
 <!-- MODAL PACIENTE -->
 <div class="mbd" id="pm" style="display:none" onclick="if(event.target===this)closeM('pm')">
   <div class="modal" style="max-width:560px">
-    <div class="mhdr"><span class="mtitle" id="pm-title">Novo Paciente</span><button class="mclose" onclick="closeM('pm')">✕</button></div>
+    <div class="mhdr"><span class="mtitle" id="pm-title">Editar Paciente</span><button class="mclose" onclick="closeM('pm')">✕</button></div>
     <div class="mbody">
-      <div style="font-size:11px;font-weight:700;color:var(--t5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem">Dados Pessoais</div>
-      <div class="fgrid" style="margin-bottom:1rem">
+      <div class="msec" style="margin-top:0">Dados Pessoais</div>
+      <div class="fgrid">
         <div class="fg full"><span class="lbl">Nome completo *</span><input id="pm-nome" placeholder="Nome do paciente"/></div>
         <div class="fg"><span class="lbl">Data de nascimento</span><input type="text" id="pm-nasc" placeholder="dd/mm/aaaa" maxlength="10" oninput="maskDate(this)" inputmode="numeric"/></div>
-        <div class="fg"><span class="lbl">Sexo</span>
-          <select id="pm-sexo"><option value="">Selecione</option><option value="F">Feminino</option><option value="M">Masculino</option><option value="O">Outro</option></select>
-        </div>
+        <div class="fg"><span class="lbl">Sexo</span><select id="pm-sexo"><option value="">Selecione</option><option value="F">Feminino</option><option value="M">Masculino</option><option value="O">Outro</option></select></div>
         <div class="fg"><span class="lbl">CPF</span><input id="pm-cpf" placeholder="000.000.000-00" maxlength="14" oninput="maskCPF(this)" inputmode="numeric"/></div>
         <div class="fg"><span class="lbl">RG</span><input id="pm-rg" placeholder="Ex: 2402559"/></div>
         <div class="fg"><span class="lbl">Celular</span><input id="pm-tel" placeholder="(91) 99999-0000" maxlength="15" oninput="maskTel(this)" inputmode="numeric"/></div>
       </div>
-      <div style="font-size:11px;font-weight:700;color:var(--t5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem">Convênio</div>
-      <div class="fgrid" style="margin-bottom:1rem">
+      <div class="msec">Convênio</div>
+      <div class="fgrid">
         <div class="fg"><span class="lbl">Prontuário</span><input id="pm-pront" placeholder="Ex: 357834"/></div>
         <div class="fg"><span class="lbl">Convênio</span><select id="pm-conv"><option>IASEP</option><option>UNIMED</option><option>Particular</option><option>Outro</option></select></div>
         <div class="fg"><span class="lbl">Matrícula</span><input id="pm-mat" placeholder="Ex: 8733502"/></div>
-        <div class="fg"><span class="lbl">Validade</span><input type="date" id="pm-val"/></div>
+        <div class="fg"><span class="lbl">Validade</span><input type="text" id="pm-val" placeholder="dd/mm/aaaa" maxlength="10" oninput="maskDate(this)" inputmode="numeric"/></div>
       </div>
-      <div style="font-size:11px;font-weight:700;color:var(--t5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem">Endereço</div>
+      <div class="msec">Endereço</div>
       <div class="fgrid">
         <div class="fg full"><span class="lbl">Endereço</span><input id="pm-end" placeholder="Rua, número"/></div>
         <div class="fg"><span class="lbl">Bairro</span><input id="pm-bairro" placeholder="Bairro"/></div>
         <div class="fg"><span class="lbl">Cidade</span><input id="pm-cidade" placeholder="Cidade"/></div>
         <div class="fg"><span class="lbl">UF</span>
-          <select id="pm-uf">
-            <option value="">UF</option>
+          <select id="pm-uf"><option value="">UF</option>
             <option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option>
             <option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option>
             <option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option>
@@ -321,20 +296,20 @@ tbody td{padding:.75rem 1rem;vertical-align:middle}
       <div class="fgrid">
         <div class="fg full"><span class="lbl">Nome completo *</span><input id="um-nome" placeholder="Nome do usuário"/></div>
         <div class="fg"><span class="lbl">Login *</span><input id="um-login" placeholder="Ex: joao.silva"/></div>
-        <div class="fg"><span class="lbl">Perfil</span><select id="um-role"><option value="admin">👑 Admin</option><option value="cliente">👤 Cliente</option></select></div>
+        <div class="fg"><span class="lbl">Perfil</span><select id="um-role"><option value="admin">👑 Admin</option><option value="cliente">🩺 Fisioterapeuta</option></select></div>
         <div class="fg full"><span class="lbl">Senha *</span><input type="password" id="um-pass" placeholder="Mínimo 4 caracteres"/></div>
         <div class="fg full" id="um-pass2-wrap"><span class="lbl">Confirmar senha *</span><input type="password" id="um-pass2" placeholder="Repita a senha"/></div>
       </div>
-      <div style="margin-top:1rem;padding:.75rem 1rem;background:var(--g0);border-radius:var(--rs);font-size:12px;color:var(--g6)">
+      <div style="margin-top:1rem;padding:.75rem 1rem;background:var(--p9);border-radius:var(--rs);font-size:12px;color:var(--p1)">
         👑 Admin — acesso total + gerenciar usuários<br>
-        👤 Cliente — registrar, pacientes e relatórios
+        🩺 Fisioterapeuta — registrar, pacientes e relatórios
       </div>
     </div>
     <div class="mfooter"><button class="btn btn-g btn-sm" onclick="closeM('um')">Cancelar</button><button class="btn btn-p btn-sm" onclick="saveUsuario()">Salvar</button></div>
   </div>
 </div>
 
-<!-- MODAL TROCAR SENHA -->
+<!-- MODAL SENHA -->
 <div class="mbd" id="pwd-m" style="display:none" onclick="if(event.target===this)closeM('pwd-m')">
   <div class="modal" style="max-width:380px">
     <div class="mhdr"><span class="mtitle">Trocar Senha</span><button class="mclose" onclick="closeM('pwd-m')">✕</button></div>
@@ -347,182 +322,98 @@ tbody td{padding:.75rem 1rem;vertical-align:middle}
   </div>
 </div>
 
+<!-- MODAL ACESSO -->
+<div class="mbd" id="ac-modal" style="display:none" onclick="if(event.target===this)closeM('ac-modal')">
+  <div class="modal" style="max-width:380px">
+    <div class="mhdr"><span class="mtitle">Configurar Acesso</span><button class="mclose" onclick="closeM('ac-modal')">✕</button></div>
+    <div class="mbody">
+      <input type="hidden" id="ac-uid"/>
+      <div style="font-weight:600;font-size:15px;color:var(--n7);margin-bottom:1rem" id="ac-nome"></div>
+      <div class="fg" style="margin-bottom:1rem">
+        <span class="lbl">Período de acesso</span>
+        <select id="ac-period" style="font-size:15px;padding:.75rem 1rem">
+          <option value="30d">📅 30 dias</option>
+          <option value="2m">📅 2 meses</option>
+          <option value="3m">📅 3 meses</option>
+          <option value="6m">📅 6 meses</option>
+          <option value="1a">📅 1 ano</option>
+          <option value="ilimitado">♾️ Ilimitado</option>
+        </select>
+      </div>
+      <div style="padding:.75rem 1rem;background:var(--p9);border-radius:var(--rs);font-size:13px;color:var(--p1)">
+        O acesso começa a contar a partir de hoje. O fisioterapeuta é bloqueado automaticamente ao expirar.
+      </div>
+    </div>
+    <div class="mfooter"><button class="btn btn-g btn-sm" onclick="closeM('ac-modal')">Cancelar</button><button class="btn btn-p btn-sm" onclick="saveAcesso()">✓ Confirmar</button></div>
+  </div>
+</div>
+
 <script>
 // ══ SUPABASE ══
 const SUPA_URL='https://brfgaimisvhcnkvqraql.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJyZmdhaW1pc3ZoY25rdnFyYXFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5NTI5NDYsImV4cCI6MjA5MTUyODk0Nn0.UdGf8xR_ntjYCItmf9ppQPyhvgXPZh5ISulZ1MNzsLE';
 const sb=supabase.createClient(SUPA_URL,SUPA_KEY);
 
-// ══ STATE ══
-// ── SESSÃO (cookies + localStorage) ──
-const TIMEOUT_MS = 10 * 60 * 1000; // 10 minutos inatividade
-let session = null;
-let _lastActivity = Date.now();
+// ══ SESSÃO ══
+const TIMEOUT_MS=10*60*1000;
+let session=null;
+let _lastActivity=Date.now();
 
 function saveSession(s){
-  const str = JSON.stringify(s);
-  // Cookie: dura 30 dias
-  document.cookie = 'fp_s=' + encodeURIComponent(str) + '; path=/; max-age=' + (30*24*60*60) + '; SameSite=Lax';
-  try{ localStorage.setItem('fp_session', str); }catch(e){}
+  try{
+    const v=JSON.stringify(s);
+    localStorage.setItem('fp_s',v);
+    document.cookie='fp_s='+encodeURIComponent(v)+';path=/;max-age='+(30*24*3600)+';SameSite=Lax';
+  }catch(e){}
 }
-
 function clearSession(){
-  document.cookie = 'fp_s=; path=/; max-age=0';
-  try{ localStorage.removeItem('fp_session'); }catch(e){}
+  try{localStorage.removeItem('fp_s');}catch(e){}
+  try{document.cookie='fp_s=;path=/;max-age=0';}catch(e){}
 }
-
 function readSession(){
-  // 1) Tentar cookie
-  try{
-    const m = document.cookie.match(/(?:^|;\s*)fp_s=([^;]*)/);
-    if(m && m[1]){ const v = JSON.parse(decodeURIComponent(m[1])); if(v && v.id) return v; }
-  }catch(e){}
-  // 2) Fallback localStorage
-  try{
-    const v = localStorage.getItem('fp_session');
-    if(v){ const p = JSON.parse(v); if(p && p.id) return p; }
-  }catch(e){}
+  try{const v=localStorage.getItem('fp_s');if(v){const p=JSON.parse(v);if(p&&p.id)return p;}}catch(e){}
+  try{const m=document.cookie.match(/(?:^|;\s*)fp_s=([^;]*)/);if(m&&m[1]){const p=JSON.parse(decodeURIComponent(m[1]));if(p&&p.id)return p;}}catch(e){}
   return null;
 }
+
+// ══ STATE ══
 let patients=[],records=[],users=[];
 let editPat=null,editUsr=null;
 let selPat=null,selCode=null;
 let curPage='registro';
+let relTipo='mensal',relMes=new Date().getMonth(),relAno=new Date().getFullYear(),relConv='';
 
 // ══ HELPERS ══
 function hp(s){let h=0;for(let i=0;i<s.length;i++){h=(Math.imul(31,h)+s.charCodeAt(i))|0}return h.toString(36);}
 const fmtDate=d=>d?new Date(d+'T12:00:00').toLocaleDateString('pt-BR'):'—';
 const today=()=>new Date().toISOString().split('T')[0];
-const ini=n=>n.split(' ').map(p=>p[0]).join('').slice(0,2).toUpperCase();
+const ini=n=>(n||'?').split(' ').map(p=>p[0]).join('').slice(0,2).toUpperCase();
 const MESES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const MS=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-const nextT=patId=>records.filter(r=>r.pat_id===patId&&r.code==='T').length+1;
-
-// Date mask: auto-format dd/mm/aaaa as user types
-function maskDate(el){
-  let v=el.value.replace(/[^\d]/g,'');
-  if(v.length>2) v=v.slice(0,2)+'/'+v.slice(2);
-  if(v.length>5) v=v.slice(0,5)+'/'+v.slice(5);
-  el.value=v.slice(0,10);
-}
-
-// CPF mask: auto-format 000.000.000-00
-function maskCPF(el){
-  let v=el.value.replace(/[^\d]/g,'');
-  if(v.length>3) v=v.slice(0,3)+'.'+v.slice(3);
-  if(v.length>7) v=v.slice(0,7)+'.'+v.slice(7);
-  if(v.length>11) v=v.slice(0,11)+'-'+v.slice(11);
-  el.value=v.slice(0,14);
-}
-
-// Celular mask: (XX) XXXXX-XXXX
-function maskTel(el){
-  let v=el.value.replace(/[^\d]/g,'');
-  if(v.length>0) v='('+v;
-  if(v.length>3) v=v.slice(0,3)+') '+v.slice(3);
-  if(v.length>10) v=v.slice(0,10)+'-'+v.slice(10);
-  el.value=v.slice(0,15);
-}
-
-// Convert dd/mm/aaaa → yyyy-mm-dd for DB
-function brToIso(d){
-  if(!d||d.length!==10)return null;
-  const [dd,mm,aaaa]=d.split('/');
-  if(!dd||!mm||!aaaa||aaaa.length!==4)return null;
-  return `${aaaa}-${mm}-${dd}`;
-}
-
-// Convert yyyy-mm-dd → dd/mm/aaaa for display
-function isoToBr(d){
-  if(!d)return'';
-  const [aaaa,mm,dd]=d.slice(0,10).split('-');
-  return `${dd}/${mm}/${aaaa}`;
-}
-const fmtDatetime=d=>{
-  if(!d)return'—';
-  const dt=new Date(d);const now=new Date();
-  const diff=Math.floor((now-dt)/1000);
-  if(diff<60)return'agora mesmo';
-  if(diff<3600)return`há ${Math.floor(diff/60)}min`;
-  if(diff<86400)return`há ${Math.floor(diff/3600)}h`;
-  return`em ${dt.toLocaleDateString('pt-BR')}`;
-};
-const lastRec=patId=>[...records].filter(r=>r.pat_id===patId).sort((a,b)=>b.date.localeCompare(a.date))[0]||null;
+const DIAS_PT=['DOM','SEG','TER','QUA','QUI','SEX','SAB'];
+const nextT=pid=>records.filter(r=>r.pat_id===pid&&r.code==='T').length+1;
+const lastRec=pid=>[...records].filter(r=>r.pat_id===pid).sort((a,b)=>b.date.localeCompare(a.date))[0]||null;
 const can=p=>{if(!session)return false;if(session.role==='admin')return true;return['registro','pacientes','relatorio'].includes(p);};
-const AV_STYLE={admin:'background:var(--am0);color:var(--am5)',cliente:'background:var(--t0);color:var(--t7)'};
-const CONV_STYLE={IASEP:'background:var(--t0);color:var(--t7)',UNIMED:'background:var(--gr0);color:var(--gr5)',Particular:'background:var(--g1);color:var(--g6)',Outro:'background:var(--pu0);color:var(--pu5)'};
+const calcIdade=nasc=>{if(!nasc)return null;const d=new Date(nasc+'T12:00:00');const h=new Date();let i=h.getFullYear()-d.getFullYear();if(h.getMonth()<d.getMonth()||(h.getMonth()===d.getMonth()&&h.getDate()<d.getDate()))i--;return i;};
+const fmtDatetime=d=>{if(!d)return'Nunca';const dt=new Date(d);const diff=Math.floor((Date.now()-dt)/1000);if(diff<60)return'agora mesmo';if(diff<3600)return`há ${Math.floor(diff/60)}min`;if(diff<86400)return`há ${Math.floor(diff/3600)}h`;return dt.toLocaleDateString('pt-BR');};
 
-function toast(msg,err=false){
-  const t=document.createElement('div');
-  t.className='toast';t.textContent=msg;
-  t.style.background=err?'var(--co5)':'var(--t7)';
-  document.body.appendChild(t);setTimeout(()=>t.remove(),2800);
-}
-function loading(el){el.innerHTML='<div class="loading"><div class="spinner"></div> Carregando...</div>';}
+function maskDate(el){let v=el.value.replace(/[^\d]/g,'');if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2);if(v.length>5)v=v.slice(0,5)+'/'+v.slice(5);el.value=v.slice(0,10);}
+function maskCPF(el){let v=el.value.replace(/[^\d]/g,'');if(v.length>3)v=v.slice(0,3)+'.'+v.slice(3);if(v.length>7)v=v.slice(0,7)+'.'+v.slice(7);if(v.length>11)v=v.slice(0,11)+'-'+v.slice(11);el.value=v.slice(0,14);}
+function maskTel(el){let v=el.value.replace(/[^\d]/g,'');if(v.length>0)v='('+v;if(v.length>3)v=v.slice(0,3)+') '+v.slice(3);if(v.length>10)v=v.slice(0,10)+'-'+v.slice(10);el.value=v.slice(0,15);}
+function brToIso(d){if(!d||d.length!==10)return null;const[dd,mm,aaaa]=d.split('/');if(!dd||!mm||!aaaa||aaaa.length!==4)return null;return`${aaaa}-${mm}-${dd}`;}
+function isoToBr(d){if(!d)return'';const[a,m,dd]=d.slice(0,10).split('-');return`${dd}/${m}/${a}`;}
+
+function toast(msg,err=false){const t=document.createElement('div');t.className='toast';t.textContent=msg;t.style.background=err?'#7F1D1D':'#2C1F4A';t.style.border=err?'1px solid #991B1B':'1px solid var(--p7)';document.body.appendChild(t);setTimeout(()=>t.remove(),2800);}
 function openM(id){document.getElementById(id).style.display='flex';}
 function closeM(id){document.getElementById(id).style.display='none';}
 
-// ══ DATA ══
-async function loadAll(){
-  let pq=sb.from('patients').select('*').order('nome');
-  let rq=sb.from('records').select('*').order('date',{ascending:false});
-  if(session.role!=='admin'){
-    pq=pq.eq('owner_id',session.id);
-    rq=rq.eq('owner_id',session.id);
-  }
-  const [pr,rr,ur]=await Promise.all([pq,rq,sb.from('users').select('*').order('nome')]);
-  patients=pr.data||[];records=rr.data||[];users=ur.data||[];
-}
-
-// ══ AUTH ══
-async function doLogin(){
-  const login=document.getElementById('lu').value.trim().toLowerCase();
-  const pass=document.getElementById('lp').value;
-  if(!login||!pass){showErr('Preencha usuário e senha');return;}
-  const btn=document.getElementById('login-btn');
-  btn.textContent='Entrando...';btn.disabled=true;
-  const {data,error}=await sb.from('users').select('*').eq('login',login).eq('pass_hash',hp(pass)).maybeSingle();
-  btn.textContent='Entrar →';btn.disabled=false;
-  if(error||!data){showErr('Usuário ou senha incorretos.');return;}
-  if(data.ativo===false){showErr('Conta suspensa. Contate o administrador.');return;}
-  if(data.role!=='admin'&&data.expires_at&&new Date(data.expires_at)<new Date()){
-    showErr('Seu acesso expirou. Contate o administrador.');return;
-  }
-  session=data; saveSession(session);
-  await bootApp();
-}
-function showErr(msg){const e=document.getElementById('login-error');e.textContent=msg;e.style.display='block';}
-
-async function bootApp(){
-  // Garantir que app aparece sempre, independente de erros
-  document.getElementById('login-page').style.display='none';
-  document.getElementById('app-page').style.display='flex';
-  try{
-    const av=document.getElementById('nav-av');
-    av.textContent=ini(session.nome||'?');
-    av.style.cssText=AV_STYLE[session.role]||AV_STYLE.cliente;
-    document.getElementById('nav-name').textContent=session.nome||'';
-    document.getElementById('nav-role').textContent=session.role==='admin'?'👑 Admin':'🩺 Fisioterapeuta';
-  }catch(e){}
-  try{ await loadAll(); }catch(e){ patients=[];records=[];users=[]; }
-  try{ buildSidebar(); }catch(e){}
-  try{ showPage('registro'); }catch(e){}
-  if(!window._lastSeenTimer){
-    window._lastSeenTimer = setInterval(updateLastSeen, 120000);
-  }
-  updateLastSeen();
-}
-
-function doLogout(){
-  session=null; clearSession();
-  document.getElementById('app-page').style.display='none';
-  document.getElementById('login-page').style.display='';
-  document.getElementById('lu').value='';document.getElementById('lp').value='';
-  document.getElementById('login-error').style.display='none';
-  patients=[];records=[];users=[];selPat=null;selCode=null;
-}
+const CONV_STYLE={IASEP:'background:var(--p9);color:var(--p1)',UNIMED:'background:var(--grn0);color:var(--grn)',Particular:'background:var(--n2);color:var(--n5)',Outro:'background:#1A1A2E;color:#818CF8'};
+const AV_STYLE={admin:'background:var(--amb0);color:var(--amb)',cliente:'background:var(--p9);color:var(--p1)'};
 
 // ══ SIDEBAR ══
+function toggleSidebar(){document.getElementById('sidebarEl').classList.toggle('open');document.getElementById('sb-overlay').classList.toggle('open');}
+function closeSidebar(){document.getElementById('sidebarEl').classList.remove('open');document.getElementById('sb-overlay').classList.remove('open');}
+
 function buildSidebar(){
   const tabs=[
     {id:'registro',icon:'📋',label:'Registrar'},
@@ -531,24 +422,24 @@ function buildSidebar(){
     {id:'clientes',icon:'👁️',label:'Visão Geral',admin:true},
     {id:'usuarios',icon:'⚙️',label:'Usuários',admin:true},
   ];
-  const sidebarEl=document.getElementById('sidebar');
-  sidebarEl.innerHTML=`<div class="sidebar-section">Menu</div>`+
+  document.getElementById('sidebarEl').innerHTML=
+    `<div class="sidebar-section">Menu</div>`+
     tabs.filter(t=>can(t.id)||(t.admin&&session.role==='admin')).map(t=>
       `<button class="sidebar-item${curPage===t.id?' active':''}" id="si-${t.id}" onclick="showPage('${t.id}')">
-        <span class="si-icon">${t.icon}</span>${t.label}
+        <span class="sidebar-icon">${t.icon}</span>${t.label}
       </button>`
     ).join('')+
-    `<div class="sidebar-footer">FisioPainel<br>v2.0 · Online<br><span style="color:var(--g4);font-size:10px;margin-top:4px;display:block">Desenvolvido por Eduardo Ribeiro</span></div>`;
+    `<div class="sidebar-footer">FisioPainel &nbsp;v2.1<br>
+     <span style="color:var(--n4)">Desenvolvido por Eduardo Ribeiro</span></div>`;
 }
 
 function showPage(p){
-  curPage=p;
-  closeSidebar();
-  document.querySelectorAll('.sidebar-item').forEach(el=>el.classList.remove('active'));
+  curPage=p;closeSidebar();
+  document.querySelectorAll('.sidebar-item').forEach(e=>e.classList.remove('active'));
   const si=document.getElementById('si-'+p);if(si)si.classList.add('active');
   const mc=document.getElementById('main-content');
-  if(!can(p)&&!(p==='usuarios'&&session.role==='admin')){
-    mc.innerHTML=`<div class="access-denied"><div style="font-size:3rem;margin-bottom:1rem">🔒</div><div style="font-family:var(--FT);font-size:1.4rem;color:var(--g6);margin-bottom:.5rem">Acesso restrito</div><p>Seu perfil não tem permissão para esta área.</p></div>`;return;
+  if(!can(p)&&!(p==='usuarios'&&session.role==='admin')&&!(p==='clientes'&&session.role==='admin')){
+    mc.innerHTML=`<div class="access-denied"><div style="font-size:3rem;margin-bottom:1rem">🔒</div><div style="font-family:var(--FT);font-size:1.4rem;color:var(--n5);margin-bottom:.5rem">Acesso restrito</div></div>`;return;
   }
   if(p==='registro')renderRegistro();
   else if(p==='pacientes')renderPacientes();
@@ -556,6 +447,60 @@ function showPage(p){
   else if(p==='clientes')renderClientes();
   else if(p==='usuarios')renderUsuarios();
 }
+
+// ══ AUTH ══
+async function doLogin(){
+  const login=document.getElementById('lu').value.trim().toLowerCase();
+  const pass=document.getElementById('lp').value;
+  if(!login||!pass){showErr('Preencha usuário e senha');return;}
+  const btn=document.getElementById('login-btn');btn.textContent='Entrando...';btn.disabled=true;
+  try{
+    const{data,error}=await sb.from('users').select('*').eq('login',login).eq('pass_hash',hp(pass)).maybeSingle();
+    btn.textContent='Entrar →';btn.disabled=false;
+    if(error||!data){showErr('Usuário ou senha incorretos.');return;}
+    if(data.ativo===false){showErr('Conta suspensa. Contate o administrador.');return;}
+    if(data.role!=='admin'&&data.expires_at&&new Date(data.expires_at)<new Date()){showErr('Acesso expirado. Contate o administrador.');return;}
+    session=data;saveSession(session);
+    await bootApp();
+  }catch(e){btn.textContent='Entrar →';btn.disabled=false;showErr('Erro de conexão. Tente novamente.');}
+}
+function showErr(msg){const e=document.getElementById('login-error');e.textContent=msg;e.style.display='block';}
+
+async function bootApp(){
+  document.getElementById('login-page').style.display='none';
+  document.getElementById('app-page').style.display='flex';
+  try{
+    const av=document.getElementById('nav-av');
+    av.textContent=ini(session.nome);
+    av.style.cssText=AV_STYLE[session.role]||AV_STYLE.cliente;
+    document.getElementById('nav-name').textContent=session.nome||'';
+    document.getElementById('nav-role').textContent=session.role==='admin'?'👑 Admin':'🩺 Fisioterapeuta';
+  }catch(e){}
+  try{await loadAll();}catch(e){patients=[];records=[];users=[];}
+  buildSidebar();
+  showPage('registro');
+  if(!window._lsTimer){window._lsTimer=setInterval(updateLastSeen,120000);}
+  updateLastSeen();
+}
+
+function doLogout(){
+  session=null;clearSession();
+  document.getElementById('app-page').style.display='none';
+  document.getElementById('login-page').style.display='';
+  document.getElementById('lu').value='';document.getElementById('lp').value='';
+  document.getElementById('login-error').style.display='none';
+  patients=[];records=[];users=[];selPat=null;selCode=null;
+}
+
+// ══ DATA ══
+async function loadAll(){
+  let pq=sb.from('patients').select('*').order('nome');
+  let rq=sb.from('records').select('*').order('date',{ascending:false});
+  if(session.role!=='admin'){pq=pq.eq('owner_id',session.id);rq=rq.eq('owner_id',session.id);}
+  const[pr,rr,ur]=await Promise.all([pq,rq,sb.from('users').select('*').order('nome')]);
+  patients=pr.data||[];records=rr.data||[];users=ur.data||[];
+}
+async function updateLastSeen(){if(!session)return;try{await sb.from('users').update({last_seen:new Date().toISOString()}).eq('id',session.id);}catch(e){}}
 
 // ══ REGISTRO ══
 function renderRegistro(){
@@ -566,69 +511,55 @@ function renderRegistro(){
   const mc=document.getElementById('main-content');
   mc.innerHTML=`
     <div class="stats">
-      <div class="stat"><div class="stat-label">Sessões este mês</div><div class="stat-value" style="color:var(--t5)">${T}</div><div class="stat-sub">atend. T</div></div>
-      <div class="stat"><div class="stat-label">Avaliações</div><div class="stat-value" style="color:var(--bl5)">${AV}</div><div class="stat-sub">este mês</div></div>
-      <div class="stat"><div class="stat-label">Faltas FNJ</div><div class="stat-value" style="color:var(--co3)">${FNJ}</div><div class="stat-sub">este mês</div></div>
+      <div class="stat"><div class="stat-label">Sessões este mês</div><div class="stat-value" style="color:var(--grn)">${T}</div><div class="stat-sub">atend. T</div></div>
+      <div class="stat"><div class="stat-label">Avaliações</div><div class="stat-value" style="color:var(--blu)">${AV}</div><div class="stat-sub">este mês</div></div>
+      <div class="stat"><div class="stat-label">Faltas FNJ</div><div class="stat-value" style="color:var(--red)">${FNJ}</div><div class="stat-sub">este mês</div></div>
       <div class="stat"><div class="stat-label">Pacientes</div><div class="stat-value">${patients.length}</div><div class="stat-sub">cadastrados</div></div>
     </div>
     <div class="qp">
       <div class="card">
         <div class="card-title">Registrar Atendimento</div>
-
-        <!-- BUSCA DE PACIENTE -->
         <div class="fg pd-wrap" style="margin-bottom:.75rem">
           <span class="lbl">Paciente</span>
           <input type="text" id="pat-search" placeholder="Digite o nome do paciente..." autocomplete="off"
             oninput="filterPats(this.value)" onfocus="filterPats(this.value)"/>
           <div class="pd" id="pat-dd" style="display:none"></div>
         </div>
-
-        <!-- PACIENTE SELECIONADO (existente) -->
-        <div id="pat-sel-box" style="display:none;margin-bottom:.75rem;padding:.75rem 1rem;background:var(--t0);border-radius:var(--rs);border:1px solid var(--t1);position:relative">
-          <button onclick="clearPatSel()" style="position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;color:var(--t5);font-size:13px">✕ Trocar</button>
-          <div style="font-weight:600;font-size:14px;color:var(--t7)" id="psel-name"></div>
-          <div style="font-size:12px;color:var(--t5);margin-top:2px" id="psel-info"></div>
-          <div style="font-size:12px;color:var(--t7);margin-top:3px;font-weight:500" id="psel-next"></div>
+        <div id="pat-sel-box" style="display:none;margin-bottom:.75rem;padding:.75rem 1rem;background:var(--p9);border-radius:var(--rs);border:1px solid var(--p7);position:relative">
+          <button onclick="clearPatSel()" style="position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;color:var(--p2);font-size:12px">✕ Trocar</button>
+          <div style="font-weight:600;font-size:14px;color:var(--p1)" id="psel-name"></div>
+          <div style="font-size:12px;color:var(--p2);margin-top:2px" id="psel-info"></div>
+          <div style="font-size:12px;color:var(--p1);margin-top:3px;font-weight:500" id="psel-next"></div>
         </div>
-
-        <!-- NOVO PACIENTE (inline) -->
-        <div id="new-pat-box" style="display:none;margin-bottom:.75rem;padding:1rem;background:var(--am0);border-radius:var(--rs);border:1px solid var(--am1)">
-          <div style="font-size:11px;font-weight:700;color:var(--am5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem">Novo paciente</div>
+        <div id="new-pat-box" style="display:none;margin-bottom:.75rem;padding:1rem;background:var(--amb0);border-radius:var(--rs);border:1px solid #3A2A00">
+          <div style="font-size:11px;font-weight:700;color:var(--amb);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem">Novo paciente</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem">
             <div class="fg" style="grid-column:1/-1"><span class="lbl">Nome completo *</span><input id="np-nome" placeholder="Nome do paciente"/></div>
             <div class="fg"><span class="lbl">Prontuário</span><input id="np-pront" placeholder="Ex: 357834"/></div>
-            <div class="fg"><span class="lbl">Convênio</span>
-              <select id="np-conv"><option>IASEP</option><option>UNIMED</option><option>Particular</option><option>Outro</option></select>
-            </div>
+            <div class="fg"><span class="lbl">Convênio</span><select id="np-conv"><option>IASEP</option><option>UNIMED</option><option>Particular</option><option>Outro</option></select></div>
             <div class="fg"><span class="lbl">Matrícula</span><input id="np-mat" placeholder="Ex: 8733502"/></div>
             <div class="fg"><span class="lbl">Validade</span><input type="text" id="np-val" placeholder="dd/mm/aaaa" maxlength="10" oninput="maskDate(this)" inputmode="numeric"/></div>
           </div>
           <div style="display:flex;gap:.5rem;margin-top:.75rem">
             <button class="btn btn-g btn-sm" onclick="cancelNewPat()">Cancelar</button>
-            <button class="btn btn-sm" style="background:var(--am5);color:#fff" onclick="confirmNewPat()">✓ Confirmar paciente</button>
+            <button class="btn btn-sm" style="background:var(--amb);color:#000;font-weight:700" onclick="confirmNewPat()">✓ Confirmar</button>
           </div>
         </div>
-
-        <!-- DATA -->
         <div class="fg" style="margin-bottom:.75rem">
           <span class="lbl">Data</span>
           <input type="date" id="reg-date" value="${today()}"/>
         </div>
-
-        <!-- CÓDIGOS -->
         <div class="fg" style="margin-bottom:1.25rem">
-          <span class="lbl">Código</span>
-          <div style="margin-bottom:.5rem">
-            <div style="font-size:10px;color:var(--g4);margin-bottom:.35rem;font-weight:600">SESSÕES</div>
-            <div class="cpicker"><button class="cbtn cbtn-T" id="cb-T1" onclick="selectCode('T1')">T1</button><button class="cbtn cbtn-T" id="cb-T2" onclick="selectCode('T2')">T2</button><button class="cbtn cbtn-T" id="cb-T3" onclick="selectCode('T3')">T3</button><button class="cbtn cbtn-T" id="cb-T4" onclick="selectCode('T4')">T4</button><button class="cbtn cbtn-T" id="cb-T5" onclick="selectCode('T5')">T5</button><button class="cbtn cbtn-T" id="cb-T6" onclick="selectCode('T6')">T6</button><button class="cbtn cbtn-T" id="cb-T7" onclick="selectCode('T7')">T7</button><button class="cbtn cbtn-T" id="cb-T8" onclick="selectCode('T8')">T8</button><button class="cbtn cbtn-T" id="cb-T9" onclick="selectCode('T9')">T9</button><button class="cbtn cbtn-T" id="cb-T10" onclick="selectCode('T10')">T10</button></div>
+          <span class="lbl" style="margin-bottom:.4rem">Sessões</span>
+          <div class="cpicker" style="margin-bottom:.4rem">
+            ${Array.from({length:10},(_,i)=>`<button class="cbtn cbtn-T" id="cb-T${i+1}" onclick="selectCode('T${i+1}')">T${i+1}</button>`).join('')}
           </div>
           <div class="cpicker">
             <button class="cbtn cbtn-AV" id="cb-AV" onclick="selectCode('AV')">AV (Avaliação)</button>
             <button class="cbtn cbtn-FNJ" id="cb-FNJ" onclick="selectCode('FNJ')">FNJ (Faltou)</button>
           </div>
-          <div id="code-prev" style="margin-top:.5rem;font-size:13px;color:var(--g4)"></div>
+          <div id="code-prev" style="margin-top:.5rem;font-size:13px;color:var(--n5)"></div>
         </div>
-
         <button class="btn btn-p btn-full" id="save-reg-btn" onclick="saveRegistro()">✓ Salvar Atendimento</button>
       </div>
       <div class="card">
@@ -648,8 +579,8 @@ function recentHTML(){
     const lbl=r.code==='T'?`T${r.t_num}`:r.code;
     const cls=r.code==='T'?'bdg-T':r.code==='AV'?'bdg-AV':'bdg-FNJ';
     const canDel=session.role==='admin'||r.reg_by===session.id;
-    return`<div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid var(--g1)">
-      <div><div style="font-size:13px;font-weight:500">${p?.nome||'?'}</div><div style="font-size:11px;color:var(--g4)">${fmtDate(r.date)}</div></div>
+    return`<div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid var(--n2)">
+      <div><div style="font-size:13px;font-weight:500;color:var(--n7)">${p?.nome||'?'}</div><div style="font-size:11px;color:var(--n4)">${fmtDate(r.date)}</div></div>
       <div style="display:flex;align-items:center;gap:.4rem">
         <span class="bdg ${cls}">${lbl}</span>
         ${canDel?`<button class="btn btn-xs btn-d" onclick="deleteRecord('${r.id}')">✕</button>`:''}
@@ -659,21 +590,12 @@ function recentHTML(){
 }
 
 function filterPats(q){
-  const dd=document.getElementById('pat-dd');
-  if(!dd)return;
+  const dd=document.getElementById('pat-dd');if(!dd)return;
+  const createBtn=`<div class="popt" style="color:var(--p2);font-weight:600" onclick="startNewPat()">+ Criar novo "${q}"</div>`;
   if(!q.trim()){dd.style.display='none';return;}
   const hits=patients.filter(p=>p.nome.toLowerCase().includes(q.toLowerCase())).slice(0,10);
-  const createBtn=`<div class="popt" style="border-top:1px solid var(--g2);color:var(--t5);font-weight:600" onclick="startNewPat()">
-    + Criar novo paciente "${q}"
-  </div>`;
-  if(!hits.length){
-    dd.innerHTML=createBtn;
-    dd.style.display='block';
-    return;
-  }
   dd.innerHTML=hits.map(p=>`<div class="popt" onclick="selectPat('${p.id}')">
-    <div class="on">${p.nome}</div>
-    <div class="os">${p.convenio} · Pront. ${p.prontuario||'—'}</div>
+    <div class="on">${p.nome}</div><div class="os">${p.convenio} · Pront. ${p.prontuario||'—'}</div>
   </div>`).join('')+createBtn;
   dd.style.display='block';
 }
@@ -687,7 +609,7 @@ function selectPat(id){
   document.getElementById('psel-name').textContent=selPat.nome;
   document.getElementById('psel-info').textContent=`${selPat.convenio} · Matrícula: ${selPat.matricula||'—'}`;
   const last=lastRec(selPat.id);
-  document.getElementById('psel-next').textContent=`Próxima sessão: T${nextT(selPat.id)} · Último: ${last?fmtDate(last.date):'nenhum'}`;
+  document.getElementById('psel-next').textContent=`Próxima: T${nextT(selPat.id)} · Último: ${last?fmtDate(last.date):'nenhum'}`;
   updateCodePrev();
 }
 
@@ -696,7 +618,6 @@ function clearPatSel(){
   document.getElementById('pat-search').value='';
   document.getElementById('pat-sel-box').style.display='none';
   document.getElementById('new-pat-box').style.display='none';
-  document.getElementById('pat-search').focus();
   updateCodePrev();
 }
 
@@ -716,24 +637,13 @@ function cancelNewPat(){
   selPat=null;
   document.getElementById('new-pat-box').style.display='none';
   document.getElementById('pat-search').value='';
-  document.getElementById('pat-search').focus();
 }
 
 async function confirmNewPat(){
   const nome=document.getElementById('np-nome').value.trim();
   if(!nome){toast('⚠ Informe o nome',true);return;}
-  const data={
-    nome,
-    prontuario:document.getElementById('np-pront').value.trim(),
-    convenio:document.getElementById('np-conv').value,
-    matricula:document.getElementById('np-mat').value.trim(),
-    validade:brToIso(document.getElementById('np-val').value)||null,
-    owner_id:session.id
-  };
-  const btn=document.querySelector('#new-pat-box button:last-child');
-  btn.textContent='Salvando...';btn.disabled=true;
-  const {data:d,error}=await sb.from('patients').insert(data).select().single();
-  btn.textContent='✓ Confirmar paciente';btn.disabled=false;
+  const data={nome,prontuario:document.getElementById('np-pront').value.trim(),convenio:document.getElementById('np-conv').value,matricula:document.getElementById('np-mat').value.trim(),validade:brToIso(document.getElementById('np-val').value)||null,owner_id:session.id};
+  const{data:d,error}=await sb.from('patients').insert(data).select().single();
   if(error){toast('Erro ao criar paciente',true);return;}
   patients.push(d);patients.sort((a,b)=>a.nome.localeCompare(b.nome));
   selPat=d;
@@ -742,17 +652,15 @@ async function confirmNewPat(){
   document.getElementById('pat-sel-box').style.display='block';
   document.getElementById('psel-name').textContent=d.nome;
   document.getElementById('psel-info').textContent=`${d.convenio} · Matrícula: ${d.matricula||'—'}`;
-  document.getElementById('psel-next').textContent=`Primeira sessão: T1`;
+  document.getElementById('psel-next').textContent='Primeira sessão: T1';
   toast(`✓ Paciente "${d.nome}" cadastrado!`);
   updateCodePrev();
 }
 
 function selectCode(c){
   selCode=c;
-  // clear all buttons
   for(let i=1;i<=10;i++){const b=document.getElementById('cb-T'+i);if(b)b.classList.remove('sel');}
   ['AV','FNJ'].forEach(x=>{const b=document.getElementById('cb-'+x);if(b)b.classList.remove('sel');});
-  // activate selected
   const tb=document.getElementById('cb-'+c);if(tb)tb.classList.add('sel');
   updateCodePrev();
 }
@@ -760,10 +668,10 @@ function selectCode(c){
 function updateCodePrev(){
   const el=document.getElementById('code-prev');if(!el)return;
   if(!selCode){el.textContent='';return;}
-  const tMatch=selCode.match(/^T(\d+)$/);
-  if(tMatch){el.textContent=`→ Registrar sessão ${selCode}`;el.style.color='var(--t5)';}
-  else if(selCode==='AV'){el.textContent='→ Avaliação inicial';el.style.color='var(--bl5)';}
-  else if(selCode==='FNJ'){el.textContent='→ Faltou sem justificativa';el.style.color='var(--co3)';}
+  const tm=selCode.match(/^T(\d+)$/);
+  if(tm){el.textContent=`→ Registrar sessão ${selCode}`;el.style.color='var(--grn)';}
+  else if(selCode==='AV'){el.textContent='→ Avaliação inicial';el.style.color='var(--blu)';}
+  else if(selCode==='FNJ'){el.textContent='→ Faltou sem justificativa';el.style.color='var(--red)';}
 }
 
 async function saveRegistro(){
@@ -773,28 +681,21 @@ async function saveRegistro(){
   if(!date){toast('⚠ Informe a data',true);return;}
   const btn=document.getElementById('save-reg-btn');
   btn.textContent='Salvando...';btn.disabled=true;
-  const tMatch=selCode.match(/^T(\d+)$/);
-  const tNum=tMatch?parseInt(tMatch[1]):null;
-  const dbCode=tMatch?'T':selCode;
-  const {data,error}=await sb.from('records').insert({pat_id:selPat.id,date,code:dbCode,t_num:tNum,reg_by:session.id,owner_id:session.id}).select().single();
+  const tm=selCode.match(/^T(\d+)$/);
+  const tNum=tm?parseInt(tm[1]):null;
+  const dbCode=tm?'T':selCode;
+  const{data,error}=await sb.from('records').insert({pat_id:selPat.id,date,code:dbCode,t_num:tNum,reg_by:session.id,owner_id:session.id}).select().single();
   btn.textContent='✓ Salvar Atendimento';btn.disabled=false;
   if(error){toast('Erro ao salvar',true);return;}
   records.unshift(data);
-  const lbl=tNum?`T${tNum}`:selCode;
-  toast(`✓ ${selPat.nome.split(' ')[0]} — ${lbl} em ${fmtDate(date)}`);
+  toast(`✓ ${selPat.nome.split(' ')[0]} — ${tNum?`T${tNum}`:selCode} em ${fmtDate(date)}`);
   selPat=null;selCode=null;
-  document.getElementById('pat-search').value='';
-  document.getElementById('pat-sel-box').style.display='none';
-  document.getElementById('code-prev').textContent='';
-  for(let i=1;i<=10;i++){const b=document.getElementById('cb-T'+i);if(b)b.classList.remove('sel');}
-  ['AV','FNJ'].forEach(x=>{const b=document.getElementById('cb-'+x);if(b)b.classList.remove('sel');});
-  const rl=document.getElementById('recent-list');if(rl)rl.innerHTML=recentHTML();
   renderRegistro();
 }
 
 async function deleteRecord(id){
   if(!confirm('Remover este registro?'))return;
-  const {error}=await sb.from('records').delete().eq('id',id);
+  const{error}=await sb.from('records').delete().eq('id',id);
   if(error){toast('Erro ao remover',true);return;}
   records=records.filter(r=>r.id!==id);
   toast('Registro removido');
@@ -803,11 +704,8 @@ async function deleteRecord(id){
 
 // ══ PACIENTES ══
 function renderPacientes(){
-  const mc=document.getElementById('main-content');
-  mc.innerHTML=`
-    <div class="sec-hdr">
-      <span class="sec-title">Pacientes</span>
-    </div>
+  document.getElementById('main-content').innerHTML=`
+    <div class="sec-hdr"><span class="sec-title">Pacientes</span></div>
     <div style="margin-bottom:1rem">
       <input type="text" id="pac-s" placeholder="🔍  Buscar paciente..." oninput="filterPacTbl()" style="max-width:360px"/>
     </div>
@@ -821,127 +719,96 @@ function renderPacientes(){
 
 function filterPacTbl(){
   const q=(document.getElementById('pac-s')?.value||'').toLowerCase();
-  const filtered=patients.filter(p=>p.nome.toLowerCase().includes(q)||p.prontuario?.includes(q)||(p.convenio||'').toLowerCase().includes(q));
-  const tb=document.getElementById('pac-tbody');if(tb)tb.innerHTML=pacTbodyHTML(filtered);
+  const f=patients.filter(p=>p.nome.toLowerCase().includes(q)||(p.prontuario||'').includes(q)||(p.convenio||'').toLowerCase().includes(q));
+  const tb=document.getElementById('pac-tbody');if(tb)tb.innerHTML=pacTbodyHTML(f);
 }
 
 function pacTbodyHTML(pats){
-  if(!pats.length)return`<tr><td colspan="9"><div class="empty"><div class="empty-icon">👥</div><div class="empty-text">Nenhum paciente encontrado.</div></div></td></tr>`;
+  if(!pats.length)return`<tr><td colspan="9"><div class="empty"><div class="empty-icon">👥</div><div class="empty-text">Nenhum paciente.</div></div></td></tr>`;
   return pats.map((p,i)=>{
     const pR=records.filter(r=>r.pat_id===p.id);
     const tC=pR.filter(r=>r.code==='T').length;
     const last=[...pR].sort((a,b)=>b.date.localeCompare(a.date))[0];
     const valOk=!p.validade||new Date(p.validade)>=new Date();
     const cs=CONV_STYLE[p.convenio]||CONV_STYLE['Outro'];
-    const calcIdade=(nasc)=>{if(!nasc)return null;const d=new Date(nasc+'T12:00:00');const hoje=new Date();let i=hoje.getFullYear()-d.getFullYear();if(hoje.getMonth()<d.getMonth()||(hoje.getMonth()===d.getMonth()&&hoje.getDate()<d.getDate()))i--;return i;};
     const idade=calcIdade(p.data_nasc);
-    const sexoLabel={'F':'♀','M':'♂','O':'–'}[p.sexo]||'';
+    const sx={'F':'♀','M':'♂','O':'–'}[p.sexo]||'';
     return`<tr>
-      <td style="color:var(--g4);font-size:12px">${i+1}</td>
-      <td style="font-weight:500">${p.nome}<br><span style="font-size:11px;color:var(--g4);font-weight:400">${sexoLabel}${idade?` · ${idade} anos`:''}${p.cidade?` · ${p.cidade}`:''}</span></td>
-      <td style="color:var(--g6)">${p.prontuario||'—'}</td>
+      <td style="color:var(--n4);font-size:12px">${i+1}</td>
+      <td><div style="font-weight:500;color:var(--n7)">${p.nome}</div>
+          <div style="font-size:11px;color:var(--n4)">${sx}${idade?` ${idade} anos`:''}</div></td>
+      <td style="color:var(--n5)">${p.prontuario||'—'}</td>
       <td><span class="bdg" style="${cs}">${p.convenio}</span></td>
-      <td style="color:var(--g6)">${p.matricula||'—'}</td>
-      <td style="color:${valOk?'var(--g6)':'var(--co5)'};font-weight:${valOk?400:600}">${p.validade?fmtDate(p.validade):'—'}</td>
-      <td style="font-weight:600;color:var(--t5)">${tC}</td>
-      <td style="color:var(--g4);font-size:12px">${last?fmtDate(last.date):'—'}</td>
-      <td>
-        <div style="display:flex;gap:.25rem">
-          <button class="btn btn-xs btn-g" onclick="openPatModal('${p.id}')">✏</button>
-          ${session.role==='admin'?`<button class="btn btn-xs btn-d" onclick="deletePaciente('${p.id}')">✕</button>`:''}
-        </div>
-      </td>
+      <td style="color:var(--n5)">${p.matricula||'—'}</td>
+      <td style="color:${valOk?'var(--n5)':'var(--red)'};font-weight:${valOk?400:600}">${p.validade?fmtDate(p.validade):'—'}</td>
+      <td style="font-weight:700;color:var(--grn)">${tC}</td>
+      <td style="color:var(--n4);font-size:12px">${last?fmtDate(last.date):'—'}</td>
+      <td><div style="display:flex;gap:.25rem">
+        <button class="btn btn-xs btn-g" onclick="openPatModal('${p.id}')">✏</button>
+        ${session.role==='admin'?`<button class="btn btn-xs btn-d" onclick="deletePaciente('${p.id}')">✕</button>`:''}
+      </div></td>
     </tr>`;
   }).join('');
 }
 
 function openPatModal(id){
-  editPat=id?patients.find(p=>p.id===id):null;
-  document.getElementById('pm-title').textContent=editPat?'Editar Paciente':'Novo Paciente';
-  document.getElementById('pm-nome').value=editPat?.nome||'';
-  document.getElementById('pm-nasc').value=editPat?.data_nasc?isoToBr(editPat.data_nasc):'';
-  document.getElementById('pm-sexo').value=editPat?.sexo||'';
-  document.getElementById('pm-cpf').value=editPat?.cpf||'';
-  document.getElementById('pm-rg').value=editPat?.rg||'';
-  document.getElementById('pm-tel').value=editPat?.tel||'';
-  document.getElementById('pm-pront').value=editPat?.prontuario||'';
-  document.getElementById('pm-conv').value=editPat?.convenio||'IASEP';
-  document.getElementById('pm-mat').value=editPat?.matricula||'';
-  document.getElementById('pm-val').value=editPat?.validade||'';
-  document.getElementById('pm-end').value=editPat?.endereco||'';
-  document.getElementById('pm-bairro').value=editPat?.bairro||'';
-  document.getElementById('pm-cidade').value=editPat?.cidade||'';
-  document.getElementById('pm-uf').value=editPat?.uf||'';
+  editPat=id?patients.find(p=>p.id===id):null;if(!editPat)return;
+  document.getElementById('pm-title').textContent='Editar Paciente';
+  document.getElementById('pm-nome').value=editPat.nome||'';
+  document.getElementById('pm-nasc').value=isoToBr(editPat.data_nasc)||'';
+  document.getElementById('pm-sexo').value=editPat.sexo||'';
+  document.getElementById('pm-cpf').value=editPat.cpf||'';
+  document.getElementById('pm-rg').value=editPat.rg||'';
+  document.getElementById('pm-tel').value=editPat.tel||'';
+  document.getElementById('pm-pront').value=editPat.prontuario||'';
+  document.getElementById('pm-conv').value=editPat.convenio||'IASEP';
+  document.getElementById('pm-mat').value=editPat.matricula||'';
+  document.getElementById('pm-val').value=isoToBr(editPat.validade)||'';
+  document.getElementById('pm-end').value=editPat.endereco||'';
+  document.getElementById('pm-bairro').value=editPat.bairro||'';
+  document.getElementById('pm-cidade').value=editPat.cidade||'';
+  document.getElementById('pm-uf').value=editPat.uf||'';
   openM('pm');
 }
 
 async function savePaciente(){
   const nome=document.getElementById('pm-nome').value.trim();
   if(!nome){toast('⚠ Informe o nome',true);return;}
-  const calcIdade=(nasc)=>{if(!nasc)return null;const d=new Date(nasc+'T12:00:00');const hoje=new Date();let i=hoje.getFullYear()-d.getFullYear();if(hoje.getMonth()<d.getMonth()||(hoje.getMonth()===d.getMonth()&&hoje.getDate()<d.getDate()))i--;return i;};
-  const data={
-    nome,
-    data_nasc:brToIso(document.getElementById('pm-nasc').value)||null,
-    sexo:document.getElementById('pm-sexo').value||null,
-    cpf:document.getElementById('pm-cpf').value.trim(),
-    rg:document.getElementById('pm-rg').value.trim(),
-    tel:document.getElementById('pm-tel').value.trim(),
-    prontuario:document.getElementById('pm-pront').value.trim(),
-    convenio:document.getElementById('pm-conv').value,
-    matricula:document.getElementById('pm-mat').value.trim(),
-    validade:document.getElementById('pm-val').value||null,
-    endereco:document.getElementById('pm-end').value.trim(),
-    bairro:document.getElementById('pm-bairro').value.trim(),
-    cidade:document.getElementById('pm-cidade').value.trim(),
-    uf:document.getElementById('pm-uf').value||null,
-  };
-  if(editPat){
-    const {data:d,error}=await sb.from('patients').update(data).eq('id',editPat.id).select().single();
-    if(error){toast('Erro ao salvar',true);return;}
-    patients=patients.map(p=>p.id===editPat.id?d:p);
-    toast('✓ Paciente atualizado');
-  } else {
-    const patData={...data,owner_id:editPat?.owner_id||session.id};
-    const {data:d,error}=await sb.from('patients').insert(patData).select().single();
-    if(error){toast('Erro ao salvar',true);return;}
-    patients.push(d);patients.sort((a,b)=>a.nome.localeCompare(b.nome));
-    toast('✓ Paciente cadastrado');
-  }
-  closeM('pm');renderPacientes();
+  const data={nome,data_nasc:brToIso(document.getElementById('pm-nasc').value)||null,sexo:document.getElementById('pm-sexo').value||null,cpf:document.getElementById('pm-cpf').value.trim(),rg:document.getElementById('pm-rg').value.trim(),tel:document.getElementById('pm-tel').value.trim(),prontuario:document.getElementById('pm-pront').value.trim(),convenio:document.getElementById('pm-conv').value,matricula:document.getElementById('pm-mat').value.trim(),validade:brToIso(document.getElementById('pm-val').value)||null,endereco:document.getElementById('pm-end').value.trim(),bairro:document.getElementById('pm-bairro').value.trim(),cidade:document.getElementById('pm-cidade').value.trim(),uf:document.getElementById('pm-uf').value||null};
+  const{data:d,error}=await sb.from('patients').update(data).eq('id',editPat.id).select().single();
+  if(error){toast('Erro ao salvar',true);return;}
+  patients=patients.map(p=>p.id===editPat.id?d:p);
+  toast('✓ Paciente atualizado');closeM('pm');renderPacientes();
 }
 
 async function deletePaciente(id){
   const p=patients.find(x=>x.id===id);
-  if(!confirm(`Remover "${p?.nome}" e todos os seus registros?`))return;
+  if(!confirm(`Remover "${p?.nome}"?`))return;
   await sb.from('records').delete().eq('pat_id',id);
-  const {error}=await sb.from('patients').delete().eq('id',id);
-  if(error){toast('Erro ao remover',true);return;}
+  await sb.from('patients').delete().eq('id',id);
   patients=patients.filter(x=>x.id!==id);records=records.filter(r=>r.pat_id!==id);
   toast('Paciente removido');renderPacientes();
 }
 
 // ══ RELATÓRIO ══
-let relTipo='mensal',relMes=new Date().getMonth(),relAno=new Date().getFullYear(),relConv='';
-
 function renderRelatorio(){
-  const mc=document.getElementById('main-content');
   const mesOpts=MESES.map((m,i)=>`<option value="${i}"${i===relMes?' selected':''}>${m}</option>`).join('');
   const anos=[...new Set([...records.map(r=>r.date?.slice(0,4)),String(relAno),String(relAno-1)])].filter(Boolean).sort().reverse();
   const anoOpts=anos.map(a=>`<option value="${a}"${a===String(relAno)?' selected':''}>${a}</option>`).join('');
-  mc.innerHTML=`
+  document.getElementById('main-content').innerHTML=`
     <div class="sec-hdr">
       <span class="sec-title">Relatório</span>
       <div style="display:flex;gap:.5rem;flex-wrap:wrap">
         <button class="btn btn-g btn-sm" onclick="exportCSV()">⬇ CSV</button>
-        <button class="btn btn-g btn-sm" onclick="printReport(false)">🖨️ Imprimir</button>
-        <button class="btn btn-p btn-sm" onclick="printReport(true)">📄 Exportar PDF</button>
+        <button class="btn btn-g btn-sm" onclick="printReport()">🖨️ Imprimir</button>
+        <button class="btn btn-p btn-sm" onclick="printReport()">📄 PDF</button>
       </div>
     </div>
     <div class="msr">
-      <select id="rel-tipo-sel" onchange="relTipo=this.value;doRelatorio()"><option value="mensal"${relTipo==='mensal'?' selected':''}>Mensal</option><option value="anual"${relTipo==='anual'?' selected':''}>Anual</option></select>
-      <select id="rel-mes-sel" onchange="relMes=Number(this.value);doRelatorio()" ${relTipo==='anual'?'style="display:none"':''}>${mesOpts}</select>
-      <select id="rel-ano-sel" onchange="relAno=Number(this.value);doRelatorio()">${anoOpts}</select>
-      <select id="rel-conv-sel" onchange="relConv=this.value;doRelatorio()">
+      <select id="rel-tipo" onchange="relTipo=this.value;doRelatorio()"><option value="mensal"${relTipo==='mensal'?' selected':''}>Mensal</option><option value="anual"${relTipo==='anual'?' selected':''}>Anual</option></select>
+      <select id="rel-mes" onchange="relMes=Number(this.value);doRelatorio()" ${relTipo==='anual'?'style="display:none"':''}>${mesOpts}</select>
+      <select id="rel-ano" onchange="relAno=Number(this.value);doRelatorio()">${anoOpts}</select>
+      <select id="rel-conv" onchange="relConv=this.value;doRelatorio()">
         <option value="">Todos os convênios</option>
         <option value="IASEP"${relConv==='IASEP'?' selected':''}>IASEP</option>
         <option value="UNIMED"${relConv==='UNIMED'?' selected':''}>UNIMED</option>
@@ -956,16 +823,15 @@ function renderRelatorio(){
 }
 
 function doRelatorio(){
-  const ms=document.getElementById('rel-mes-sel');
-  if(ms)ms.style.display=relTipo==='anual'?'none':'';
+  const ms=document.getElementById('rel-mes');if(ms)ms.style.display=relTipo==='anual'?'none':'';
   if(relTipo==='anual')renderAnual();else renderMensal();
 }
 
 function relStats(T,AV,FNJ,label){
   document.getElementById('rel-stats').innerHTML=`
-    <div class="stat"><div class="stat-label">Sessões T</div><div class="stat-value" style="color:var(--t5)">${T}</div><div class="stat-sub">${label}</div></div>
-    <div class="stat"><div class="stat-label">Avaliações</div><div class="stat-value" style="color:var(--bl5)">${AV}</div><div class="stat-sub">${label}</div></div>
-    <div class="stat"><div class="stat-label">Faltas FNJ</div><div class="stat-value" style="color:var(--co3)">${FNJ}</div><div class="stat-sub">${label}</div></div>
+    <div class="stat"><div class="stat-label">Sessões T</div><div class="stat-value" style="color:var(--grn)">${T}</div><div class="stat-sub">${label}</div></div>
+    <div class="stat"><div class="stat-label">Avaliações</div><div class="stat-value" style="color:var(--blu)">${AV}</div><div class="stat-sub">${label}</div></div>
+    <div class="stat"><div class="stat-label">Faltas FNJ</div><div class="stat-value" style="color:var(--red)">${FNJ}</div><div class="stat-sub">${label}</div></div>
     <div class="stat"><div class="stat-label">Total</div><div class="stat-value">${T+AV+FNJ}</div><div class="stat-sub">atendimentos</div></div>`;
 }
 
@@ -973,22 +839,21 @@ function renderMensal(){
   const cc=document.getElementById('rel-chart-card');if(cc)cc.style.display='none';
   const mm=String(relMes+1).padStart(2,'0');
   const days=[];const dim=new Date(relAno,relMes+1,0).getDate();
-  for(let d=1;d<=dim;d++){const dt=new Date(relAno,relMes,d);if(dt.getDay()>0&&dt.getDay()<6)days.push(`${relAno}-${mm}-${String(d).padStart(2,'0')}`);}
+  for(let d=1;d<=dim;d++){const dt=new Date(relAno,relMes,d);if(dt.getDay()>0&&dt.getDay()<6)days.push({date:`${relAno}-${mm}-${String(d).padStart(2,'0')}`,dt});}
   const fR=relConv?records.filter(r=>patients.find(p=>p.id===r.pat_id)?.convenio===relConv):records;
   const mR=fR.filter(r=>r.date?.startsWith(`${relAno}-${mm}`));
   const T=mR.filter(r=>r.code==='T').length,AV=mR.filter(r=>r.code==='AV').length,FNJ=mR.filter(r=>r.code==='FNJ').length;
   relStats(T,AV,FNJ,MESES[relMes]);
   const pIds=[...new Set(mR.map(r=>r.pat_id))];
-  let pats=patients.filter(p=>pIds.includes(p.id));
-  if(relConv)pats=pats.filter(p=>p.convenio===relConv);
-  if(!pats.length){document.getElementById('rel-tabela').innerHTML='<div class="empty" style="padding:2rem"><div class="empty-icon">📊</div><div class="empty-text">Nenhum atendimento neste período.</div></div>';return;}
-  const dayH=days.map(d=>{const dt=new Date(d+'T12:00:00');return`<th class="dc">${dt.getDate()}<br><span style="font-size:9px;opacity:.8">${'DSTQQSS'[dt.getDay()]}</span></th>`;}).join('');
+  let pats=patients.filter(p=>pIds.includes(p.id)&&(!relConv||p.convenio===relConv));
+  if(!pats.length){document.getElementById('rel-tabela').innerHTML='<div class="empty" style="padding:2rem"><div class="empty-icon">📊</div><div class="empty-text">Nenhum atendimento.</div></div>';return;}
+  const dayH=days.map(({date,dt})=>`<th class="dc">${dt.getDate()}<br><span style="font-size:9px;opacity:.7">${DIAS_PT[dt.getDay()]}</span></th>`).join('');
   const rows=pats.map((p,i)=>{
-    const cells=days.map(d=>{const r=records.find(x=>x.pat_id===p.id&&x.date===d);if(!r)return'<td class="cc"></td>';const lbl=r.code==='T'?`T${r.t_num}`:r.code;const cls=r.code==='T'?'ct':r.code==='AV'?'cav':'cfnj';return`<td class="cc ${cls}">${lbl}</td>`;}).join('');
+    const cells=days.map(({date})=>{const r=records.find(x=>x.pat_id===p.id&&x.date===date);if(!r)return'<td class="cc"></td>';const lbl=r.code==='T'?`T${r.t_num}`:r.code;const cls=r.code==='T'?'ct':r.code==='AV'?'cav':'cfnj';return`<td class="cc ${cls}">${lbl}</td>`;}).join('');
     const tT=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(`${relAno}-${mm}`)).length;
-    return`<tr><td style="color:var(--g4);font-size:11px;text-align:center">${i+1}</td><td class="nc">${p.nome}</td>${cells}<td style="text-align:center;font-weight:700;color:var(--t7)">${tT}</td></tr>`;
+    return`<tr><td style="color:var(--n4);font-size:11px;text-align:center">${i+1}</td><td class="nc">${p.nome}</td>${cells}<td style="text-align:center;font-weight:700;color:var(--grn)">${tT}</td></tr>`;
   }).join('');
-  const totR=days.map(d=>{const c=records.filter(r=>r.date===d&&r.code==='T'&&(relConv?patients.find(p=>p.id===r.pat_id)?.convenio===relConv:true)).length;return`<td style="text-align:center">${c||''}</td>`;}).join('');
+  const totR=days.map(({date})=>{const c=records.filter(r=>r.date===date&&r.code==='T'&&(relConv?patients.find(p=>p.id===r.pat_id)?.convenio===relConv:true)).length;return`<td style="text-align:center">${c||''}</td>`;}).join('');
   document.getElementById('rel-tabela').innerHTML=`<table class="rel-tbl"><thead><tr><th>Nº</th><th class="nc" style="text-align:left">PACIENTE</th>${dayH}<th>T</th></tr></thead><tbody>${rows}</tbody><tfoot><tr><td colspan="2" style="text-align:left;padding-left:1rem">TOTAL</td>${totR}<td>${T}</td></tr></tfoot></table>`;
 }
 
@@ -1001,173 +866,83 @@ function renderAnual(){
   const mx=Math.max(...mc,1);
   document.getElementById('rel-chart').innerHTML=`<div class="cbw">${mc.map((v,m)=>`<div class="cbc"><div class="cbv">${v||''}</div><div class="cbb" style="height:${Math.round((v/mx)*80)+4}px"></div><div class="cbl">${MS[m]}</div></div>`).join('')}</div>`;
   const pIds=[...new Set(yR.map(r=>r.pat_id))];
-  let pats=patients.filter(p=>pIds.includes(p.id));if(relConv)pats=pats.filter(p=>p.convenio===relConv);
+  let pats=patients.filter(p=>pIds.includes(p.id)&&(!relConv||p.convenio===relConv));
   const hdr=MS.map(m=>`<th>${m}</th>`).join('');
   const rows=pats.map((p,i)=>{
-    const cols=Array.from({length:12},(_,m)=>{const mm=String(m+1).padStart(2,'0');const t=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(`${relAno}-${mm}`)).length;const f=records.filter(r=>r.pat_id===p.id&&r.code==='FNJ'&&r.date?.startsWith(`${relAno}-${mm}`)).length;return`<td style="text-align:center;color:${t?'var(--t7)':'var(--g2)'}">${t||''}${f?`<span style="color:var(--co3);font-size:10px"> F${f}</span>`:''}</td>`;}).join('');
+    const cols=Array.from({length:12},(_,m)=>{const mm=String(m+1).padStart(2,'0');const t=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(`${relAno}-${mm}`)).length;const f=records.filter(r=>r.pat_id===p.id&&r.code==='FNJ'&&r.date?.startsWith(`${relAno}-${mm}`)).length;return`<td style="text-align:center;color:${t?'var(--grn)':'var(--n3)'};font-weight:${t?700:400}">${t||''}${f?`<span style="color:var(--red);font-size:10px"> F${f}</span>`:''}</td>`;}).join('');
     const tot=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(String(relAno))).length;
-    return`<tr><td style="color:var(--g4);font-size:11px;text-align:center">${i+1}</td><td class="nc">${p.nome}</td>${cols}<td style="text-align:center;font-weight:700;color:var(--t7)">${tot}</td></tr>`;
+    return`<tr><td style="color:var(--n4);font-size:11px;text-align:center">${i+1}</td><td class="nc">${p.nome}</td>${cols}<td style="text-align:center;font-weight:700;color:var(--grn)">${tot}</td></tr>`;
   }).join('');
   const totR=Array.from({length:12},(_,m)=>{const mm=String(m+1).padStart(2,'0');const t=yR.filter(r=>r.code==='T'&&r.date?.startsWith(`${relAno}-${mm}`)).length;return`<td style="text-align:center">${t||''}</td>`;}).join('');
-  document.getElementById('rel-tabela').innerHTML=`<table class="rel-tbl"><thead><tr><th>Nº</th><th class="nc" style="text-align:left">PACIENTE</th>${hdr}<th>TOTAL</th></tr></thead><tbody>${rows||'<tr><td colspan="15" style="text-align:center;padding:1.5rem;color:var(--g4)">Nenhum registro.</td></tr>'}</tbody><tfoot><tr><td colspan="2" style="text-align:left;padding-left:1rem">TOTAL</td>${totR}<td>${T}</td></tr></tfoot></table>`;
+  document.getElementById('rel-tabela').innerHTML=`<table class="rel-tbl"><thead><tr><th>Nº</th><th class="nc" style="text-align:left">PACIENTE</th>${hdr}<th>TOTAL</th></tr></thead><tbody>${rows||'<tr><td colspan="15" style="text-align:center;padding:1.5rem;color:var(--n4)">Nenhum registro.</td></tr>'}</tbody><tfoot><tr><td colspan="2" style="text-align:left;padding-left:1rem">TOTAL</td>${totR}<td>${T}</td></tr></tfoot></table>`;
 }
 
-function printReport(isPDF){
-  const tipo=relTipo;
-  const mes=relMes;
-  const ano=relAno;
-  const conv=relConv;
-  const periodo=tipo==='anual'?`Anual — ${ano}`:`${MESES[mes]} de ${ano}`;
-  const convLabel=conv?` · ${conv}`:'';
+function printReport(){
+  const mm=String(relMes+1).padStart(2,'0');
+  const fR=relConv?records.filter(r=>patients.find(p=>p.id===r.pat_id)?.convenio===relConv):records;
+  const base=relTipo==='anual'?fR.filter(r=>r.date?.startsWith(String(relAno))):fR.filter(r=>r.date?.startsWith(`${relAno}-${mm}`));
+  const T=base.filter(r=>r.code==='T').length,AV=base.filter(r=>r.code==='AV').length,FNJ=base.filter(r=>r.code==='FNJ').length;
+  const periodo=relTipo==='anual'?`Anual — ${relAno}`:`${MESES[relMes]} de ${relAno}`;
+  const convLabel=relConv?` · ${relConv}`:'';
 
-  // stats
-  const mm=String(mes+1).padStart(2,'0');
-  const fR=conv?records.filter(r=>patients.find(p=>p.id===r.pat_id)?.convenio===conv):records;
-  const base=tipo==='anual'?fR.filter(r=>r.date?.startsWith(String(ano))):fR.filter(r=>r.date?.startsWith(`${ano}-${mm}`));
-  const T=base.filter(r=>r.code==='T').length;
-  const AV=base.filter(r=>r.code==='AV').length;
-  const FNJ=base.filter(r=>r.code==='FNJ').length;
-
-  // build table
   let tableHTML='';
-  if(tipo==='mensal'){
-    const dim=new Date(ano,mes+1,0).getDate();
+  if(relTipo==='mensal'){
+    const dim=new Date(relAno,relMes+1,0).getDate();
     const days=[];
-    for(let d=1;d<=dim;d++){const dt=new Date(ano,mes,d);if(dt.getDay()>0&&dt.getDay()<6)days.push(`${ano}-${mm}-${String(d).padStart(2,'0')}`);}
+    for(let d=1;d<=dim;d++){const dt=new Date(relAno,relMes,d);if(dt.getDay()>0&&dt.getDay()<6)days.push({date:`${relAno}-${mm}-${String(d).padStart(2,'0')}`,dt});}
     const pIds=[...new Set(base.map(r=>r.pat_id))];
-    const pats=patients.filter(p=>pIds.includes(p.id)&&(!conv||p.convenio===conv));
-    const dayH=days.map(d=>{const dt=new Date(d+'T12:00:00');return`<th style="text-align:center;min-width:32px;font-size:10px">${dt.getDate()}<br><span style="font-size:9px;opacity:.7">${'DSTQQSS'[dt.getDay()]}</span></th>`;}).join('');
+    const pats=patients.filter(p=>pIds.includes(p.id)&&(!relConv||p.convenio===relConv));
+    const dayH=days.map(({dt})=>`<th style="text-align:center;min-width:36px;font-size:9px;padding:4px 2px;border:1px solid #ccc;background:#1E1E3A;color:#C8B8FF"><div style="font-weight:700">${DIAS_PT[dt.getDay()]}</div><div style="opacity:.8">${String(dt.getDate()).padStart(2,'0')}/${mm}</div></th>`).join('');
     const rows=pats.map((p,i)=>{
-      const cells=days.map(d=>{const r=records.find(x=>x.pat_id===p.id&&x.date===d);if(!r)return'<td></td>';const lbl=r.code==='T'?`T${r.t_num}`:r.code;const col=r.code==='T'?'#085041':r.code==='AV'?'#185FA5':'#993C1D';return`<td style="text-align:center;font-weight:700;font-size:10px;color:${col}">${lbl}</td>`;}).join('');
-      const tT=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(`${ano}-${mm}`)).length;
-      return`<tr style="background:${i%2===1?'#f8f7f4':'#fff'}"><td style="text-align:center;color:#888;font-size:10px">${i+1}</td><td style="font-weight:500;font-size:12px;padding:5px 8px">${p.nome}</td>${cells}<td style="text-align:center;font-weight:700;color:#085041">${tT}</td></tr>`;
+      const cells=days.map(({date})=>{const r=records.find(x=>x.pat_id===p.id&&x.date===date);if(!r)return'<td style="border:1px solid #ddd;text-align:center;padding:3px"></td>';const lbl=r.code==='T'?`T${r.t_num}`:r.code;const col=r.code==='T'?'#1B5E20':r.code==='AV'?'#0D47A1':'#B71C1C';return`<td style="border:1px solid #ddd;text-align:center;padding:3px;font-size:10px;font-weight:700;color:${col}">${lbl}</td>`;}).join('');
+      const tT=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(`${relAno}-${mm}`)).length;
+      return`<tr style="background:${i%2===0?'#fff':'#f5f5f5'}"><td style="border:1px solid #ddd;text-align:center;font-size:10px;color:#666;padding:4px">${i+1}</td><td style="border:1px solid #ddd;padding:4px 8px;font-size:11px;font-weight:600;text-transform:uppercase">${p.nome}</td>${cells}<td style="border:1px solid #ddd;text-align:center;font-weight:700;color:#1B5E20;font-size:11px">${tT||''}</td></tr>`;
     }).join('');
-    const totR=days.map(d=>{const c=records.filter(r=>r.date===d&&r.code==='T'&&(conv?patients.find(p=>p.id===r.pat_id)?.convenio===conv:true)).length;return`<td style="text-align:center;font-weight:700;font-size:11px">${c||''}</td>`;}).join('');
-    tableHTML=`<table style="width:100%;border-collapse:collapse;font-size:12px">
-      <thead><tr style="background:#04342C;color:#fff">
-        <th style="padding:6px 8px;text-align:center;font-size:10px">Nº</th>
-        <th style="padding:6px 8px;text-align:left;font-size:11px;min-width:160px">PACIENTE</th>
-        ${dayH}
-        <th style="padding:6px 8px;text-align:center;font-size:10px">T</th>
-      </tr></thead>
-      <tbody>${rows}</tbody>
-      <tfoot><tr style="background:#EEEDE8;border-top:2px solid #D3D1C7">
-        <td colspan="2" style="padding:5px 8px;font-weight:700;font-size:11px">TOTAL</td>${totR}
-        <td style="text-align:center;font-weight:700">${T}</td>
-      </tr></tfoot>
-    </table>`;
+    const totR=days.map(({date})=>{const c=records.filter(r=>r.date===date&&r.code==='T'&&(relConv?patients.find(p=>p.id===r.pat_id)?.convenio===relConv:true)).length;return`<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:10px">${c||''}</td>`;}).join('');
+    tableHTML=`<table style="width:100%;border-collapse:collapse"><thead><tr style="background:#1E1E3A;color:#C8B8FF"><th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px;width:24px">Nº</th><th style="border:1px solid #444;padding:6px;text-align:left;font-size:11px;min-width:180px">PACIENTE</th>${dayH}<th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px;width:28px">T</th></tr></thead><tbody>${rows}</tbody><tfoot><tr style="background:#e8e8e8"><td colspan="2" style="border:1px solid #bbb;padding:5px 8px;font-weight:700;font-size:11px">TOTAL</td>${totR}<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:11px">${T}</td></tr></tfoot></table>`;
   } else {
     const pIds=[...new Set(base.map(r=>r.pat_id))];
-    const pats=patients.filter(p=>pIds.includes(p.id)&&(!conv||p.convenio===conv));
-    const hdr=MS.map(m=>`<th style="padding:5px 4px;text-align:center;font-size:10px">${m}</th>`).join('');
-    const rows=pats.map((p,i)=>{
-      const cols=Array.from({length:12},(_,m)=>{const mm2=String(m+1).padStart(2,'0');const t=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(`${ano}-${mm2}`)).length;return`<td style="text-align:center;font-size:11px;color:${t?'#085041':'#ccc'};font-weight:${t?700:400}">${t||''}</td>`;}).join('');
-      const tot=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(String(ano))).length;
-      return`<tr style="background:${i%2===1?'#f8f7f4':'#fff'}"><td style="text-align:center;color:#888;font-size:10px">${i+1}</td><td style="font-weight:500;font-size:12px;padding:5px 8px">${p.nome}</td>${cols}<td style="text-align:center;font-weight:700;color:#085041">${tot}</td></tr>`;
-    }).join('');
-    const totR=Array.from({length:12},(_,m)=>{const mm2=String(m+1).padStart(2,'0');const t=base.filter(r=>r.code==='T'&&r.date?.startsWith(`${ano}-${mm2}`)).length;return`<td style="text-align:center;font-weight:700;font-size:11px">${t||''}</td>`;}).join('');
-    tableHTML=`<table style="width:100%;border-collapse:collapse;font-size:12px">
-      <thead><tr style="background:#04342C;color:#fff">
-        <th style="padding:6px 8px;text-align:center;font-size:10px">Nº</th>
-        <th style="padding:6px 8px;text-align:left;font-size:11px;min-width:160px">PACIENTE</th>
-        ${hdr}
-        <th style="padding:6px 8px;text-align:center;font-size:10px">TOTAL</th>
-      </tr></thead>
-      <tbody>${rows}</tbody>
-      <tfoot><tr style="background:#EEEDE8;border-top:2px solid #D3D1C7">
-        <td colspan="2" style="padding:5px 8px;font-weight:700;font-size:11px">TOTAL</td>${totR}
-        <td style="text-align:center;font-weight:700">${T}</td>
-      </tr></tfoot>
-    </table>`;
+    const pats=patients.filter(p=>pIds.includes(p.id)&&(!relConv||p.convenio===relConv));
+    const hdr=MS.map(m=>`<th style="border:1px solid #444;padding:5px 4px;text-align:center;font-size:10px;background:#1E1E3A;color:#C8B8FF">${m}</th>`).join('');
+    const rows=pats.map((p,i)=>{const cols=Array.from({length:12},(_,m)=>{const mm2=String(m+1).padStart(2,'0');const t=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(`${relAno}-${mm2}`)).length;return`<td style="border:1px solid #ddd;text-align:center;font-size:11px;color:${t?'#1B5E20':'#ccc'};font-weight:${t?700:400};padding:4px">${t||''}</td>`;}).join('');const tot=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(String(relAno))).length;return`<tr style="background:${i%2===0?'#fff':'#f5f5f5'}"><td style="border:1px solid #ddd;text-align:center;color:#666;font-size:10px;padding:4px">${i+1}</td><td style="border:1px solid #ddd;padding:4px 8px;font-size:11px;font-weight:600;text-transform:uppercase">${p.nome}</td>${cols}<td style="border:1px solid #ddd;text-align:center;font-weight:700;color:#1B5E20;font-size:11px;padding:4px">${tot}</td></tr>`;}).join('');
+    const totR=Array.from({length:12},(_,m)=>{const mm2=String(m+1).padStart(2,'0');const t=base.filter(r=>r.code==='T'&&r.date?.startsWith(`${relAno}-${mm2}`)).length;return`<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:10px;padding:4px">${t||''}</td>`;}).join('');
+    tableHTML=`<table style="width:100%;border-collapse:collapse"><thead><tr style="background:#1E1E3A;color:#C8B8FF"><th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px;width:24px">Nº</th><th style="border:1px solid #444;padding:6px;text-align:left;font-size:11px;min-width:180px">PACIENTE</th>${hdr}<th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px">TOTAL</th></tr></thead><tbody>${rows}</tbody><tfoot><tr style="background:#e8e8e8"><td colspan="2" style="border:1px solid #bbb;padding:5px 8px;font-weight:700;font-size:11px">TOTAL</td>${totR}<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:11px">${T}</td></tr></tfoot></table>`;
   }
 
   const now=new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
-  const html=`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/>
-  <title>Relatório ${periodo}</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Segoe UI',Arial,sans-serif;color:#2C2C2A;padding:24px;font-size:13px}
-    .hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #04342C}
-    .brand{font-size:1.6rem;font-weight:700;color:#04342C}
-    .brand span{color:#1D9E75}
-    .hdr-right{text-align:right;font-size:12px;color:#888}
-    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
-    .stat{border:1px solid #D3D1C7;border-radius:8px;padding:10px 14px}
-    .sl{font-size:10px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
-    .sv{font-size:1.7rem;font-weight:700;line-height:1}
-    .sv-t{color:#0F6E56}.sv-av{color:#185FA5}.sv-fnj{color:#D85A30}.sv-tot{color:#2C2C2A}
-    .tbl-wrap{overflow:auto;border-radius:8px;border:1px solid #D3D1C7}
-    .ftr{margin-top:20px;padding-top:10px;border-top:1px solid #D3D1C7;font-size:11px;color:#888;display:flex;justify-content:space-between}
-    @media print{body{padding:16px}@page{margin:1.5cm;size:A4 landscape}}
-  </style></head><body>
-  <div class="hdr">
-    <div>
-      <div class="brand">Fisio<span>Painel</span></div>
-      <div style="font-size:13px;color:#5F5E5A;margin-top:4px">Relatório de Atendimentos</div>
-      <div style="font-size:13px;font-weight:600;color:#04342C;margin-top:2px">${periodo}${convLabel}</div>
-    </div>
-    <div class="hdr-right">
-      <div>Emitido em ${now}</div>
-      <div style="margin-top:4px">Por: ${session.nome}</div>
-    </div>
-  </div>
+  const w=window.open('','_blank','width=1200,height=800');
+  w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/>
+  <title>Atendimentos — ${periodo}</title>
+  <style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;color:#1a1a1a;padding:20px;background:#fff}
+  .htitle{background:#1E1E3A;color:#fff;text-align:center;padding:12px;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+  .hsub{background:#2C1F6A;color:#C8B8FF;text-align:center;padding:6px;font-size:12px;margin-bottom:14px}
+  .stats{display:flex;gap:10px;margin-bottom:14px}.stat{border:1px solid #ddd;border-radius:6px;padding:8px 16px;flex:1;text-align:center}
+  .sl{font-size:9px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.05em}.sv{font-size:1.3rem;font-weight:700}
+  .ftr{margin-top:14px;padding-top:8px;border-top:1px solid #ddd;font-size:10px;color:#888;display:flex;justify-content:space-between}
+  @media print{body{padding:12px}@page{margin:1cm;size:A4 landscape}}</style></head><body>
+  <div class="htitle">ATENDIMENTOS IASEP SAÚDE CENTER</div>
+  <div class="hsub">${periodo}${convLabel} &nbsp;·&nbsp; Emitido em ${now} &nbsp;·&nbsp; ${session.nome}</div>
   <div class="stats">
-    <div class="stat"><div class="sl">Sessões T</div><div class="sv sv-t">${T}</div></div>
-    <div class="stat"><div class="sl">Avaliações</div><div class="sv sv-av">${AV}</div></div>
-    <div class="stat"><div class="sl">Faltas FNJ</div><div class="sv sv-fnj">${FNJ}</div></div>
-    <div class="stat"><div class="sl">Total</div><div class="sv sv-tot">${T+AV+FNJ}</div></div>
+    <div class="stat"><div class="sl">Sessões T</div><div class="sv" style="color:#1B5E20">${T}</div></div>
+    <div class="stat"><div class="sl">Avaliações</div><div class="sv" style="color:#0D47A1">${AV}</div></div>
+    <div class="stat"><div class="sl">Faltas FNJ</div><div class="sv" style="color:#B71C1C">${FNJ}</div></div>
+    <div class="stat"><div class="sl">Total</div><div class="sv">${T+AV+FNJ}</div></div>
   </div>
-  <div class="tbl-wrap">${tableHTML}</div>
-  <div class="ftr">
-    <span>FisioPainel — Sistema de Gestão de Atendimentos</span>
-    <span>${periodo}${convLabel}</span>
-  </div>
-  ${isPDF?'<script>window.onload=()=>{window.print();}<\/script>':'<script>window.onload=()=>{window.print();}<\/script>'}
-  
-<!-- MODAL ACESSO -->
-<div class="mbd" id="ac-modal" style="display:none" onclick="if(event.target===this)closeM('ac-modal')">
-  <div class="modal" style="max-width:380px">
-    <div class="mhdr"><span class="mtitle">Configurar Acesso</span><button class="mclose" onclick="closeM('ac-modal')">✕</button></div>
-    <div class="mbody">
-      <input type="hidden" id="ac-uid"/>
-      <div style="font-weight:600;font-size:15px;margin-bottom:1rem" id="ac-nome"></div>
-      <div class="fg" style="margin-bottom:1rem">
-        <span class="lbl">Período de acesso</span>
-        <select id="ac-period" style="font-size:15px;padding:.75rem 1rem">
-          <option value="30d">📅 30 dias</option>
-          <option value="2m">📅 2 meses</option>
-          <option value="3m">📅 3 meses</option>
-          <option value="6m">📅 6 meses</option>
-          <option value="1a">📅 1 ano</option>
-          <option value="ilimitado">♾️ Ilimitado</option>
-        </select>
-      </div>
-      <div style="padding:.75rem 1rem;background:var(--t0);border-radius:var(--rs);font-size:13px;color:var(--t7)">
-        O acesso começa a contar a partir de hoje. O cliente será bloqueado automaticamente ao expirar.
-      </div>
-    </div>
-    <div class="mfooter">
-      <button class="btn btn-g btn-sm" onclick="closeM('ac-modal')">Cancelar</button>
-      <button class="btn btn-p btn-sm" onclick="saveAcesso()">✓ Confirmar</button>
-    </div>
-  </div>
-</div>
-
-</body></html>`;
-
-  const w=window.open('','_blank','width=1000,height=700');
-  w.document.write(html);
+  ${tableHTML}
+  <div class="ftr"><span>FisioPainel · Desenvolvido por Eduardo Ribeiro</span><span>${periodo}${convLabel}</span></div>
+  <script>window.onload=()=>{window.print()}<\/script></body></html>`);
   w.document.close();
 }
 
 function exportCSV(){
+  const mm=String(relMes+1).padStart(2,'0');
   const fP=relConv?patients.filter(p=>p.convenio===relConv):patients;
   let csv='';
   if(relTipo==='anual'){
     csv=`Paciente,Convênio,${MS.join(',')},Total\n`;
-    fP.forEach(p=>{const m=Array.from({length:12},(_,i)=>{const mm=String(i+1).padStart(2,'0');return records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(`${relAno}-${mm}`)).length;});csv+=`"${p.nome}","${p.convenio}",${m.join(',')},${m.reduce((a,b)=>a+b,0)}\n`;});
+    fP.forEach(p=>{const m=Array.from({length:12},(_,i)=>{const mm2=String(i+1).padStart(2,'0');return records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(`${relAno}-${mm2}`)).length;});csv+=`"${p.nome}","${p.convenio}",${m.join(',')},${m.reduce((a,b)=>a+b,0)}\n`;});
   } else {
-    const mm=String(relMes+1).padStart(2,'0');const dim=new Date(relAno,relMes+1,0).getDate();
+    const dim=new Date(relAno,relMes+1,0).getDate();
     const days=Array.from({length:dim},(_,i)=>`${relAno}-${mm}-${String(i+1).padStart(2,'0')}`);
     csv=`Paciente,Convênio,${days.map(d=>new Date(d+'T12:00:00').getDate()).join(',')},Total T\n`;
     fP.forEach(p=>{const cells=days.map(d=>{const r=records.find(x=>x.pat_id===p.id&&x.date===d);return r?(r.code==='T'?`T${r.t_num}`:r.code):'';});const t=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(`${relAno}-${mm}`)).length;csv+=`"${p.nome}","${p.convenio}",${cells.map(c=>`"${c}"`).join(',')},${t}\n`;});
@@ -1177,108 +952,59 @@ function exportCSV(){
   toast('✓ CSV exportado');
 }
 
-
-// ══ VISÃO GERAL ADMIN ══
+// ══ VISÃO GERAL ══
 async function renderClientes(){
   const mc=document.getElementById('main-content');
-  mc.innerHTML='<div class="loading"><div class="spinner"></div> Carregando...</div>';
-  // load all data fresh
-  const [pr,rr,ur]=await Promise.all([
-    sb.from('patients').select('*'),
-    sb.from('records').select('*'),
-    sb.from('users').select('*').order('nome'),
-  ]);
-  const allPats=pr.data||[];const allRecs=rr.data||[];const allUsers=ur.data||[];
-  const clientes=allUsers.filter(u=>u.role!=='admin');
+  mc.innerHTML='<div class="empty"><div class="empty-icon" style="font-size:1.5rem;animation:spin .7s linear infinite">⟳</div><div class="empty-text">Carregando...</div></div>';
+  const[pr,rr,ur]=await Promise.all([sb.from('patients').select('*'),sb.from('records').select('*'),sb.from('users').select('*').order('nome')]);
+  const allP=pr.data||[],allR=rr.data||[],allU=ur.data||[];
+  const clientes=allU.filter(u=>u.role!=='admin');
   const now=new Date();
-
-  const statusBadge=(u)=>{
-    if(!u.ativo)return`<span class="bdg" style="background:var(--co0);color:var(--co5)">Suspensa</span>`;
-    if(u.expires_at&&new Date(u.expires_at)<now)return`<span class="bdg" style="background:var(--am0);color:var(--am5)">Expirada</span>`;
-    if(!u.expires_at)return`<span class="bdg" style="background:var(--t0);color:var(--t7)">Ilimitado</span>`;
+  const statusBdg=u=>{
+    if(u.ativo===false)return`<span class="bdg" style="background:var(--red0);color:var(--red)">Suspensa</span>`;
+    if(u.expires_at&&new Date(u.expires_at)<now)return`<span class="bdg" style="background:var(--amb0);color:var(--amb)">Expirada</span>`;
+    if(!u.expires_at)return`<span class="bdg" style="background:var(--p9);color:var(--p1)">Ilimitado</span>`;
     const dias=Math.ceil((new Date(u.expires_at)-now)/(1000*60*60*24));
-    if(dias<=7)return`<span class="bdg" style="background:var(--am0);color:var(--am5)">${dias}d restantes</span>`;
-    return`<span class="bdg" style="background:var(--t0);color:var(--t7)">Ativo</span>`;
+    if(dias<=7)return`<span class="bdg" style="background:var(--amb0);color:var(--amb)">${dias}d restantes</span>`;
+    return`<span class="bdg" style="background:var(--grn0);color:var(--grn)">Ativo</span>`;
   };
-
+  const isOnline=u=>u.last_seen&&(now-new Date(u.last_seen))<300000;
   const cards=clientes.map(u=>{
-    const uPats=allPats.filter(p=>p.owner_id===u.id).length;
-    const uRecs=allRecs.filter(r=>r.owner_id===u.id);
-    const uT=uRecs.filter(r=>r.code==='T').length;
-    const uFNJ=uRecs.filter(r=>r.code==='FNJ').length;
+    const uP=allP.filter(p=>p.owner_id===u.id).length;
+    const uR=allR.filter(r=>r.owner_id===u.id);
+    const uT=uR.filter(r=>r.code==='T').length,uFNJ=uR.filter(r=>r.code==='FNJ').length;
     const exp=u.expires_at?new Date(u.expires_at).toLocaleDateString('pt-BR'):'Sem limite';
-    const dias=u.expires_at?Math.ceil((new Date(u.expires_at)-now)/(1000*60*60*24)):null;
-    const diasColor=dias!==null&&dias<=7?'var(--co3)':dias!==null&&dias<=30?'var(--am3)':'var(--t5)';
-    return`<div style="background:#fff;border-radius:var(--r);border:1px solid var(--g2);padding:1.25rem 1.5rem;box-shadow:var(--sh);margin-bottom:1rem">
+    const on=isOnline(u);
+    return`<div style="background:var(--n1);border-radius:var(--r);border:1px solid var(--n2);padding:1.25rem 1.5rem;margin-bottom:1rem">
       <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem;flex-wrap:wrap">
-        <div style="width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;background:var(--t0);color:var(--t7);flex-shrink:0">${ini(u.nome)}</div>
+        <div style="width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;background:var(--p9);color:var(--p1);flex-shrink:0">${ini(u.nome)}</div>
         <div style="flex:1;min-width:0">
           <div style="display:flex;align-items:center;gap:7px">
-            <span class="dot ${(u.last_seen&&(now-new Date(u.last_seen))<300000)?'dot-on':'dot-off'}" title="${(u.last_seen&&(now-new Date(u.last_seen))<300000)?'Online':'Offline'}"></span>
-            <span style="font-weight:600;font-size:15px">${u.nome}</span>
+            <span class="dot ${on?'dot-on':'dot-off'}" title="${on?'Online':'Offline'}"></span>
+            <span style="font-weight:600;font-size:15px;color:var(--n7)">${u.nome}</span>
           </div>
-          <div style="font-size:12px;color:var(--g4);margin-top:2px">@${u.login} · ${(u.last_seen&&(now-new Date(u.last_seen))<300000)?'<span style="color:#22c55e;font-weight:500">Online agora</span>':(u.last_seen?'Visto '+fmtDatetime(u.last_seen):'Nunca acessou')}</div>
+          <div style="font-size:12px;color:var(--n4);margin-top:2px">@${u.login} · ${on?'<span style="color:var(--grn);font-weight:500">Online agora</span>':fmtDatetime(u.last_seen)}</div>
         </div>
         <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
-          ${statusBadge(u)}
-          <button class="btn btn-g btn-sm" onclick="toggleAtivo('${u.id}',${u.ativo},'${u.nome}')">${u.ativo?'⏸ Suspender':'▶ Ativar'}</button>
+          ${statusBdg(u)}
+          <button class="btn btn-g btn-sm" onclick="toggleAtivo('${u.id}',${u.ativo!==false},'${u.nome}')">${u.ativo===false?'▶ Ativar':'⏸ Suspender'}</button>
           <button class="btn btn-p btn-sm" onclick="openAcessoModal('${u.id}','${u.nome}')">⏱ Acesso</button>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1rem">
-        <div style="background:var(--g0);border-radius:var(--rs);padding:.75rem 1rem">
-          <div style="font-size:10px;color:var(--g4);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Pacientes</div>
-          <div style="font-family:var(--FT);font-size:1.5rem;color:var(--g8)">${uPats}</div>
-        </div>
-        <div style="background:var(--g0);border-radius:var(--rs);padding:.75rem 1rem">
-          <div style="font-size:10px;color:var(--g4);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Sessões T</div>
-          <div style="font-family:var(--FT);font-size:1.5rem;color:var(--t5)">${uT}</div>
-        </div>
-        <div style="background:var(--g0);border-radius:var(--rs);padding:.75rem 1rem">
-          <div style="font-size:10px;color:var(--g4);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Faltas FNJ</div>
-          <div style="font-family:var(--FT);font-size:1.5rem;color:var(--co3)">${uFNJ}</div>
-        </div>
-        <div style="background:var(--g0);border-radius:var(--rs);padding:.75rem 1rem">
-          <div style="font-size:10px;color:var(--g4);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Acesso até</div>
-          <div style="font-size:13px;font-weight:600;color:${diasColor};margin-top:4px">${exp}</div>
-        </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem">
+        <div style="background:var(--n2);border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:var(--n4);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Pacientes</div><div style="font-family:var(--FT);font-size:1.4rem;color:var(--n7)">${uP}</div></div>
+        <div style="background:var(--n2);border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:var(--n4);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Sessões T</div><div style="font-family:var(--FT);font-size:1.4rem;color:var(--grn)">${uT}</div></div>
+        <div style="background:var(--n2);border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:var(--n4);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Faltas FNJ</div><div style="font-family:var(--FT);font-size:1.4rem;color:var(--red)">${uFNJ}</div></div>
+        <div style="background:var(--n2);border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:var(--n4);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Acesso até</div><div style="font-size:13px;font-weight:600;color:var(--n6);margin-top:4px">${exp}</div></div>
       </div>
     </div>`;
   }).join('');
-
-  mc.innerHTML=`
-    <div class="sec-hdr">
-      <span class="sec-title">Visão Geral dos Clientes</span>
-      <span style="font-size:13px;color:var(--g4)">${clientes.length} cliente${clientes.length!==1?'s':''}</span>
-    </div>
-    ${clientes.length?cards:'<div class="empty"><div class="empty-icon">👥</div><div class="empty-text">Nenhum cliente cadastrado ainda.</div></div>'}`;
-}
-
-async 
-function toggleSidebar(){
-  const sidebarEl=document.getElementById('sidebar');
-  const ov=document.getElementById('sidebar-overlay');
-  if(!sidebarEl||!ov)return;
-  sidebarEl.classList.toggle('open');
-  ov.classList.toggle('open');
-}
-
-function closeSidebar(){
-  const sidebarEl=document.getElementById('sidebar');
-  const ov=document.getElementById('sidebar-overlay');
-  if(sidebarEl)sidebarEl.classList.remove('open');
-  if(ov)ov.classList.remove('open');
-}
-
-async function updateLastSeen(){
-  if(!session)return;
-  await sb.from('users').update({last_seen:new Date().toISOString()}).eq('id',session.id);
+  mc.innerHTML=`<div class="sec-hdr"><span class="sec-title">Visão Geral dos Clientes</span><span style="font-size:13px;color:var(--n4)">${clientes.length} fisioterapeuta${clientes.length!==1?'s':''}</span></div>${clientes.length?cards:'<div class="empty"><div class="empty-icon">👥</div><div class="empty-text">Nenhum fisioterapeuta cadastrado.</div></div>'}`;
 }
 
 async function toggleAtivo(id,ativo,nome){
-  const acao=ativo?'suspender':'ativar';
-  if(!confirm(`Deseja ${acao} o acesso de ${nome}?`))return;
-  const {error}=await sb.from('users').update({ativo:!ativo}).eq('id',id);
+  if(!confirm(`Deseja ${ativo?'suspender':'ativar'} o acesso de ${nome}?`))return;
+  const{error}=await sb.from('users').update({ativo:!ativo}).eq('id',id);
   if(error){toast('Erro ao atualizar',true);return;}
   toast(`✓ Acesso de ${nome} ${ativo?'suspenso':'ativado'}`);
   renderClientes();
@@ -1295,29 +1021,21 @@ async function saveAcesso(){
   const uid=document.getElementById('ac-uid').value;
   const period=document.getElementById('ac-period').value;
   let expires=null;
-  if(period!=='ilimitado'){
-    const now=new Date();
-    const map={'30d':30,'2m':60,'3m':90,'6m':180,'1a':365};
-    const dias=map[period]||30;
-    expires=new Date(now.getTime()+dias*24*60*60*1000).toISOString();
-  }
-  const {error}=await sb.from('users').update({expires_at:expires,ativo:true}).eq('id',uid);
+  if(period!=='ilimitado'){const map={'30d':30,'2m':60,'3m':90,'6m':180,'1a':365};expires=new Date(Date.now()+map[period]*24*60*60*1000).toISOString();}
+  const{error}=await sb.from('users').update({expires_at:expires,ativo:true}).eq('id',uid);
   if(error){toast('Erro ao salvar',true);return;}
-  const nome=document.getElementById('ac-nome').textContent;
   const labels={'30d':'30 dias','2m':'2 meses','3m':'3 meses','6m':'6 meses','1a':'1 ano','ilimitado':'ilimitado'};
-  toast(`✓ Acesso de ${nome} definido: ${labels[period]}`);
-  closeM('ac-modal');
-  renderClientes();
+  toast(`✓ Acesso definido: ${labels[period]}`);
+  closeM('ac-modal');renderClientes();
 }
 
 // ══ USUÁRIOS ══
 function renderUsuarios(){
-  const mc=document.getElementById('main-content');
-  mc.innerHTML=`
+  document.getElementById('main-content').innerHTML=`
     <div class="sec-hdr">
       <span class="sec-title">Usuários</span>
       <div style="display:flex;gap:.5rem">
-        <button class="btn btn-pu btn-sm" onclick="openM('pwd-m')">🔑 Trocar senha</button>
+        <button class="btn btn-g btn-sm" onclick="openM('pwd-m')">🔑 Trocar senha</button>
         <button class="btn btn-p btn-sm" onclick="openUsrModal(null)">+ Novo Usuário</button>
       </div>
     </div>
@@ -1328,26 +1046,23 @@ function usrListHTML(){
   const now=new Date();
   return users.map(u=>{
     const isSelf=u.id===session.id;
-    const avStyle=AV_STYLE[u.role]||AV_STYLE.cliente;
-    const rlbl=u.role==='admin'?'👑 Admin':'🩺 Fisioterapeuta';
-    const rbdg=u.role==='admin'?'bdg-admin':'bdg-cli';
-    let statusBdg='';
+    const av=u.role==='admin'?'background:var(--amb0);color:var(--amb)':'background:var(--p9);color:var(--p1)';
+    const rl=u.role==='admin'?'👑 Admin':'🩺 Fisioterapeuta';
+    let sb2='';
     if(u.role!=='admin'){
-      if(!u.ativo) statusBdg=`<span class="bdg" style="background:var(--co0);color:var(--co5)">Suspensa</span>`;
-      else if(u.expires_at&&new Date(u.expires_at)<now) statusBdg=`<span class="bdg" style="background:var(--am0);color:var(--am5)">Expirada</span>`;
-      else if(u.expires_at){
-        const d=Math.ceil((new Date(u.expires_at)-now)/(1000*60*60*24));
-        statusBdg=d<=7?`<span class="bdg" style="background:var(--am0);color:var(--am5)">${d}d restantes</span>`:`<span class="bdg" style="background:var(--t0);color:var(--t7)">Ativo · até ${new Date(u.expires_at).toLocaleDateString('pt-BR')}</span>`;
-      } else statusBdg=`<span class="bdg" style="background:var(--t0);color:var(--t7)">Ilimitado</span>`;
+      if(u.ativo===false)sb2=`<span class="bdg" style="background:var(--red0);color:var(--red)">Suspensa</span>`;
+      else if(u.expires_at&&new Date(u.expires_at)<now)sb2=`<span class="bdg" style="background:var(--amb0);color:var(--amb)">Expirada</span>`;
+      else if(u.expires_at){const d=Math.ceil((new Date(u.expires_at)-now)/(1000*60*60*24));sb2=d<=7?`<span class="bdg" style="background:var(--amb0);color:var(--amb)">${d}d rest.</span>`:`<span class="bdg" style="background:var(--grn0);color:var(--grn)">Ativo · ${new Date(u.expires_at).toLocaleDateString('pt-BR')}</span>`;}
+      else sb2=`<span class="bdg" style="background:var(--p9);color:var(--p1)">Ilimitado</span>`;
     }
     return`<div class="ucard">
-      <div class="uav" style="${avStyle}">${ini(u.nome)}</div>
+      <div class="uav" style="${av}">${ini(u.nome)}</div>
       <div style="flex:1;min-width:0">
-        <div style="font-weight:600;font-size:15px">${u.nome}${isSelf?' <span style="font-size:11px;color:var(--g4)">(você)</span>':''}</div>
-        <div style="font-size:12px;color:var(--g4);margin-top:2px">@${u.login} · <span class="bdg ${rbdg}">${rlbl}</span> ${statusBdg}</div>
+        <div style="font-weight:600;font-size:15px;color:var(--n7)">${u.nome}${isSelf?` <span style="font-size:11px;color:var(--n4)">(você)</span>`:''}</div>
+        <div style="font-size:12px;color:var(--n4);margin-top:2px">@${u.login} · <span class="bdg ${u.role==='admin'?'bdg-admin':'bdg-fisio'}">${rl}</span> ${sb2}</div>
       </div>
       <div style="display:flex;gap:.4rem;flex-wrap:wrap">
-        ${u.role!=='admin'?`<button class="btn btn-pu btn-sm" onclick="openAcessoModal('${u.id}','${u.nome}')">⏱ Acesso</button>`:''}
+        ${u.role!=='admin'?`<button class="btn btn-amb btn-sm" onclick="openAcessoModal('${u.id}','${u.nome}')">⏱ Acesso</button>`:''}
         <button class="btn btn-g btn-sm" onclick="openUsrModal('${u.id}')">✏ Editar</button>
         ${!isSelf?`<button class="btn btn-d btn-sm" onclick="deleteUser('${u.id}')">✕</button>`:''}
       </div>
@@ -1378,27 +1093,28 @@ async function saveUsuario(){
   const payload={nome,login,role};
   if(pass){if(pass.length<4){toast('⚠ Senha muito curta',true);return;}if(!editUsr&&pass!==pass2){toast('⚠ Senhas não coincidem',true);return;}payload.pass_hash=hp(pass);}
   if(editUsr){
-    const {data,error}=await sb.from('users').update(payload).eq('id',editUsr.id).select().single();
+    const{data,error}=await sb.from('users').update(payload).eq('id',editUsr.id).select().single();
     if(error){toast('Erro ao salvar',true);return;}
-    users=users.map(u=>u.id===editUsr.id?data:u);toast('✓ Usuário atualizado');
-    if(editUsr.id===session.id){session={...session,...data};localStorage.setItem('fp_session',JSON.stringify(session));}
+    users=users.map(u=>u.id===editUsr.id?data:u);
+    if(editUsr.id===session.id){session={...session,...data};saveSession(session);}
+    toast('✓ Usuário atualizado');
   } else {
     if(!pass){toast('⚠ Informe a senha',true);return;}
-    const {data,error}=await sb.from('users').insert(payload).select().single();
+    const{data,error}=await sb.from('users').insert(payload).select().single();
     if(error){toast('Erro ao salvar',true);return;}
     users.push(data);toast('✓ Usuário criado');
   }
-  closeM('um');const ul=document.getElementById('usr-list');if(ul)ul.innerHTML=usrListHTML();
+  closeM('um');renderUsuarios();
 }
 
 async function deleteUser(id){
   if(id===session.id){toast('⚠ Não pode remover você mesmo',true);return;}
   const u=users.find(x=>x.id===id);
-  if(!confirm(`Remover o usuário "${u?.nome}"?`))return;
-  const {error}=await sb.from('users').delete().eq('id',id);
+  if(!confirm(`Remover "${u?.nome}"?`))return;
+  const{error}=await sb.from('users').delete().eq('id',id);
   if(error){toast('Erro ao remover',true);return;}
   users=users.filter(x=>x.id!==id);toast('Usuário removido');
-  const ul=document.getElementById('usr-list');if(ul)ul.innerHTML=usrListHTML();
+  renderUsuarios();
 }
 
 async function saveSenha(){
@@ -1409,63 +1125,32 @@ async function saveSenha(){
   if(!u||u.pass_hash!==hp(old)){toast('⚠ Senha atual incorreta',true);return;}
   if(nw.length<4){toast('⚠ Nova senha muito curta',true);return;}
   if(nw!==nw2){toast('⚠ Senhas não coincidem',true);return;}
-  const {error}=await sb.from('users').update({pass_hash:hp(nw)}).eq('id',session.id);
+  const{error}=await sb.from('users').update({pass_hash:hp(nw)}).eq('id',session.id);
   if(error){toast('Erro ao salvar',true);return;}
   users=users.map(x=>x.id===session.id?{...x,pass_hash:hp(nw)}:x);
-  closeM('pwd-m');toast('✓ Senha alterada com sucesso');
+  closeM('pwd-m');toast('✓ Senha alterada!');
 }
 
 // ══ INIT ══
-window.addEventListener('DOMContentLoaded',()=>{
-  session = readSession();
+window.addEventListener('DOMContentLoaded', async ()=>{
+  // Restaurar sessão sem consultar servidor
+  session=readSession();
   if(session){
-    bootApp();
+    document.getElementById('login-page').style.display='none';
+    document.getElementById('app-page').style.display='flex';
+    await bootApp();
   }
 
-  // Rastrear atividade para auto-logout por inatividade
-  _lastActivity = Date.now();
+  // Timer de inatividade (só em memória — intencional)
+  _lastActivity=Date.now();
   ['click','keydown','mousedown','touchstart','scroll'].forEach(ev=>{
-    document.addEventListener(ev,()=>{ _lastActivity=Date.now(); },{passive:true});
+    document.addEventListener(ev,()=>{_lastActivity=Date.now();},{passive:true});
   });
-
   setInterval(()=>{
-    if(!session) return;
-    if(Date.now()-_lastActivity > TIMEOUT_MS){
-      toast('Sessão encerrada por 10 min de inatividade.',true);
-      setTimeout(doLogout,1500);
-    }
+    if(!session)return;
+    if(Date.now()-_lastActivity>TIMEOUT_MS){toast('Sessão encerrada por inatividade.',true);setTimeout(doLogout,1500);}
   },30000);
 });
 </script>
-
-<!-- MODAL ACESSO -->
-<div class="mbd" id="ac-modal" style="display:none" onclick="if(event.target===this)closeM('ac-modal')">
-  <div class="modal" style="max-width:380px">
-    <div class="mhdr"><span class="mtitle">Configurar Acesso</span><button class="mclose" onclick="closeM('ac-modal')">✕</button></div>
-    <div class="mbody">
-      <input type="hidden" id="ac-uid"/>
-      <div style="font-weight:600;font-size:15px;margin-bottom:1rem" id="ac-nome"></div>
-      <div class="fg" style="margin-bottom:1rem">
-        <span class="lbl">Período de acesso</span>
-        <select id="ac-period" style="font-size:15px;padding:.75rem 1rem">
-          <option value="30d">📅 30 dias</option>
-          <option value="2m">📅 2 meses</option>
-          <option value="3m">📅 3 meses</option>
-          <option value="6m">📅 6 meses</option>
-          <option value="1a">📅 1 ano</option>
-          <option value="ilimitado">♾️ Ilimitado</option>
-        </select>
-      </div>
-      <div style="padding:.75rem 1rem;background:var(--t0);border-radius:var(--rs);font-size:13px;color:var(--t7)">
-        O acesso começa a contar a partir de hoje. O cliente será bloqueado automaticamente ao expirar.
-      </div>
-    </div>
-    <div class="mfooter">
-      <button class="btn btn-g btn-sm" onclick="closeM('ac-modal')">Cancelar</button>
-      <button class="btn btn-p btn-sm" onclick="saveAcesso()">✓ Confirmar</button>
-    </div>
-  </div>
-</div>
-
 </body>
 </html>

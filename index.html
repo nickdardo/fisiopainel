@@ -414,7 +414,7 @@ async function doLogin(){
   const {data,error}=await sb.from('users').select('*').eq('login',login).eq('pass_hash',hp(pass)).maybeSingle();
   btn.textContent='Entrar →';btn.disabled=false;
   if(error||!data){showErr('Usuário ou senha incorretos.');return;}
-  if(!data.ativo){showErr('Conta suspensa. Contate o administrador.');return;}
+  if(data.ativo===false){showErr('Conta suspensa. Contate o administrador.');return;}
   if(data.role!=='admin'&&data.expires_at&&new Date(data.expires_at)<new Date()){
     showErr('Seu acesso expirou. Contate o administrador.');return;
   }

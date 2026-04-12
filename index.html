@@ -4,8 +4,6 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>FisioPainel</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231C1C1E'/><rect x='13' y='6' width='6' height='20' rx='3' fill='%23A78BFA'/><rect x='6' y='13' width='20' height='6' rx='3' fill='%23A78BFA'/></svg>"/>
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231C1C1E'/><rect x='13' y='6' width='6' height='20' rx='3' fill='%23A78BFA'/><rect x='6' y='13' width='20' height='6' rx='3' fill='%23A78BFA'/></svg>"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
@@ -44,9 +42,9 @@ body{font-family:var(--FB);background:#F8F7F4;color:#1C1C1A;min-height:100vh;fon
 .login-hint{font-size:11px;color:#636366;text-align:center;margin-top:1rem}
 
 /* ── NAV ── */
-.nav{background:#1C1C1E;border-bottom:1px solid #2C2C2E;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
-.nav-brand{font-family:var(--FT);font-size:1.35rem;color:#FFFFFF}
-.nav-brand span{color:#A78BFA}
+.nav{background:#111111;border-bottom:1px solid #222222;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
+.nav-brand{font-family:var(--FT);font-size:1.35rem;color:var(--n7)}
+.nav-brand span{color:#AAAAAA}
 .nav-right{display:flex;align-items:center;gap:.75rem}
 .nav-user{font-size:13px;color:#CCCCCC;display:flex;align-items:center;gap:8px}
 .nav-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
@@ -220,38 +218,13 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 <div id="login-page">
   <div class="login-bg">
     <div class="login-card">
-      <div id="login-panel">
       <div class="login-logo">Fisio<span>Painel</span></div>
       <div class="login-sub">Sistema de Gestão de Atendimentos</div>
       <div class="login-error" id="login-error"></div>
       <div class="login-field"><label>Usuário</label><input type="text" id="lu" placeholder="seu.usuario" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()"/></div>
       <div class="login-field"><label>Senha</label><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
       <button onclick="doLogin()" id="login-btn" style="margin-top:.5rem;width:100%;padding:.85rem;background:#7C3AED;color:#fff;border:none;border-radius:var(--rs);font-family:var(--FB);font-size:15px;font-weight:600;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#6D28D9'" onmouseout="this.style.background='#7C3AED'">Entrar →</button>
-      <div style="display:flex;align-items:center;gap:.75rem;margin-top:1.25rem">
-        <div style="flex:1;height:1px;background:#3A3A3C"></div>
-        <span style="font-size:12px;color:#636366">ou</span>
-        <div style="flex:1;height:1px;background:#3A3A3C"></div>
-      </div>
-      <button onclick="showRegister()" style="margin-top:.75rem;width:100%;padding:.75rem;background:transparent;color:#A78BFA;border:1px solid #3A3A3C;border-radius:var(--rs);font-family:var(--FB);font-size:14px;font-weight:500;cursor:pointer;transition:all .15s" onmouseover="this.style.borderColor='#7C3AED';this.style.background='#1E0A3C'" onmouseout="this.style.borderColor='#3A3A3C';this.style.background='transparent'">Criar minha conta →</button>
       <p class="login-hint">Desenvolvido por Eduardo Ribeiro</p>
-      </div>
-
-      <!-- REGISTER PANEL -->
-      <div id="register-panel" style="display:none">
-        <div class="login-logo">Fisio<span>Painel</span></div>
-        <div class="login-sub">Criar nova conta</div>
-        <div class="login-error" id="reg-error"></div>
-        <div class="login-field"><label>Nome completo *</label><input type="text" id="reg-nome" placeholder="Seu nome completo" onkeydown="if(event.key==='Enter')doRegister()"/></div>
-        <div class="login-field"><label>Usuário (login) *</label><input type="text" id="reg-login" placeholder="Ex: joao.silva" autocomplete="username" onkeydown="if(event.key==='Enter')doRegister()"/></div>
-        <div class="login-field"><label>Senha *</label><input type="password" id="reg-pass" placeholder="Mínimo 4 caracteres" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/></div>
-        <div class="login-field"><label>Confirmar senha *</label><input type="password" id="reg-pass2" placeholder="Repita a senha" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/></div>
-        <div style="padding:.75rem 1rem;background:#1E0A3C;border-radius:var(--rs);font-size:12px;color:#C8B8FF;margin-bottom:1rem;border:1px solid #2C1F4A">
-          🩺 Conta criada como <strong>Fisioterapeuta</strong>. O administrador configura seu período de acesso.
-        </div>
-        <button onclick="doRegister()" id="register-btn" style="width:100%;padding:.85rem;background:#7C3AED;color:#fff;border:none;border-radius:var(--rs);font-family:var(--FB);font-size:15px;font-weight:600;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#6D28D9'" onmouseout="this.style.background='#7C3AED'">Criar conta →</button>
-        <button onclick="showLogin()" style="margin-top:.75rem;width:100%;padding:.6rem;background:transparent;color:#8E8E93;border:none;font-family:var(--FB);font-size:13px;cursor:pointer">← Voltar para o login</button>
-      </div>
-
     </div>
   </div>
 </div>
@@ -426,7 +399,7 @@ const MS=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez
 const DIAS_PT=['DOM','SEG','TER','QUA','QUI','SEX','SAB'];
 const nextT=pid=>records.filter(r=>r.pat_id===pid&&r.code==='T').length+1;
 const lastRec=pid=>[...records].filter(r=>r.pat_id===pid).sort((a,b)=>b.date.localeCompare(a.date))[0]||null;
-const can=p=>{if(!session)return false;if(session.role==='admin')return true;return['registro','pacientes','relatorio','perfil'].includes(p);};
+const can=p=>{if(!session)return false;if(session.role==='admin')return true;return['registro','pacientes','relatorio'].includes(p);};
 const calcIdade=nasc=>{if(!nasc)return null;const d=new Date(nasc+'T12:00:00');const h=new Date();let i=h.getFullYear()-d.getFullYear();if(h.getMonth()<d.getMonth()||(h.getMonth()===d.getMonth()&&h.getDate()<d.getDate()))i--;return i;};
 const fmtDatetime=d=>{if(!d)return'Nunca';const dt=new Date(d);const diff=Math.floor((Date.now()-dt)/1000);if(diff<60)return'agora mesmo';if(diff<3600)return`há ${Math.floor(diff/60)}min`;if(diff<86400)return`há ${Math.floor(diff/3600)}h`;return dt.toLocaleDateString('pt-BR');};
 
@@ -452,7 +425,6 @@ function buildSidebar(){
     {id:'registro',icon:'📋',label:'Registrar'},
     {id:'pacientes',icon:'👥',label:'Pacientes'},
     {id:'relatorio',icon:'📊',label:'Relatório'},
-    {id:'perfil',icon:'👤',label:'Meu Perfil'},
     {id:'clientes',icon:'👁️',label:'Visão Geral',admin:true},
     {id:'usuarios',icon:'⚙️',label:'Usuários',admin:true},
   ];
@@ -478,7 +450,6 @@ function showPage(p){
   if(p==='registro')renderRegistro();
   else if(p==='pacientes')renderPacientes();
   else if(p==='relatorio')renderRelatorio();
-  else if(p==='perfil')renderPerfil();
   else if(p==='clientes')renderClientes();
   else if(p==='usuarios')renderUsuarios();
 }
@@ -500,76 +471,14 @@ async function doLogin(){
   }catch(e){btn.textContent='Entrar →';btn.disabled=false;showErr('Erro de conexão. Tente novamente.');}
 }
 function showErr(msg){const e=document.getElementById('login-error');e.textContent=msg;e.style.display='block';}
-function showRegErr(msg){const e=document.getElementById('reg-error');e.textContent=msg;e.style.display='block';}
-
-function showRegister(){
-  document.getElementById('login-panel').style.display='none';
-  document.getElementById('register-panel').style.display='block';
-  document.getElementById('reg-error').style.display='none';
-  document.getElementById('reg-nome').value='';
-  document.getElementById('reg-login').value='';
-  document.getElementById('reg-pass').value='';
-  document.getElementById('reg-pass2').value='';
-  setTimeout(()=>document.getElementById('reg-nome').focus(),100);
-}
-
-function showLogin(){
-  document.getElementById('register-panel').style.display='none';
-  document.getElementById('login-panel').style.display='block';
-  document.getElementById('login-error').style.display='none';
-}
-
-async function doRegister(){
-  const nome=document.getElementById('reg-nome').value.trim();
-  const login=document.getElementById('reg-login').value.trim().toLowerCase();
-  const pass=document.getElementById('reg-pass').value;
-  const pass2=document.getElementById('reg-pass2').value;
-
-  document.getElementById('reg-error').style.display='none';
-  if(!nome){showRegErr('Informe seu nome completo.');return;}
-  if(!login||login.length<3){showRegErr('Login deve ter ao menos 3 caracteres.');return;}
-  if(!/^[a-z0-9._]+$/.test(login)){showRegErr('Login só pode ter letras, números, ponto e underscore.');return;}
-  if(pass.length<4){showRegErr('Senha deve ter ao menos 4 caracteres.');return;}
-  if(pass!==pass2){showRegErr('As senhas não coincidem.');return;}
-
-  const btn=document.getElementById('register-btn');
-  btn.textContent='Criando conta...';btn.disabled=true;
-
-  try{
-    // Check if login already exists
-    const{data:existing}=await sb.from('users').select('id').eq('login',login).maybeSingle();
-    if(existing){showRegErr('Este login já está em uso. Escolha outro.');btn.textContent='Criar conta →';btn.disabled=false;return;}
-
-    // Create user with cliente role and ativo=true
-    const{data,error}=await sb.from('users')
-      .insert({nome,login,pass_hash:hp(pass),role:'cliente',ativo:true})
-      .select().single();
-
-    if(error||!data){showRegErr('Erro ao criar conta. Tente novamente.');btn.textContent='Criar conta →';btn.disabled=false;return;}
-
-    // Auto login after register
-    session=data;saveSession(session);
-    btn.textContent='Criar conta →';btn.disabled=false;
-    await bootApp();
-    toast(`✓ Bem-vindo(a), ${data.nome.split(' ')[0]}! Conta criada com sucesso.`);
-  }catch(e){
-    showRegErr('Erro de conexão. Tente novamente.');
-    btn.textContent='Criar conta →';btn.disabled=false;
-  }
-}
 
 async function bootApp(){
   document.getElementById('login-page').style.display='none';
   document.getElementById('app-page').style.display='flex';
   try{
     const av=document.getElementById('nav-av');
-    if(session.avatar_url){
-      av.style.cssText='background:transparent;padding:0;overflow:hidden;';
-      av.innerHTML=`<img src="${session.avatar_url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`;
-    } else {
-      av.textContent=ini(session.nome);
-      av.style.cssText=AV_STYLE[session.role]||AV_STYLE.cliente;
-    }
+    av.textContent=ini(session.nome);
+    av.style.cssText=AV_STYLE[session.role]||AV_STYLE.cliente;
     document.getElementById('nav-name').textContent=session.nome||'';
     document.getElementById('nav-role').textContent=session.role==='admin'?'👑 Admin':'🩺 Fisioterapeuta';
   }catch(e){}
@@ -1126,165 +1035,6 @@ async function saveAcesso(){
   closeM('ac-modal');renderClientes();
 }
 
-
-// ══ PERFIL ══
-function renderPerfil(){
-  const mc=document.getElementById('main-content');
-  const avatarHTML=session.avatar_url
-    ?`<img src="${session.avatar_url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`
-    :`<span style="font-size:2rem;font-weight:700">${ini(session.nome)}</span>`;
-  const avStyle=session.avatar_url?'background:transparent':'background:#F0EFEB';
-
-  mc.innerHTML=`
-    <div class="sec-hdr"><span class="sec-title">Meu Perfil</span></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;max-width:800px">
-
-      <!-- FOTO DE PERFIL -->
-      <div class="card">
-        <div class="card-title">Foto de Perfil</div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:1.25rem">
-          <div id="avatar-preview" style="width:100px;height:100px;border-radius:50%;${avStyle};display:flex;align-items:center;justify-content:center;color:#111;border:3px solid #E8E7E3;overflow:hidden;flex-shrink:0">
-            ${avatarHTML}
-          </div>
-          <div style="text-align:center">
-            <div style="font-weight:600;font-size:16px;color:#1C1C1A">${session.nome}</div>
-            <div style="font-size:13px;color:#888780;margin-top:2px">@${session.login||''} · ${session.role==='admin'?'👑 Admin':'🩺 Fisioterapeuta'}</div>
-          </div>
-          <div style="width:100%">
-            <div style="font-size:11px;font-weight:700;color:#5F5E5A;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem">Selecionar foto</div>
-            <input type="file" id="avatar-file" accept="image/*" onchange="previewAvatar(this)"
-              style="width:100%;padding:.5rem;border:1px dashed #D3D1C7;border-radius:var(--rs);background:#F8F7F4;color:#5F5E5A;font-size:13px;cursor:pointer"/>
-            <div style="font-size:11px;color:#888780;margin-top:.4rem">JPG, PNG ou WEBP · Máximo 2MB</div>
-          </div>
-          <button class="btn btn-p btn-full" onclick="uploadAvatar()">📷 Salvar foto</button>
-          ${session.avatar_url?`<button class="btn btn-g btn-full" onclick="removeAvatar()" style="margin-top:-.5rem">Remover foto</button>`:''}
-        </div>
-      </div>
-
-      <!-- TROCAR SENHA -->
-      <div class="card">
-        <div class="card-title">Trocar Senha</div>
-        <div style="display:flex;flex-direction:column;gap:.85rem">
-          <div class="fg">
-            <span class="lbl">Senha atual</span>
-            <input type="password" id="p-pwd-old" placeholder="••••••••"/>
-          </div>
-          <div class="fg">
-            <span class="lbl">Nova senha</span>
-            <input type="password" id="p-pwd-new" placeholder="Mínimo 4 caracteres"/>
-            <div id="pwd-strength" style="margin-top:.3rem;font-size:11px;color:#888780"></div>
-          </div>
-          <div class="fg">
-            <span class="lbl">Confirmar nova senha</span>
-            <input type="password" id="p-pwd-new2" placeholder="Repita a nova senha"
-              oninput="checkPwdMatch()"/>
-            <div id="pwd-match" style="margin-top:.3rem;font-size:11px"></div>
-          </div>
-          <div style="margin-top:.25rem">
-            <button class="btn btn-p btn-full" onclick="savePerfilSenha()">🔑 Alterar senha</button>
-          </div>
-          <div style="padding:.75rem 1rem;background:#F8F7F4;border-radius:var(--rs);font-size:12px;color:#5F5E5A;border:1px solid #E8E7E3">
-            💡 Use ao menos 4 caracteres. Recomendamos misturar letras, números e símbolos.
-          </div>
-        </div>
-      </div>
-    </div>`;
-}
-
-function previewAvatar(input){
-  const file=input.files[0];
-  if(!file)return;
-  if(file.size>2*1024*1024){toast('⚠ Imagem muito grande (máx 2MB)',true);input.value='';return;}
-  const reader=new FileReader();
-  reader.onload=e=>{
-    const prev=document.getElementById('avatar-preview');
-    if(prev) prev.innerHTML=`<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`;
-  };
-  reader.readAsDataURL(file);
-}
-
-async function uploadAvatar(){
-  const input=document.getElementById('avatar-file');
-  if(!input||!input.files[0]){toast('⚠ Selecione uma foto',true);return;}
-  const file=input.files[0];
-  if(file.size>2*1024*1024){toast('⚠ Imagem muito grande (máx 2MB)',true);return;}
-  const btn=document.querySelector('#main-content .btn-p');
-  if(btn){btn.textContent='Salvando...';btn.disabled=true;}
-  try{
-    const ext=file.name.split('.').pop();
-    const path=`${session.id}/avatar.${ext}`;
-    // Remove old avatar first
-    await sb.storage.from('avatars').remove([path]);
-    const{error:upErr}=await sb.storage.from('avatars').upload(path,file,{upsert:true,contentType:file.type});
-    if(upErr) throw upErr;
-    const{data:urlData}=sb.storage.from('avatars').getPublicUrl(path);
-    const avatarUrl=urlData.publicUrl+'?t='+Date.now();
-    const{error:dbErr}=await sb.from('users').update({avatar_url:avatarUrl}).eq('id',session.id);
-    if(dbErr) throw dbErr;
-    session.avatar_url=avatarUrl;
-    saveSession(session);
-    // Update nav avatar
-    const nav_av=document.getElementById('nav-av');
-    if(nav_av){
-      nav_av.style.cssText='background:transparent;padding:0;overflow:hidden;';
-      nav_av.innerHTML=`<img src="${avatarUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`;
-    }
-    users=users.map(u=>u.id===session.id?{...u,avatar_url:avatarUrl}:u);
-    toast('✓ Foto atualizada com sucesso!');
-    renderPerfil();
-  }catch(e){
-    console.error(e);
-    toast('Erro ao salvar foto',true);
-  }finally{
-    if(btn){btn.textContent='📷 Salvar foto';btn.disabled=false;}
-  }
-}
-
-async function removeAvatar(){
-  if(!confirm('Remover foto de perfil?'))return;
-  const ext=session.avatar_url?.split('.').pop()?.split('?')[0]||'jpg';
-  await sb.storage.from('avatars').remove([`${session.id}/avatar.${ext}`]);
-  await sb.from('users').update({avatar_url:null}).eq('id',session.id);
-  session.avatar_url=null;
-  saveSession(session);
-  // Reset nav avatar
-  const nav_av=document.getElementById('nav-av');
-  if(nav_av){
-    nav_av.innerHTML=ini(session.nome);
-    nav_av.style.cssText=AV_STYLE[session.role]||AV_STYLE.cliente;
-  }
-  users=users.map(u=>u.id===session.id?{...u,avatar_url:null}:u);
-  toast('✓ Foto removida');
-  renderPerfil();
-}
-
-function checkPwdMatch(){
-  const nw=document.getElementById('p-pwd-new')?.value||'';
-  const nw2=document.getElementById('p-pwd-new2')?.value||'';
-  const el=document.getElementById('pwd-match');
-  if(!el||!nw2)return;
-  if(nw===nw2){el.textContent='✓ Senhas coincidem';el.style.color='#3B6D11';}
-  else{el.textContent='✕ Senhas não coincidem';el.style.color='#993C1D';}
-}
-
-async function savePerfilSenha(){
-  const old=document.getElementById('p-pwd-old')?.value||'';
-  const nw=document.getElementById('p-pwd-new')?.value||'';
-  const nw2=document.getElementById('p-pwd-new2')?.value||'';
-  const u=users.find(x=>x.id===session.id);
-  if(!u||u.pass_hash!==hp(old)){toast('⚠ Senha atual incorreta',true);return;}
-  if(nw.length<4){toast('⚠ Nova senha muito curta',true);return;}
-  if(nw!==nw2){toast('⚠ As senhas não coincidem',true);return;}
-  const{error}=await sb.from('users').update({pass_hash:hp(nw)}).eq('id',session.id);
-  if(error){toast('Erro ao salvar',true);return;}
-  users=users.map(x=>x.id===session.id?{...x,pass_hash:hp(nw)}:x);
-  document.getElementById('p-pwd-old').value='';
-  document.getElementById('p-pwd-new').value='';
-  document.getElementById('p-pwd-new2').value='';
-  document.getElementById('pwd-match').textContent='';
-  toast('✓ Senha alterada com sucesso!');
-}
-
 // ══ USUÁRIOS ══
 function renderUsuarios(){
   document.getElementById('main-content').innerHTML=`
@@ -1312,9 +1062,7 @@ function usrListHTML(){
       else sb2=`<span class="bdg" style="background:var(--p9);color:var(--p1)">Ilimitado</span>`;
     }
     return`<div class="ucard">
-      <div class="uav" style="${u.avatar_url?'background:transparent;overflow:hidden;padding:0':av}">
-        ${u.avatar_url?`<img src="${u.avatar_url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`:`${ini(u.nome)}`}
-      </div>
+      <div class="uav" style="${av}">${ini(u.nome)}</div>
       <div style="flex:1;min-width:0">
         <div style="font-weight:600;font-size:15px;color:#1C1C1A">${u.nome}${isSelf?` <span style="font-size:11px;color:var(--n4)">(você)</span>`:''}</div>
         <div style="font-size:12px;color:#888780;margin-top:2px">@${u.login} · <span class="bdg ${u.role==='admin'?'bdg-admin':'bdg-fisio'}">${rl}</span> ${sb2}</div>

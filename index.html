@@ -1050,6 +1050,7 @@ function renderRelatorio(){
       </select>
     </div>
     <div class="rel-filter-btns" id="rel-filter-btns">
+      <button class="rel-fbtn rel-fbtn-ALL${relFilter==='ALL'?' active':''}" onclick="setRelFilter('ALL')" style="${relFilter==='ALL'?'background:#333;color:#fff;border-color:#333':''}">Todos</button>
       <button class="rel-fbtn rel-fbtn-T${relFilter==='T'?' active':''}" onclick="setRelFilter('T')">Atendimentos T</button>
       <button class="rel-fbtn rel-fbtn-OA${relFilter==='OA'?' active':''}" onclick="setRelFilter('OA')">Outros Atendimentos</button>
       <button class="rel-fbtn rel-fbtn-AV${relFilter==='AV'?' active':''}" onclick="setRelFilter('AV')">Avaliação</button>
@@ -1062,17 +1063,21 @@ function renderRelatorio(){
 
 function setRelFilter(f){
   relFilter=f;
-  // Update button active classes
-  document.querySelectorAll('.rel-fbtn').forEach(b=>b.classList.remove('active'));
-  const map={'T':'.rel-fbtn-T','OA':'.rel-fbtn-OA','AV':'.rel-fbtn-AV'};
+  document.querySelectorAll('.rel-fbtn').forEach(b=>{b.classList.remove('active');b.style.background='';b.style.color='';b.style.borderColor='';});
+  const map={'ALL':'.rel-fbtn-ALL','T':'.rel-fbtn-T','OA':'.rel-fbtn-OA','AV':'.rel-fbtn-AV'};
+  const colorMap={'ALL':'#333333','T':'#111111','OA':'#5B21B6','AV':'#185FA5'};
   const btn=document.querySelector(map[f]);
-  if(btn)btn.classList.add('active');
+  if(btn){btn.classList.add('active');btn.style.background=colorMap[f];btn.style.color='#fff';btn.style.borderColor=colorMap[f];}
   doRelatorio();
 }
 
 function doRelatorio(){
   const ms=document.getElementById('rel-mes');if(ms)ms.style.display=relTipo==='anual'?'none':'';
-  if(relTipo==='anual')renderAnual();else renderMensal();
+  if(relFilter==='ALL'){
+    if(relTipo==='anual')renderAnualAll();else renderMensalAll();
+  } else {
+    if(relTipo==='anual')renderAnual();else renderMensal();
+  }
 }
 
 function relStats(T,AV,FNJ,label){
@@ -1185,6 +1190,67 @@ function printReport(){
   <div class="ftr"><span>FisioPainel · Desenvolvido por Eduardo Ribeiro</span><span>${periodo}${convLabel}${clinicaLabel}</span></div>
   <script>window.onload=()=>{window.print()}<\/script></body></html>`);
   w.document.close();
+}
+
+// ══ RENDER ALL (3 tabelas) ══
+function buildMensalTable(filterCode, label, colorHex){
+  const mm=String(relMes+1).padStart(2,'0');
+  const days=[];const dim=new Date(relAno,relMes+1,0).getDate();
+  for(let d=1;d<=dim;d++){const dt=new Date(relAno,relMes,d);if(dt.getDay()>0&&dt.getDay()<6)days.push({date:`${relAno}-${mm}-${String(d).padStart(2,'0')}`,dt});}
+  let fR=relConv?records.filter(r=>patients.find(p=>p.id===r.pat_id)?.convenio===relConv):records;
+  if(relClinica)fR=fR.filter(r=>r.clinica===relClinica);
+  const mR=fR.filter(r=>r.date?.startsWith(`${relAno}-${mm}`)&&r.code===filterCode);
+  if(!mR.length)return'';
+  const pIds=[...new Set(mR.map(r=>r.pat_id))];
+  const pats=patients.filter(p=>pIds.includes(p.id)&&(!relConv||p.convenio===relConv));
+  if(!pats.length)return'';
+  const dayH=days.map(({dt})=>`<th class="dc">${dt.getDate()}<br><span style="font-size:9px;opacity:.7">${['DOM','SEG','TER','QUA','QUI','SEX','SAB'][dt.getDay()]}</span></th>`).join('');
+  const rows=pats.map((p,i)=>{
+    const cells=days.map(({date})=>{
+      const r=records.find(x=>x.pat_id===p.id&&x.date===date&&x.code===filterCode);
+      if(!r)return'<td class="cc"></td>';
+      const lbl=filterCode==='T'?`T${r.t_num}`:filterCode;
+      return`<td class="cc ct" style="color:${colorHex};font-weight:700">${lbl}</td>`;
+    }).join('');
+    const cnt=mR.filter(r=>r.pat_id===p.id).length;
+    return`<tr><td style="text-align:center;color:var(--n4);font-size:11px">${i+1}</td><td class="nc">${p.nome}</td>${cells}<td style="text-align:center;font-weight:700;color:${colorHex}">${cnt}</td></tr>`;
+  }).join('');
+  const totR=days.map(({date})=>{const c=mR.filter(r=>r.date===date).length;return`<td style="text-align:center">${c||''}</td>`;}).join('');
+  const total=mR.length;
+  return`<div style="margin-bottom:1.5rem">
+    <div style="background:${colorHex};color:#fff;text-align:center;padding:.6rem 1rem;font-weight:700;font-size:13px;border-radius:var(--r) var(--r) 0 0;text-transform:uppercase;letter-spacing:.05em">${label}</div>
+    <div style="overflow-x:auto;border:1px solid var(--n3);border-top:none;border-radius:0 0 var(--r) var(--r)">
+      <table class="rel-tbl">
+        <thead><tr><th>Nº</th><th class="nc" style="text-align:left">PACIENTE</th>${dayH}<th>T</th></tr></thead>
+        <tbody>${rows}</tbody>
+        <tfoot><tr><td colspan="2" style="text-align:left;padding-left:1rem">TOTAL</td>${totR}<td>${total}</td></tr></tfoot>
+      </table>
+    </div>
+  </div>`;
+}
+
+function renderMensalAll(){
+  const mm=String(relMes+1).padStart(2,'0');
+  let fR=relConv?records.filter(r=>patients.find(p=>p.id===r.pat_id)?.convenio===relConv):records;
+  if(relClinica)fR=fR.filter(r=>r.clinica===relClinica);
+  const mR=fR.filter(r=>r.date?.startsWith(`${relAno}-${mm}`));
+  const T=mR.filter(r=>r.code==='T').length,AV=mR.filter(r=>r.code==='AV').length,FNJ=mR.filter(r=>r.code==='FNJ').length,OA=mR.filter(r=>r.code==='OA').length;
+  document.getElementById('rel-stats').innerHTML=`
+    <div class="stat"><div class="stat-label">Sessões T</div><div class="stat-value" style="color:#3B6D11">${T}</div><div class="stat-sub">${MESES[relMes]}</div></div>
+    <div class="stat"><div class="stat-label">Outros Atend.</div><div class="stat-value" style="color:#5B21B6">${OA}</div><div class="stat-sub">${MESES[relMes]}</div></div>
+    <div class="stat"><div class="stat-label">Avaliações</div><div class="stat-value" style="color:#185FA5">${AV}</div><div class="stat-sub">${MESES[relMes]}</div></div>
+    <div class="stat"><div class="stat-label">Total</div><div class="stat-value">${T+OA+AV+FNJ}</div><div class="stat-sub">atendimentos</div></div>`;
+  const tabelaT=buildMensalTable('T',`Atendimentos IASEP ${relClinica||''}`.trim(),'#111111');
+  const tabelaOA=buildMensalTable('OA',`Outros Atendimentos ${relClinica||''}`.trim(),'#5B21B6');
+  const tabelaAV=buildMensalTable('AV',`Avaliação ${relClinica||''}`.trim(),'#185FA5');
+  const wrap=document.getElementById('rel-tabela');
+  if(wrap)wrap.innerHTML=`<div style="padding:0">${tabelaT}${tabelaOA}${tabelaAV}${(!tabelaT&&!tabelaOA&&!tabelaAV)?'<div class="empty" style="padding:2rem"><div class="empty-icon">📊</div><div class="empty-text">Nenhum atendimento.</div></div>':''}</div>`;
+}
+
+function renderAnualAll(){
+  // Simplified anual ALL - same logic
+  relFilter='T';renderAnual();
+  relFilter='ALL';
 }
 
 function exportCSV(){

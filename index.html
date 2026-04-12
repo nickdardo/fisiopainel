@@ -574,21 +574,48 @@ function renderRegistro(){
     <div class="qp">
       <div class="card">
         <div class="card-title">Registrar Atendimento</div>
-        <div class="fg pd-wrap" style="margin-bottom:.85rem">
+
+        <!-- BUSCA DE PACIENTE -->
+        <div class="fg pd-wrap" style="margin-bottom:.75rem">
           <span class="lbl">Paciente</span>
           <input type="text" id="pat-search" placeholder="Digite o nome do paciente..." autocomplete="off"
             oninput="filterPats(this.value)" onfocus="filterPats(this.value)"/>
           <div class="pd" id="pat-dd" style="display:none"></div>
         </div>
-        <div id="pat-sel-box" style="display:none;margin-bottom:.85rem;padding:.75rem 1rem;background:var(--t0);border-radius:var(--rs);border:1px solid var(--t1)">
+
+        <!-- PACIENTE SELECIONADO (existente) -->
+        <div id="pat-sel-box" style="display:none;margin-bottom:.75rem;padding:.75rem 1rem;background:var(--t0);border-radius:var(--rs);border:1px solid var(--t1);position:relative">
+          <button onclick="clearPatSel()" style="position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;color:var(--t5);font-size:13px">✕ Trocar</button>
           <div style="font-weight:600;font-size:14px;color:var(--t7)" id="psel-name"></div>
           <div style="font-size:12px;color:var(--t5);margin-top:2px" id="psel-info"></div>
-          <div style="font-size:13px;color:var(--t7);margin-top:4px;font-weight:500" id="psel-next"></div>
+          <div style="font-size:12px;color:var(--t7);margin-top:3px;font-weight:500" id="psel-next"></div>
         </div>
-        <div class="fg" style="margin-bottom:.85rem">
+
+        <!-- NOVO PACIENTE (inline) -->
+        <div id="new-pat-box" style="display:none;margin-bottom:.75rem;padding:1rem;background:var(--am0);border-radius:var(--rs);border:1px solid var(--am1)">
+          <div style="font-size:11px;font-weight:700;color:var(--am5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem">Novo paciente</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem">
+            <div class="fg" style="grid-column:1/-1"><span class="lbl">Nome completo *</span><input id="np-nome" placeholder="Nome do paciente"/></div>
+            <div class="fg"><span class="lbl">Prontuário</span><input id="np-pront" placeholder="Ex: 357834"/></div>
+            <div class="fg"><span class="lbl">Convênio</span>
+              <select id="np-conv"><option>IASEP</option><option>UNIMED</option><option>Particular</option><option>Outro</option></select>
+            </div>
+            <div class="fg"><span class="lbl">Matrícula</span><input id="np-mat" placeholder="Ex: 8733502"/></div>
+            <div class="fg"><span class="lbl">Validade</span><input type="text" id="np-val" placeholder="dd/mm/aaaa" maxlength="10" oninput="maskDate(this)" inputmode="numeric"/></div>
+          </div>
+          <div style="display:flex;gap:.5rem;margin-top:.75rem">
+            <button class="btn btn-g btn-sm" onclick="cancelNewPat()">Cancelar</button>
+            <button class="btn btn-sm" style="background:var(--am5);color:#fff" onclick="confirmNewPat()">✓ Confirmar paciente</button>
+          </div>
+        </div>
+
+        <!-- DATA -->
+        <div class="fg" style="margin-bottom:.75rem">
           <span class="lbl">Data</span>
           <input type="date" id="reg-date" value="${today()}"/>
         </div>
+
+        <!-- CÓDIGOS -->
         <div class="fg" style="margin-bottom:1.25rem">
           <span class="lbl">Código</span>
           <div style="margin-bottom:.5rem">
@@ -601,6 +628,7 @@ function renderRegistro(){
           </div>
           <div id="code-prev" style="margin-top:.5rem;font-size:13px;color:var(--g4)"></div>
         </div>
+
         <button class="btn btn-p btn-full" id="save-reg-btn" onclick="saveRegistro()">✓ Salvar Atendimento</button>
       </div>
       <div class="card">
@@ -635,11 +663,18 @@ function filterPats(q){
   if(!dd)return;
   if(!q.trim()){dd.style.display='none';return;}
   const hits=patients.filter(p=>p.nome.toLowerCase().includes(q.toLowerCase())).slice(0,10);
-  if(!hits.length){dd.style.display='none';return;}
+  const createBtn=`<div class="popt" style="border-top:1px solid var(--g2);color:var(--t5);font-weight:600" onclick="startNewPat()">
+    + Criar novo paciente "${q}"
+  </div>`;
+  if(!hits.length){
+    dd.innerHTML=createBtn;
+    dd.style.display='block';
+    return;
+  }
   dd.innerHTML=hits.map(p=>`<div class="popt" onclick="selectPat('${p.id}')">
     <div class="on">${p.nome}</div>
     <div class="os">${p.convenio} · Pront. ${p.prontuario||'—'}</div>
-  </div>`).join('');
+  </div>`).join('')+createBtn;
   dd.style.display='block';
 }
 
@@ -647,11 +682,68 @@ function selectPat(id){
   selPat=patients.find(p=>p.id===id);if(!selPat)return;
   document.getElementById('pat-search').value=selPat.nome;
   document.getElementById('pat-dd').style.display='none';
+  document.getElementById('new-pat-box').style.display='none';
   document.getElementById('pat-sel-box').style.display='block';
   document.getElementById('psel-name').textContent=selPat.nome;
   document.getElementById('psel-info').textContent=`${selPat.convenio} · Matrícula: ${selPat.matricula||'—'}`;
   const last=lastRec(selPat.id);
   document.getElementById('psel-next').textContent=`Próxima sessão: T${nextT(selPat.id)} · Último: ${last?fmtDate(last.date):'nenhum'}`;
+  updateCodePrev();
+}
+
+function clearPatSel(){
+  selPat=null;
+  document.getElementById('pat-search').value='';
+  document.getElementById('pat-sel-box').style.display='none';
+  document.getElementById('new-pat-box').style.display='none';
+  document.getElementById('pat-search').focus();
+  updateCodePrev();
+}
+
+function startNewPat(){
+  const q=document.getElementById('pat-search').value.trim();
+  document.getElementById('pat-dd').style.display='none';
+  document.getElementById('pat-sel-box').style.display='none';
+  document.getElementById('new-pat-box').style.display='block';
+  document.getElementById('np-nome').value=q;
+  document.getElementById('np-pront').value='';
+  document.getElementById('np-mat').value='';
+  document.getElementById('np-val').value='';
+  document.getElementById('np-conv').value='IASEP';
+}
+
+function cancelNewPat(){
+  selPat=null;
+  document.getElementById('new-pat-box').style.display='none';
+  document.getElementById('pat-search').value='';
+  document.getElementById('pat-search').focus();
+}
+
+async function confirmNewPat(){
+  const nome=document.getElementById('np-nome').value.trim();
+  if(!nome){toast('⚠ Informe o nome',true);return;}
+  const data={
+    nome,
+    prontuario:document.getElementById('np-pront').value.trim(),
+    convenio:document.getElementById('np-conv').value,
+    matricula:document.getElementById('np-mat').value.trim(),
+    validade:brToIso(document.getElementById('np-val').value)||null,
+    owner_id:session.id
+  };
+  const btn=document.querySelector('#new-pat-box button:last-child');
+  btn.textContent='Salvando...';btn.disabled=true;
+  const {data:d,error}=await sb.from('patients').insert(data).select().single();
+  btn.textContent='✓ Confirmar paciente';btn.disabled=false;
+  if(error){toast('Erro ao criar paciente',true);return;}
+  patients.push(d);patients.sort((a,b)=>a.nome.localeCompare(b.nome));
+  selPat=d;
+  document.getElementById('new-pat-box').style.display='none';
+  document.getElementById('pat-search').value=d.nome;
+  document.getElementById('pat-sel-box').style.display='block';
+  document.getElementById('psel-name').textContent=d.nome;
+  document.getElementById('psel-info').textContent=`${d.convenio} · Matrícula: ${d.matricula||'—'}`;
+  document.getElementById('psel-next').textContent=`Primeira sessão: T1`;
+  toast(`✓ Paciente "${d.nome}" cadastrado!`);
   updateCodePrev();
 }
 

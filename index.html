@@ -1480,7 +1480,10 @@ async function renderClientes(){
       </div>
     </div>`;
   }).join('');
-  mc.innerHTML=`<div class="sec-hdr"><span class="sec-title">Visão Geral dos Clientes</span><span style="font-size:13px;color:var(--n4)">${clientes.length} fisioterapeuta${clientes.length!==1?'s':''}</span></div>${clientes.length?cards:'<div class="empty"><div class="empty-icon">👥</div><div class="empty-text">Nenhum fisioterapeuta cadastrado.</div></div>'}`;
+  // Count by ocupacao
+  const ocupCounts={};clientes.forEach(u=>{const o=u.ocupacao||'Fisioterapeuta';ocupCounts[o]=(ocupCounts[o]||0)+1;});
+  const ocupLabel=Object.entries(ocupCounts).map(([o,c])=>`${c} ${o}`).join(' · ')||`${clientes.length} profissional${clientes.length!==1?'s':''}`;
+  mc.innerHTML=`<div class="sec-hdr"><span class="sec-title">Visão Geral dos Clientes</span><span style="font-size:13px;color:var(--n4)">${ocupLabel}</span></div>${clientes.length?cards:'<div class="empty"><div class="empty-icon">👥</div><div class="empty-text">Nenhum profissional cadastrado.</div></div>'}`;
 }
 
 async function toggleAtivo(id,ativo,nome){
@@ -1687,7 +1690,7 @@ function usrListHTML(){
   return users.map(u=>{
     const isSelf=u.id===session.id;
     const av=u.role==='admin'?'background:var(--amb0);color:var(--amb)':'background:var(--p9);color:var(--p1)';
-    const rl=u.role==='admin'?'Admin':(u.ocupacao||'Fisioterapeuta');
+    const rl=u.ocupacao||'Fisioterapeuta';
     let sb2='';
     if(u.role!=='admin'){
       if(u.ativo===false)sb2=`<span class="bdg" style="background:var(--red0);color:var(--red)">Suspensa</span>`;

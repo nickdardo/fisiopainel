@@ -1146,6 +1146,7 @@ function renderAnual(){
 }
 
 function printReport(){
+  if(relFilter==='ALL'){printAll();return;}
   const mm=String(relMes+1).padStart(2,'0');
   let fR=relConv?records.filter(r=>patients.find(p=>p.id===r.pat_id)?.convenio===relConv):records;
   if(relClinica)fR=fR.filter(r=>r.clinica===relClinica);

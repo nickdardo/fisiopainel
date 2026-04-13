@@ -1171,7 +1171,7 @@ function renderMensal(){
   for(let d=1;d<=dim;d++){const dt=new Date(relAno,relMes,d);if(dt.getDay()>0&&dt.getDay()<6)days.push({date:`${relAno}-${mm}-${String(d).padStart(2,'0')}`,dt});}
   let fR=relConv?records.filter(r=>patients.find(p=>p.id===r.pat_id)?.convenio===relConv):records;
   if(relClinica)fR=fR.filter(r=>r.clinica===relClinica);
-  const mR=fR.filter(r=>r.date?.startsWith(`${relAno}-${mm}`)&&(relFilter==='T'?r.code==='T':r.code===relFilter));
+  const _tCodes=['T','FNJ'];const mR=fR.filter(r=>r.date?.startsWith(`${relAno}-${mm}`)&&(relFilter==='T'?_tCodes.includes(r.code):r.code===relFilter));
   const T=mR.filter(r=>r.code==='T').length,AV=mR.filter(r=>r.code==='AV').length,FNJ=mR.filter(r=>r.code==='FNJ').length;
   relStats(T,AV,FNJ,MESES[relMes]);
   const pIds=[...new Set(mR.map(r=>r.pat_id))];
@@ -1179,17 +1179,17 @@ function renderMensal(){
   if(!pats.length){document.getElementById('rel-tabela').innerHTML='<div class="empty" style="padding:2rem"><div class="empty-icon">📊</div><div class="empty-text">Nenhum atendimento.</div></div>';return;}
   const dayH=days.map(({date,dt})=>`<th class="dc">${dt.getDate()}<br><span style="font-size:9px;opacity:.7">${DIAS_PT[dt.getDay()]}</span></th>`).join('');
   const rows=pats.map((p,i)=>{
-    const _fc=relFilter==='T'?'T':relFilter;const cells=days.map(({date})=>{const r=records.find(x=>x.pat_id===p.id&&x.date===date&&x.code===_fc);if(!r)return'<td class="cc"></td>';const lbl=r.code==='T'?`T${r.t_num}`:r.code;const col=r.code==='T'?'':r.code==='AV'?'color:#185FA5':'color:#5B21B6';const cls=r.code==='T'?'ct':r.code==='AV'?'cav':'';return`<td class="cc ${cls}" style="${col};font-weight:700">${lbl}</td>`;}).join('');
-    const tT=records.filter(r=>r.pat_id===p.id&&r.code===(relFilter==='T'?'T':relFilter)&&r.date?.startsWith(`${relAno}-${mm}`)).length;
+    const _fc=relFilter==='T'?null:relFilter;const cells=days.map(({date})=>{const r=records.find(x=>x.pat_id===p.id&&x.date===date&&(_fc===null?_tCodes.includes(x.code):x.code===_fc));if(!r)return'<td class="cc"></td>';const lbl=r.code==='T'?`T${r.t_num}`:r.code;const col=r.code==='T'?'':r.code==='AV'?'color:#185FA5':'color:#5B21B6';const cls=r.code==='T'?'ct':r.code==='AV'?'cav':'';return`<td class="cc ${cls}" style="${col};font-weight:700">${lbl}</td>`;}).join('');
+    const tT=records.filter(r=>r.pat_id===p.id&&(relFilter==='T'?_tCodes.includes(r.code):r.code===relFilter)&&r.date?.startsWith(`${relAno}-${mm}`)).length;
     return`<tr><td style="color:var(--n4);font-size:11px;text-align:center">${i+1}</td><td class="nc">${p.nome}</td>${cells}<td style="text-align:center;font-weight:700;color:var(--grn)">${tT}</td></tr>`;
   }).join('');
-  const _fc2=relFilter==='T'?'T':relFilter;const totR=days.map(({date})=>{const c=records.filter(r=>r.date===date&&r.code===_fc2&&(relConv?patients.find(p=>p.id===r.pat_id)?.convenio===relConv:true)).length;return`<td style="text-align:center">${c||''}</td>`;}).join('');
+  const _fc2=relFilter==='T'?null:relFilter;const totR=days.map(({date})=>{const c=records.filter(r=>r.date===date&&(_fc2===null?_tCodes.includes(r.code):r.code===_fc2)&&(relConv?patients.find(p=>p.id===r.pat_id)?.convenio===relConv:true)).length;return`<td style="text-align:center">${c||''}</td>`;}).join('');
   document.getElementById('rel-tabela').innerHTML=`<table class="rel-tbl"><thead><tr><th>Nº</th><th class="nc" style="text-align:left">PACIENTE</th>${dayH}<th>T</th></tr></thead><tbody>${rows}</tbody><tfoot><tr><td colspan="2" style="text-align:left;padding-left:1rem">TOTAL</td>${totR}<td>${T}</td></tr></tfoot></table>`;
 }
 
 function renderAnual(){
   const cc=document.getElementById('rel-chart-card');if(cc)cc.style.display='';
-  const yR=records.filter(r=>r.date?.startsWith(String(relAno))&&(relConv?patients.find(p=>p.id===r.pat_id)?.convenio===relConv:true)&&(relClinica?r.clinica===relClinica:true)&&(relFilter==='T'?r.code==='T':r.code===relFilter));
+  const _tCodesA=['T','FNJ'];const yR=records.filter(r=>r.date?.startsWith(String(relAno))&&(relConv?patients.find(p=>p.id===r.pat_id)?.convenio===relConv:true)&&(relClinica?r.clinica===relClinica:true)&&(relFilter==='T'?_tCodesA.includes(r.code):r.code===relFilter));
   const T=yR.filter(r=>r.code==='T').length,AV=yR.filter(r=>r.code==='AV').length,FNJ=yR.filter(r=>r.code==='FNJ').length;
   relStats(T,AV,FNJ,String(relAno));
   const mc=Array.from({length:12},(_,m)=>{const mm=String(m+1).padStart(2,'0');return yR.filter(r=>r.date?.startsWith(`${relAno}-${mm}`)&&r.code==='T').length;});
@@ -1218,14 +1218,14 @@ function printAll(){
   function buildTable(code,label,color){
     let fR=relConv?records.filter(r=>patients.find(p=>p.id===r.pat_id)?.convenio===relConv):records;
     if(relClinica)fR=fR.filter(r=>r.clinica===relClinica);
-    const mR=fR.filter(r=>r.date?.startsWith(`${relAno}-${mm}`)&&r.code===code);
+    const _codes=code==='T'?['T','FNJ']:[code];const mR=fR.filter(r=>r.date?.startsWith(`${relAno}-${mm}`)&&_codes.includes(r.code));
     if(!mR.length)return'';
     const pIds=[...new Set(mR.map(r=>r.pat_id))];
     const pats=patients.filter(p=>pIds.includes(p.id));
     const dayH=days.map(({dt})=>`<th style="border:1px solid #999;padding:3px 2px;text-align:center;font-size:9px;background:#333;color:#fff;min-width:28px">${dt.getDate()}<br>${['D','S','T','Q','Q','S','S'][dt.getDay()]}</th>`).join('');
     const rows=pats.map((p,i)=>{
       const cells=days.map(({date})=>{
-        const r=records.find(x=>x.pat_id===p.id&&x.date===date&&x.code===code);
+        const _codesB=code==='T'?['T','FNJ']:[code];const r=records.find(x=>x.pat_id===p.id&&x.date===date&&_codesB.includes(x.code));
         if(!r)return'<td style="border:1px solid #ddd;text-align:center;padding:2px"></td>';
         const lbl=code==='T'?`T${r.t_num}`:code;
         return`<td style="border:1px solid #ddd;text-align:center;padding:2px;font-size:9px;font-weight:700;color:${color}">${lbl}</td>`;
@@ -1297,7 +1297,7 @@ function printReport(){
   if(relClinica)fRp=fRp.filter(r=>r.clinica===relClinica);
   const _pfc=relFilter==='T'?'T':relFilter; // print filter code
   const baseAll=relTipo==='anual'?fRp.filter(r=>r.date?.startsWith(String(relAno))):fRp.filter(r=>r.date?.startsWith(`${relAno}-${mm}`));
-  const base=baseAll.filter(r=>r.code===_pfc);
+  const _tCodesP=['T','FNJ'];const base=baseAll.filter(r=>relFilter==='T'?_tCodesP.includes(r.code):r.code===_pfc);
   const T=base.filter(r=>r.code==='T').length,AV=base.filter(r=>r.code==='AV').length,FNJ=base.filter(r=>r.code==='FNJ').length,OA=base.filter(r=>r.code==='OA').length;
   const periodo=relTipo==='anual'?`Anual — ${relAno}`:`${MESES[relMes]} de ${relAno}`;
   const convLabel=relConv?` · ${relConv}`:'';
@@ -1312,11 +1312,11 @@ function printReport(){
     const pats=patients.filter(p=>pIds.includes(p.id)&&(!relConv||p.convenio===relConv));
     const dayH=days.map(({dt})=>`<th style="text-align:center;min-width:36px;font-size:9px;padding:4px 2px;border:1px solid #ccc;background:#1E1E3A;color:#C8B8FF"><div style="font-weight:700">${DIAS_PT[dt.getDay()]}</div><div style="opacity:.8">${String(dt.getDate()).padStart(2,'0')}/${mm}</div></th>`).join('');
     const rows=pats.map((p,i)=>{
-      const cells=days.map(({date})=>{const r=records.find(x=>x.pat_id===p.id&&x.date===date&&x.code===_pfc);if(!r)return'<td style="border:1px solid #ddd;text-align:center;padding:3px"></td>';const lbl=r.code==='T'?`T${r.t_num}`:r.code;const col=r.code==='T'?'#1B5E20':r.code==='AV'?'#0D47A1':r.code==='OA'?'#5B21B6':'#B71C1C';return`<td style="border:1px solid #ddd;text-align:center;padding:3px;font-size:10px;font-weight:700;color:${col}">${lbl}</td>`;}).join('');
-      const tT=records.filter(r=>r.pat_id===p.id&&r.code===_pfc&&r.date?.startsWith(`${relAno}-${mm}`)).length;
+      const cells=days.map(({date})=>{const r=records.find(x=>x.pat_id===p.id&&x.date===date&&(relFilter==='T'?_tCodesP.includes(x.code):x.code===_pfc));if(!r)return'<td style="border:1px solid #ddd;text-align:center;padding:3px"></td>';const lbl=r.code==='T'?`T${r.t_num}`:r.code;const col=r.code==='T'?'#1B5E20':r.code==='AV'?'#0D47A1':r.code==='OA'?'#5B21B6':'#B71C1C';return`<td style="border:1px solid #ddd;text-align:center;padding:3px;font-size:10px;font-weight:700;color:${col}">${lbl}</td>`;}).join('');
+      const tT=records.filter(r=>r.pat_id===p.id&&(relFilter==='T'?_tCodesP.includes(r.code):r.code===_pfc)&&r.date?.startsWith(`${relAno}-${mm}`)).length;
       return`<tr style="background:${i%2===0?'#fff':'#f5f5f5'}"><td style="border:1px solid #ddd;text-align:center;font-size:10px;color:#666;padding:4px">${i+1}</td><td style="border:1px solid #ddd;padding:4px 8px;font-size:11px;font-weight:600;text-transform:uppercase">${p.nome}</td>${cells}<td style="border:1px solid #ddd;text-align:center;font-weight:700;color:#1B5E20;font-size:11px">${tT||''}</td></tr>`;
     }).join('');
-    const totR=days.map(({date})=>{const c=records.filter(r=>r.date===date&&r.code===_pfc&&(relConv?patients.find(p=>p.id===r.pat_id)?.convenio===relConv:true)).length;return`<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:10px">${c||''}</td>`;}).join('');
+    const totR=days.map(({date})=>{const c=records.filter(r=>r.date===date&&(relFilter==='T'?_tCodesP.includes(r.code):r.code===_pfc)&&(relConv?patients.find(p=>p.id===r.pat_id)?.convenio===relConv:true)).length;return`<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:10px">${c||''}</td>`;}).join('');
     tableHTML=`<table style="width:100%;border-collapse:collapse"><thead><tr style="background:#1E1E3A;color:#C8B8FF"><th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px;width:24px">Nº</th><th style="border:1px solid #444;padding:6px;text-align:left;font-size:11px;min-width:180px">PACIENTE</th>${dayH}<th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px;width:28px">T</th></tr></thead><tbody>${rows}</tbody><tfoot><tr style="background:#e8e8e8"><td colspan="2" style="border:1px solid #bbb;padding:5px 8px;font-weight:700;font-size:11px">TOTAL</td>${totR}<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:11px">${T}</td></tr></tfoot></table>`;
   } else {
     const pIds=[...new Set(base.map(r=>r.pat_id))];
@@ -1530,7 +1530,7 @@ function renderPerfil(){
           </div>
           <div style="text-align:center">
             <div style="font-weight:600;font-size:16px;color:#1C1C1A">${session.nome}</div>
-            <div style="font-size:13px;color:#888780;margin-top:2px">@${session.login||''} · ${session.role==='admin'?'👑 Admin':'🩺 Fisioterapeuta'}</div>
+            <div style="font-size:13px;color:#888780;margin-top:2px">@${session.login||''} · ${session.role==='admin'?'Admin':(session.ocupacao||'Fisioterapeuta')}</div>
           </div>
           <div style="width:100%">
             <div style="font-size:11px;font-weight:700;color:#5F5E5A;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem">Selecionar foto</div>
@@ -1685,7 +1685,7 @@ function usrListHTML(){
   return users.map(u=>{
     const isSelf=u.id===session.id;
     const av=u.role==='admin'?'background:var(--amb0);color:var(--amb)':'background:var(--p9);color:var(--p1)';
-    const rl=u.role==='admin'?'👑 Admin':'🩺 Fisioterapeuta';
+    const rl=u.role==='admin'?'Admin':(u.ocupacao||'Fisioterapeuta');
     let sb2='';
     if(u.role!=='admin'){
       if(u.ativo===false)sb2=`<span class="bdg" style="background:var(--red0);color:var(--red)">Suspensa</span>`;

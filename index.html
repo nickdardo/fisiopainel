@@ -1251,7 +1251,7 @@ function renderAnual(){
 
 function printAll(){
   const mm=String(relMes+1).padStart(2,'0');
-  const titulo=relClinica||'IASEP SAÚDE CENTER';
+  const titulo=relClinica||(relConv?`${relConv} SAÚDE CENTER`:'SAÚDE CENTER');
   const periodo=`${MESES[relMes]} de ${relAno}`;
   const now=new Date().toLocaleDateString('pt-BR');
   const days=[];const dim=new Date(relAno,relMes+1,0).getDate();
@@ -1380,7 +1380,7 @@ function printReport(){
   .sl{font-size:9px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.05em}.sv{font-size:1.3rem;font-weight:700}
   .ftr{margin-top:14px;padding-top:8px;border-top:1px solid #ddd;font-size:10px;color:#888;display:flex;justify-content:space-between}
   @media print{body{padding:12px}@page{margin:1cm;size:A4 landscape}}</style></head><body>
-  <div class="htitle">${relClinica?relClinica.toUpperCase():'IASEP SAÚDE CENTER'} — ${_pfc==='T'?'ATENDIMENTOS':_pfc==='OA'?'OUTROS ATENDIMENTOS':_pfc==='AV'?'AVALIAÇÃO':_pfc}</div>
+  <div class="htitle">${relClinica?relClinica.toUpperCase():relConv?relConv.toUpperCase():'SAÚDE CENTER'} — ${_pfc==='T'?'ATENDIMENTOS':_pfc==='OA'?'OUTROS ATENDIMENTOS':_pfc==='AV'?'AVALIAÇÃO':_pfc}</div>
   <div class="hsub">${periodo}${convLabel}${clinicaLabel} &nbsp;·&nbsp; ${session.nome}</div>
   <div class="stats">
     <div class="stat"><div class="sl">Sessões T</div><div class="sv" style="color:#1B5E20">${T}</div></div>
@@ -1445,9 +1445,10 @@ function renderMensalAll(){
     <div class="stat"><div class="stat-label">Outros Atend.</div><div class="stat-value" style="color:#5B21B6">${OA}</div><div class="stat-sub">${MESES[relMes]}</div></div>
     <div class="stat"><div class="stat-label">Avaliações</div><div class="stat-value" style="color:#185FA5">${AV}</div><div class="stat-sub">${MESES[relMes]}</div></div>
     <div class="stat"><div class="stat-label">Total</div><div class="stat-value">${T+OA+AV+FNJ}</div><div class="stat-sub">atendimentos</div></div>`;
-  const tabelaT=buildMensalTable('T',`Atendimentos IASEP ${relClinica||''}`.trim(),'#111111');
-  const tabelaOA=buildMensalTable('OA',`Outros Atendimentos ${relClinica||''}`.trim(),'#5B21B6');
-  const tabelaAV=buildMensalTable('AV',`Avaliação ${relClinica||''}`.trim(),'#185FA5');
+  const _convLbl=relConv||'IASEP';
+  const tabelaT=buildMensalTable('T',[`Atendimentos`,_convLbl,relClinica].filter(Boolean).join(' '),'#111111');
+  const tabelaOA=buildMensalTable('OA',[`Outros Atendimentos`,_convLbl,relClinica].filter(Boolean).join(' '),'#5B21B6');
+  const tabelaAV=buildMensalTable('AV',[`Avaliação`,_convLbl,relClinica].filter(Boolean).join(' '),'#185FA5');
   const wrap=document.getElementById('rel-tabela');
   if(wrap)wrap.innerHTML=`<div style="padding:0">${tabelaT}${tabelaOA}${tabelaAV}${(!tabelaT&&!tabelaOA&&!tabelaAV)?'<div class="empty" style="padding:2rem"><div class="empty-icon">📊</div><div class="empty-text">Nenhum atendimento.</div></div>':''}</div>`;
 }

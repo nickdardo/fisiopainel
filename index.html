@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>FisioPainel</title>
+<title>ConectaSaúde</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231C1C1E'/><rect x='13' y='6' width='6' height='20' rx='3' fill='%23A78BFA'/><rect x='6' y='13' width='20' height='6' rx='3' fill='%23A78BFA'/></svg>"/>
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231C1C1E'/><rect x='13' y='6' width='6' height='20' rx='3' fill='%23A78BFA'/><rect x='6' y='13' width='20' height='6' rx='3' fill='%23A78BFA'/></svg>"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
@@ -229,7 +229,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
   <div class="login-bg">
     <div class="login-card">
       <div id="login-panel">
-      <div class="login-logo">Fisio<span>Painel</span></div>
+      <div class="login-logo">Conecta<span>Saúde</span></div>
       <div class="login-sub">Sistema de Gestão de Atendimentos</div>
       <div class="login-error" id="login-error"></div>
       <div class="login-field"><label>Usuário</label><input type="text" id="lu" placeholder="seu.usuario" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()"/></div>
@@ -249,7 +249,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 
       <!-- REGISTER PANEL -->
       <div id="register-panel" style="display:none">
-        <div class="login-logo">Fisio<span>Painel</span></div>
+        <div class="login-logo">Conecta<span>Saúde</span></div>
         <div class="login-sub">Criar nova conta</div>
         <div class="login-error" id="reg-error"></div>
         <div class="login-field"><label>Nome completo *</label><input type="text" id="reg-nome" placeholder="Seu nome completo" onkeydown="if(event.key==='Enter')doRegister()"/></div>
@@ -257,7 +257,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
         <div class="login-field"><label>Senha *</label><input type="password" id="reg-pass" placeholder="Mínimo 4 caracteres" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/></div>
         <div class="login-field"><label>Confirmar senha *</label><input type="password" id="reg-pass2" placeholder="Repita a senha" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/></div>
         <div style="padding:.75rem 1rem;background:#1E0A3C;border-radius:var(--rs);font-size:12px;color:#C8B8FF;margin-bottom:1rem;border:1px solid #2C1F4A">
-          🩺 Conta criada como <strong>Fisioterapeuta</strong>. O administrador configura seu período de acesso.
+          🩺 Conta criada como <strong id='ocup-preview'>Fisioterapeuta</strong>. O administrador configura seu período de acesso.
         </div>
         <button onclick="doRegister()" id="register-btn" style="width:100%;padding:.85rem;background:#7C3AED;color:#fff;border:none;border-radius:var(--rs);font-family:var(--FB);font-size:15px;font-weight:600;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#6D28D9'" onmouseout="this.style.background='#7C3AED'">Criar conta →</button>
         <button onclick="showLogin()" style="margin-top:.75rem;width:100%;padding:.6rem;background:transparent;color:#8E8E93;border:none;font-family:var(--FB);font-size:13px;cursor:pointer">← Voltar para o login</button>
@@ -276,7 +276,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
   <nav class="nav">
     <div style="display:flex;align-items:center;gap:.75rem">
       <button class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></button>
-      <span class="nav-brand">Fisio<span>Painel</span></span>
+      <span class="nav-brand">Conecta<span>Saúde</span></span>
     </div>
     <div class="nav-right">
       <div class="nav-user">
@@ -498,7 +498,7 @@ function buildSidebar(){
         <span class="sidebar-icon">${t.icon}</span>${t.label}
       </button>`
     ).join('')+
-    `<div class="sidebar-footer">FisioPainel &nbsp;v1.0<br>
+    `<div class="sidebar-footer">ConectaSaúde &nbsp;v1.0<br>
      <span style="color:var(--n4)">Desenvolvido por Eduardo Ribeiro</span></div>`;
 }
 
@@ -590,8 +590,9 @@ async function doRegister(){
 
     // Create user with cliente role and ativo=true
     const expires30=new Date(Date.now()+30*24*60*60*1000).toISOString();
+    const ocupacao=document.getElementById('rocup')?.value||'Fisioterapeuta';
     const{data,error}=await sb.from('users')
-      .insert({nome,login,pass_hash:hp(pass),role:'cliente',ativo:true,expires_at:expires30})
+      .insert({nome,login,pass_hash:hp(pass),role:'cliente',ativo:true,expires_at:expires30,ocupacao})
       .select().single();
 
     if(error||!data){showRegErr('Erro ao criar conta. Tente novamente.');btn.textContent='Criar conta →';btn.disabled=false;return;}
@@ -1211,7 +1212,7 @@ function printAll(){
     <div style="font-size:10px;color:#555">${periodo} &nbsp;·&nbsp; Emitido em ${now} &nbsp;·&nbsp; ${session.nome}</div>
   </div>`;
   const footer=`<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:8px;color:#999;border-top:1px solid #ddd;padding-top:4px">
-    <span>FisioPainel · Desenvolvido por Eduardo Ribeiro</span><span>${periodo}</span>
+    <span>ConectaSaúde · Desenvolvido por Eduardo Ribeiro</span><span>${periodo}</span>
   </div>`;
 
   const mkPage=(tabela)=>tabela?`<div style="page-break-after:always">${header}${tabela}${footer}</div>`:'';
@@ -1287,7 +1288,7 @@ function printReport(){
     <div class="stat"><div class="sl">Total</div><div class="sv">${T+AV+FNJ}</div></div>
   </div>
   ${tableHTML}
-  <div class="ftr"><span>FisioPainel · Desenvolvido por Eduardo Ribeiro</span><span>${periodo}${convLabel}${clinicaLabel}</span></div>
+  <div class="ftr"><span>ConectaSaúde · Desenvolvido por Eduardo Ribeiro</span><span>${periodo}${convLabel}${clinicaLabel}</span></div>
   <script>window.onload=()=>{window.print()}<\/script></body></html>`);
   w.document.close();
 }

@@ -800,7 +800,7 @@ function recentHTML(){
   if(!last.length)return'<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">Nenhum registro ainda.</div></div>';
   return last.map(r=>{
     const p=patients.find(x=>x.id===r.pat_id);
-    const lbl=r.code==='T'?`T${r.t_num}`:r.code;
+    const lbl=r.code==='T'?`T${r.t_num}`:r.code==='OA'&&r.t_num?`T${r.t_num}`:r.code;
     const clinicaTag=r.clinica?`<span style="font-size:10px;color:var(--n4);margin-left:4px">· ${r.clinica}</span>`:'';
     const cls=r.code==='T'?'bdg-T':r.code==='AV'?'bdg-AV':r.code==='OA'?'bdg-OA':'bdg-FNJ';
     const canDel=session.role==='admin'||r.reg_by===session.id;
@@ -1179,7 +1179,7 @@ function renderMensal(){
   if(!pats.length){document.getElementById('rel-tabela').innerHTML='<div class="empty" style="padding:2rem"><div class="empty-icon">📊</div><div class="empty-text">Nenhum atendimento.</div></div>';return;}
   const dayH=days.map(({date,dt})=>`<th class="dc">${dt.getDate()}<br><span style="font-size:9px;opacity:.7">${DIAS_PT[dt.getDay()]}</span></th>`).join('');
   const rows=pats.map((p,i)=>{
-    const _fc=relFilter==='T'?null:relFilter;const cells=days.map(({date})=>{const r=records.find(x=>x.pat_id===p.id&&x.date===date&&(_fc===null?_tCodes.includes(x.code):x.code===_fc));if(!r)return'<td class="cc"></td>';const lbl=r.code==='T'?`T${r.t_num}`:r.code;const col=r.code==='T'?'':r.code==='AV'?'color:#185FA5':'color:#5B21B6';const cls=r.code==='T'?'ct':r.code==='AV'?'cav':'';return`<td class="cc ${cls}" style="${col};font-weight:700">${lbl}</td>`;}).join('');
+    const _fc=relFilter==='T'?null:relFilter;const cells=days.map(({date})=>{const r=records.find(x=>x.pat_id===p.id&&x.date===date&&(_fc===null?_tCodes.includes(x.code):x.code===_fc));if(!r)return'<td class="cc"></td>';const lbl=r.code==='T'?`T${r.t_num}`:r.code==='OA'&&r.t_num?`T${r.t_num}`:r.code;const col=r.code==='T'?'':r.code==='AV'?'color:#185FA5':'color:#5B21B6';const cls=r.code==='T'?'ct':r.code==='AV'?'cav':'';return`<td class="cc ${cls}" style="${col};font-weight:700">${lbl}</td>`;}).join('');
     const tT=records.filter(r=>r.pat_id===p.id&&(relFilter==='T'?_tCodes.includes(r.code):r.code===relFilter)&&r.date?.startsWith(`${relAno}-${mm}`)).length;
     return`<tr><td style="color:var(--n4);font-size:11px;text-align:center">${i+1}</td><td class="nc">${p.nome}</td>${cells}<td style="text-align:center;font-weight:700;color:var(--grn)">${tT}</td></tr>`;
   }).join('');
@@ -1312,7 +1312,7 @@ function printReport(){
     const pats=patients.filter(p=>pIds.includes(p.id)&&(!relConv||p.convenio===relConv));
     const dayH=days.map(({dt})=>`<th style="text-align:center;min-width:36px;font-size:9px;padding:4px 2px;border:1px solid #ccc;background:#1E1E3A;color:#C8B8FF"><div style="font-weight:700">${DIAS_PT[dt.getDay()]}</div><div style="opacity:.8">${String(dt.getDate()).padStart(2,'0')}/${mm}</div></th>`).join('');
     const rows=pats.map((p,i)=>{
-      const cells=days.map(({date})=>{const r=records.find(x=>x.pat_id===p.id&&x.date===date&&(relFilter==='T'?_tCodesP.includes(x.code):x.code===_pfc));if(!r)return'<td style="border:1px solid #ddd;text-align:center;padding:3px"></td>';const lbl=r.code==='T'?`T${r.t_num}`:r.code;const col=r.code==='T'?'#1B5E20':r.code==='AV'?'#0D47A1':r.code==='OA'?'#5B21B6':'#B71C1C';return`<td style="border:1px solid #ddd;text-align:center;padding:3px;font-size:10px;font-weight:700;color:${col}">${lbl}</td>`;}).join('');
+      const cells=days.map(({date})=>{const r=records.find(x=>x.pat_id===p.id&&x.date===date&&(relFilter==='T'?_tCodesP.includes(x.code):x.code===_pfc));if(!r)return'<td style="border:1px solid #ddd;text-align:center;padding:3px"></td>';const lbl=r.code==='T'?`T${r.t_num}`:r.code==='OA'&&r.t_num?`T${r.t_num}`:r.code;const col=r.code==='T'?'#1B5E20':r.code==='AV'?'#0D47A1':r.code==='OA'?'#5B21B6':'#B71C1C';return`<td style="border:1px solid #ddd;text-align:center;padding:3px;font-size:10px;font-weight:700;color:${col}">${lbl}</td>`;}).join('');
       const tT=records.filter(r=>r.pat_id===p.id&&(relFilter==='T'?_tCodesP.includes(r.code):r.code===_pfc)&&r.date?.startsWith(`${relAno}-${mm}`)).length;
       return`<tr style="background:${i%2===0?'#fff':'#f5f5f5'}"><td style="border:1px solid #ddd;text-align:center;font-size:10px;color:#666;padding:4px">${i+1}</td><td style="border:1px solid #ddd;padding:4px 8px;font-size:11px;font-weight:600;text-transform:uppercase">${p.nome}</td>${cells}<td style="border:1px solid #ddd;text-align:center;font-weight:700;color:#1B5E20;font-size:11px">${tT||''}</td></tr>`;
     }).join('');
@@ -1370,7 +1370,8 @@ function buildMensalTable(filterCode, label, colorHex){
     const cells=days.map(({date})=>{
       const r=records.find(x=>x.pat_id===p.id&&x.date===date&&_fc.includes(x.code));
       if(!r)return'<td class="cc"></td>';
-      const lbl=r.code==='T'?`T${r.t_num}`:r.code;
+      // For OA records that came from Particular+T, show T number if available
+      const lbl=r.code==='T'?`T${r.t_num}`:r.code==='OA'&&r.t_num?`T${r.t_num}`:'OA'===r.code?'OA':r.code;
       const cellColor=r.code==='FNJ'?'#993C1D':r.code==='AV'?'#185FA5':r.code==='OA'?'#5B21B6':colorHex;
       return`<td class="cc ct" style="color:${cellColor};font-weight:700">${lbl}</td>`;
     }).join('');

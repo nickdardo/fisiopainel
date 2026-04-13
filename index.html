@@ -292,6 +292,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
         <div class="nav-avatar" id="nav-av"></div>
         <span id="nav-name"></span>
         <span class="nav-badge" id="nav-role"></span>
+        <span id="nav-plan" style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;margin-left:2px"></span>
       </div>
       <button class="logout-btn" onclick="doLogout()">Sair</button>
     </div>
@@ -655,7 +656,31 @@ async function bootApp(){
       av.style.cssText=AV_STYLE[session.role]||AV_STYLE.cliente;
     }
     document.getElementById('nav-name').textContent=session.nome||'';
-    document.getElementById('nav-role').textContent=session.role==='admin'?'👑 Admin':'🩺 Fisioterapeuta';
+    document.getElementById('nav-role').textContent=session.role==='admin'?'👑 Admin':(session.ocupacao||'Fisioterapeuta');
+    // Plan badge
+    const planEl=document.getElementById('nav-plan');
+    if(planEl&&session.role!=='admin'){
+      const now=new Date();
+      if(session.expires_at){
+        const exp=new Date(session.expires_at);
+        const diff=Math.ceil((exp-now)/(1000*60*60*24));
+        if(diff<=0){
+          planEl.textContent='Expirado';
+          planEl.style.cssText='font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#3A0A0A;color:#FF6B6B;border:1px solid #7F1D1D';
+        } else if(diff<=7){
+          planEl.textContent=`⚠ ${diff}d restante${diff!==1?'s':''}`;
+          planEl.style.cssText='font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#3A2200;color:#FFB347;border:1px solid #7C3A00';
+        } else {
+          planEl.textContent=`Free · ${diff}d restantes`;
+          planEl.style.cssText='font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:#1E0A3C;color:#C8B8FF;border:1px solid #3D1F78';
+        }
+      } else {
+        planEl.textContent='✓ Ativo';
+        planEl.style.cssText='font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:#0A2A0A;color:#4ADE80;border:1px solid #166534';
+      }
+    } else if(planEl){
+      planEl.textContent='';
+    }
   }catch(e){}
   try{await loadAll();}catch(e){patients=[];records=[];users=[];}
   buildSidebar();

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>ConectaSaÃºde</title>
+<title>ConectaSaúde</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231C1C1E'/><rect x='13' y='6' width='6' height='20' rx='3' fill='%23A78BFA'/><rect x='6' y='13' width='20' height='6' rx='3' fill='%23A78BFA'/></svg>"/>
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231C1C1E'/><rect x='13' y='6' width='6' height='20' rx='3' fill='%23A78BFA'/><rect x='6' y='13' width='20' height='6' rx='3' fill='%23A78BFA'/></svg>"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
@@ -11,13 +11,13 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  /* Preto moderno â€” cor principal */
+  /* Preto moderno — cor principal */
   --p0:#F2F2F2;--p1:#D4D4D4;--p2:#888888;--p3:#333333;--p5:#1a1a1a;--p7:#111111;--p9:#0a0a0a;
   /* Brancos e cinzas */
   --n0:#F8F7F4;--n1:#FFFFFF;--n2:#F0EFEB;--n3:#D3D1C7;--n4:#888780;--n5:#5F5E5A;--n6:#3A3A3A;--n7:#1C1C1A;
   /* Vermelho */
   --red:#D85A30;--red0:#FAECE7;
-  /* Ã‚mbar */
+  /* Âmbar */
   --amb:#854F0B;--amb0:#FAEEDA;--amb5:#854F0B;
   /* Verde (para badges de sucesso apenas) */
   --grn:#3B6D11;--grn0:#EAF3DE;
@@ -30,7 +30,7 @@
 }
 body{font-family:var(--FB);background:#F8F7F4;color:#1C1C1A;min-height:100vh;font-size:15px}
 
-/* â”€â”€ LOGIN â”€â”€ */
+/* ── LOGIN ── */
 .login-bg{min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 60% 40%,#1E0A3C 0%,#0a0a0a 70%);padding:1rem}
 .login-card{background:#1C1C1E;border:1px solid #2C2C2E;border-radius:20px;padding:2.5rem;width:100%;max-width:400px;box-shadow:0 8px 48px rgba(0,0,0,.6)}
 .login-logo{font-family:var(--FT);font-size:2.2rem;color:#FFFFFF;margin-bottom:.2rem}
@@ -43,7 +43,7 @@ body{font-family:var(--FB);background:#F8F7F4;color:#1C1C1A;min-height:100vh;fon
 .login-error{background:#2D0A0A;color:#FF6B6B;font-size:13px;padding:.6rem .85rem;border-radius:var(--rs);margin-bottom:1rem;display:none}
 .login-hint{font-size:11px;color:#636366;text-align:center;margin-top:1rem}
 
-/* â”€â”€ NAV â”€â”€ */
+/* ── NAV ── */
 .nav{background:#1C1C1E;border-bottom:1px solid #2C2C2E;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
 .nav-brand{font-family:var(--FT);font-size:1.35rem;color:#FFFFFF}
 .nav-brand span{color:#A78BFA}
@@ -56,12 +56,12 @@ body{font-family:var(--FB);background:#F8F7F4;color:#1C1C1A;min-height:100vh;fon
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;border-radius:6px}
 .hamburger span{display:block;width:22px;height:2px;background:#FFFFFF;border-radius:2px}
 
-/* â”€â”€ LAYOUT â”€â”€ */
+/* ── LAYOUT ── */
 .app-body{display:flex;min-height:calc(100vh - 56px)}
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:90}
 .sidebar-overlay.open{display:block}
 
-/* â”€â”€ SIDEBAR â”€â”€ */
+/* ── SIDEBAR ── */
 .sidebar{width:220px;min-width:220px;background:#FFFFFF;border-right:1px solid #E8E7E3;padding:1rem 0;display:flex;flex-direction:column;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;transition:left .25s}
 .sidebar-section{padding:0 1rem .4rem;font-size:10px;font-weight:700;color:#888780;letter-spacing:.08em;text-transform:uppercase;margin-top:.5rem}
 .sidebar-item{display:flex;align-items:center;gap:10px;padding:.65rem 1.25rem;cursor:pointer;border:none;background:transparent;width:100%;text-align:left;font-family:var(--FB);font-size:14px;color:#5F5E5A;border-right:3px solid transparent;transition:all .12s}
@@ -70,25 +70,25 @@ body{font-family:var(--FB);background:#F8F7F4;color:#1C1C1A;min-height:100vh;fon
 .sidebar-icon{width:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:.75}.sidebar-item.active .sidebar-icon{opacity:1}.sidebar-item:hover .sidebar-icon{opacity:1}
 .sidebar-footer{margin-top:auto;padding:1rem;border-top:1px solid #E8E7E3;font-size:11px;color:#888780;line-height:1.6}
 
-/* â”€â”€ CONTENT â”€â”€ */
+/* ── CONTENT ── */
 .content{flex:1;padding:1.5rem;min-width:0}
 
-/* â”€â”€ STATS â”€â”€ */
+/* ── STATS ── */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.25rem}
 .stat{background:#FFFFFF;border:1px solid #E8E7E3;border-radius:var(--r);padding:1rem 1.25rem;box-shadow:var(--sh)}
 .stat-label{font-size:10px;color:#888780;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
 .stat-value{font-family:var(--FT);font-size:1.8rem;line-height:1;color:#1C1C1A}
 .stat-sub{font-size:12px;color:#888780;margin-top:4px}
 
-/* â”€â”€ CARDS â”€â”€ */
+/* ── CARDS ── */
 .card{background:#FFFFFF;border:1px solid #E8E7E3;border-radius:var(--r);padding:1.5rem;margin-bottom:1rem;box-shadow:var(--sh)}
 .card-title{font-family:var(--FT);font-size:1.15rem;margin-bottom:1rem;color:#1C1C1A}
 
-/* â”€â”€ SECTION HEADER â”€â”€ */
+/* ── SECTION HEADER ── */
 .sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
 .sec-title{font-family:var(--FT);font-size:1.3rem;color:#1C1C1A}
 
-/* â”€â”€ FORMS â”€â”€ */
+/* ── FORMS ── */
 .fg{display:flex;flex-direction:column;gap:4px}
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
 .full{grid-column:1/-1}
@@ -98,7 +98,7 @@ input:focus,select:focus,textarea:focus{border-color:#111111}
 input::placeholder,textarea::placeholder{color:#C0BEB5}
 select option{background:#FFFFFF;color:#1C1C1A}
 
-/* â”€â”€ BTNS â”€â”€ */
+/* ── BTNS ── */
 .btn{padding:.6rem 1.25rem;border-radius:var(--rs);font-family:var(--FB);font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:6px;transition:all .12s;white-space:nowrap}
 .btn-p{background:#111111;color:#fff}.btn-p:hover{background:#000000}
 .btn-g{background:transparent;color:#5F5E5A;border:1px solid #D3D1C7}.btn-g:hover{background:#F0EFEB}
@@ -109,7 +109,7 @@ select option{background:#FFFFFF;color:#1C1C1A}
 .btn-xs{padding:.22rem .65rem;font-size:12px}
 .btn-full{width:100%;justify-content:center;padding:.75rem}
 
-/* â”€â”€ BADGES â”€â”€ */
+/* ── BADGES ── */
 .bdg{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700}
 .bdg-T{background:#EAF3DE;color:#3B6D11}
 .bdg-AV{background:#E6F1FB;color:#185FA5}
@@ -121,7 +121,7 @@ select option{background:#FFFFFF;color:#1C1C1A}
 .bdg-unimed{background:#EAF3DE;color:#3B6D11}
 .bdg-part{background:#F0EFEB;color:#5F5E5A}
 
-/* â”€â”€ TABLE â”€â”€ */
+/* ── TABLE ── */
 .tbl-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid #E8E7E3}
 table{width:100%;border-collapse:collapse;font-size:13px}
 thead th{padding:.7rem 1rem;text-align:left;font-size:10px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.06em;background:#F8F7F4;border-bottom:1px solid #E8E7E3;white-space:nowrap}
@@ -130,7 +130,7 @@ tbody tr:last-child{border-bottom:none}
 tbody tr:hover{background:#F8F7F4}
 tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 
-/* â”€â”€ REL TABLE â”€â”€ */
+/* ── REL TABLE ── */
 .rel-wrap{overflow-x:auto}
 .rel-tbl{border-collapse:collapse;font-size:12px;width:100%}
 .rel-tbl th,.rel-tbl td{border:1px solid #E8E7E3;padding:.35rem .5rem;white-space:nowrap;color:#1C1C1A}
@@ -142,7 +142,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 .rel-tbl tbody td.ct{color:var(--grn)}.rel-tbl tbody td.cav{color:var(--blu)}.rel-tbl tbody td.cfnj{color:var(--red)}
 .rel-tbl tfoot td{background:#F0EFEB;color:#1C1C1A;font-weight:700;text-align:center;font-size:11px;border-top:2px solid #D3D1C7}
 
-/* â”€â”€ REGISTRO â”€â”€ */
+/* ── REGISTRO ── */
 .qp{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .pd-wrap{position:relative}
 .pd{position:absolute;top:100%;left:0;right:0;background:#FFFFFF;border:1px solid #D3D1C7;border-top:none;border-radius:0 0 var(--rs) var(--rs);z-index:50;max-height:200px;overflow-y:auto;box-shadow:var(--shm)}
@@ -162,24 +162,24 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 .rel-fbtn-OA.active{background:#5B21B6;border-color:#5B21B6}
 .rel-fbtn-AV.active{background:#185FA5;border-color:#185FA5}
 
-/* â”€â”€ ONLINE DOT â”€â”€ */
+/* ── ONLINE DOT ── */
 .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;display:inline-block}
 .dot-on{background:var(--grn);box-shadow:0 0 0 0 rgba(48,209,88,.4);animation:pulse-on 2s infinite}
 .dot-off{background:var(--n3)}
 @keyframes pulse-on{0%{box-shadow:0 0 0 0 rgba(48,209,88,.5)}70%{box-shadow:0 0 0 7px rgba(48,209,88,0)}100%{box-shadow:0 0 0 0 rgba(48,209,88,0)}}
 
-/* â”€â”€ USERS â”€â”€ */
+/* ── USERS ── */
 .ucard{background:#FFFFFF;border:1px solid #E8E7E3;border-radius:var(--r);padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;margin-bottom:.65rem;box-shadow:var(--sh)}
 .uav{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0}
 
-/* â”€â”€ CHART â”€â”€ */
+/* ── CHART ── */
 .cbw{display:flex;align-items:flex-end;gap:6px;height:110px;margin-top:1rem}
 .cbc{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1}
 .cbb{width:100%;border-radius:4px 4px 0 0;background:#333333;min-height:4px}
 .cbl{font-size:10px;color:#888780;text-align:center;white-space:nowrap}
 .cbv{font-size:11px;font-weight:600;color:#333333}
 
-/* â”€â”€ MODAL â”€â”€ */
+/* ── MODAL ── */
 .mbd{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem}
 .modal{background:#FFFFFF;border:1px solid #E8E7E3;border-radius:var(--r);width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:var(--shm)}
 .mhdr{padding:1.25rem 1.5rem 1rem;border-bottom:1px solid #E8E7E3;display:flex;align-items:center;justify-content:space-between}
@@ -190,7 +190,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 .mfooter{padding:1rem 1.5rem;border-top:1px solid #E8E7E3;display:flex;gap:.5rem;justify-content:flex-end}
 .msec{font-size:11px;font-weight:700;color:#333333;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem;margin-top:1rem}
 
-/* â”€â”€ MISC â”€â”€ */
+/* ── MISC ── */
 .msr{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-bottom:1.25rem}
 .msr select{padding:.45rem .75rem;font-size:14px;border:1px solid #D3D1C7;border-radius:var(--rs);font-family:var(--FB);background:#FFFFFF;color:#1C1C1A;outline:none}
 .empty{text-align:center;padding:2.5rem;color:var(--n4)}
@@ -229,18 +229,18 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
   <div class="login-bg">
     <div class="login-card">
       <div id="login-panel">
-      <div class="login-logo">Conecta<span>SaÃºde</span></div>
-      <div class="login-sub">Sistema de GestÃ£o de Atendimentos</div>
+      <div class="login-logo">Conecta<span>Saúde</span></div>
+      <div class="login-sub">Sistema de Gestão de Atendimentos</div>
       <div class="login-error" id="login-error"></div>
-      <div class="login-field"><label>UsuÃ¡rio</label><input type="text" id="lu" placeholder="seu.usuario" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-      <div class="login-field"><label>Senha</label><input type="password" id="lp" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-      <button onclick="doLogin()" id="login-btn" style="margin-top:.5rem;width:100%;padding:.85rem;background:#7C3AED;color:#fff;border:none;border-radius:var(--rs);font-family:var(--FB);font-size:15px;font-weight:600;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#6D28D9'" onmouseout="this.style.background='#7C3AED'">Entrar â†’</button>
+      <div class="login-field"><label>Usuário</label><input type="text" id="lu" placeholder="seu.usuario" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <div class="login-field"><label>Senha</label><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <button onclick="doLogin()" id="login-btn" style="margin-top:.5rem;width:100%;padding:.85rem;background:#7C3AED;color:#fff;border:none;border-radius:var(--rs);font-family:var(--FB);font-size:15px;font-weight:600;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#6D28D9'" onmouseout="this.style.background='#7C3AED'">Entrar →</button>
       <div style="display:flex;align-items:center;gap:.75rem;margin-top:1.25rem">
         <div style="flex:1;height:1px;background:#3A3A3C"></div>
         <span style="font-size:12px;color:#636366">ou</span>
         <div style="flex:1;height:1px;background:#3A3A3C"></div>
       </div>
-      <button onclick="showRegister()" style="margin-top:.75rem;width:100%;padding:.75rem;background:transparent;color:#A78BFA;border:1px solid #3A3A3C;border-radius:var(--rs);font-family:var(--FB);font-size:14px;font-weight:500;cursor:pointer;transition:all .15s" onmouseover="this.style.borderColor='#7C3AED';this.style.background='#1E0A3C'" onmouseout="this.style.borderColor='#3A3A3C';this.style.background='transparent'">Criar minha conta â†’</button>
+      <button onclick="showRegister()" style="margin-top:.75rem;width:100%;padding:.75rem;background:transparent;color:#A78BFA;border:1px solid #3A3A3C;border-radius:var(--rs);font-family:var(--FB);font-size:14px;font-weight:500;cursor:pointer;transition:all .15s" onmouseover="this.style.borderColor='#7C3AED';this.style.background='#1E0A3C'" onmouseout="this.style.borderColor='#3A3A3C';this.style.background='transparent'">Criar minha conta →</button>
       <p class="login-hint">Desenvolvido por Eduardo Ribeiro</p>
       <a href="https://wa.me/5591985919201" target="_blank" style="display:block;text-align:center;margin-top:.5rem;font-size:12px;color:#A78BFA;text-decoration:none">
         Suporte: (91) 98591-9201
@@ -249,27 +249,27 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 
       <!-- REGISTER PANEL -->
       <div id="register-panel" style="display:none">
-        <div class="login-logo">Conecta<span>SaÃºde</span></div>
+        <div class="login-logo">Conecta<span>Saúde</span></div>
         <div class="login-sub">Criar nova conta</div>
         <div class="login-error" id="reg-error"></div>
         <div class="login-field"><label>Nome completo *</label><input type="text" id="reg-nome" placeholder="Seu nome completo" onkeydown="if(event.key==='Enter')doRegister()"/></div>
-        <div class="login-field"><label>OcupaÃ§Ã£o *</label>
+        <div class="login-field"><label>Ocupação *</label>
           <select id="rocup" onchange="document.getElementById('ocup-preview').textContent=this.value"
             style="width:100%;padding:.8rem;border-radius:var(--rs);border:1px solid #3A3A3C;background:#2C2C2E;color:#fff;font-size:14px;font-family:var(--FB)">
             <option value="Fisioterapeuta">Fisioterapeuta</option>
             <option value="Nutricionista">Nutricionista</option>
             <option value="Terapeuta Ocupacional">Terapeuta Ocupacional</option>
-            <option value="PsicÃ³logo">PsicÃ³logo</option>
+            <option value="Psicólogo">Psicólogo</option>
           </select>
         </div>
-        <div class="login-field"><label>UsuÃ¡rio (login) *</label><input type="text" id="reg-login" placeholder="Ex: joao.silva" autocomplete="username" onkeydown="if(event.key==='Enter')doRegister()"/></div>
-        <div class="login-field"><label>Senha *</label><input type="password" id="reg-pass" placeholder="MÃ­nimo 4 caracteres" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/></div>
+        <div class="login-field"><label>Usuário (login) *</label><input type="text" id="reg-login" placeholder="Ex: joao.silva" autocomplete="username" onkeydown="if(event.key==='Enter')doRegister()"/></div>
+        <div class="login-field"><label>Senha *</label><input type="password" id="reg-pass" placeholder="Mínimo 4 caracteres" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/></div>
         <div class="login-field"><label>Confirmar senha *</label><input type="password" id="reg-pass2" placeholder="Repita a senha" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/></div>
         <div style="padding:.75rem 1rem;background:#1E0A3C;border-radius:var(--rs);font-size:12px;color:#C8B8FF;margin-bottom:1rem;border:1px solid #2C1F4A">
-          ðŸ©º Conta criada como <strong id='ocup-preview'>Fisioterapeuta</strong>. O administrador configura seu perÃ­odo de acesso.
+          🩺 Conta criada como <strong id='ocup-preview'>Fisioterapeuta</strong>. O administrador configura seu período de acesso.
         </div>
-        <button onclick="doRegister()" id="register-btn" style="width:100%;padding:.85rem;background:#7C3AED;color:#fff;border:none;border-radius:var(--rs);font-family:var(--FB);font-size:15px;font-weight:600;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#6D28D9'" onmouseout="this.style.background='#7C3AED'">Criar conta â†’</button>
-        <button onclick="showLogin()" style="margin-top:.75rem;width:100%;padding:.6rem;background:transparent;color:#8E8E93;border:none;font-family:var(--FB);font-size:13px;cursor:pointer">â† Voltar para o login</button>
+        <button onclick="doRegister()" id="register-btn" style="width:100%;padding:.85rem;background:#7C3AED;color:#fff;border:none;border-radius:var(--rs);font-family:var(--FB);font-size:15px;font-weight:600;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#6D28D9'" onmouseout="this.style.background='#7C3AED'">Criar conta →</button>
+        <button onclick="showLogin()" style="margin-top:.75rem;width:100%;padding:.6rem;background:transparent;color:#8E8E93;border:none;font-family:var(--FB);font-size:13px;cursor:pointer">← Voltar para o login</button>
       <a href="https://wa.me/5591985919201" target="_blank" style="display:block;text-align:center;margin-top:.5rem;font-size:12px;color:#A78BFA;text-decoration:none">
         Suporte: (91) 98591-9201
       </a>
@@ -285,7 +285,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
   <nav class="nav">
     <div style="display:flex;align-items:center;gap:.75rem">
       <button class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></button>
-      <span class="nav-brand">Conecta<span>SaÃºde</span></span>
+      <span class="nav-brand">Conecta<span>Saúde</span></span>
     </div>
     <div class="nav-right">
       <div class="nav-user">
@@ -306,7 +306,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 <!-- MODAL PACIENTE -->
 <div class="mbd" id="pm" style="display:none" onclick="if(event.target===this)closeM('pm')">
   <div class="modal" style="max-width:560px">
-    <div class="mhdr"><span class="mtitle" id="pm-title">Editar Paciente</span><button class="mclose" onclick="closeM('pm')">âœ•</button></div>
+    <div class="mhdr"><span class="mtitle" id="pm-title">Editar Paciente</span><button class="mclose" onclick="closeM('pm')">✕</button></div>
     <div class="mbody">
       <div class="msec" style="margin-top:0">Dados Pessoais</div>
       <div class="fgrid">
@@ -317,13 +317,13 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
         <div class="fg"><span class="lbl">RG</span><input id="pm-rg" placeholder="Ex: 2402559"/></div>
         <div class="fg"><span class="lbl">Celular</span><input id="pm-tel" placeholder="(91) 99999-0000" maxlength="15" oninput="maskTel(this)" inputmode="numeric"/></div>
       </div>
-      <div class="msec">ConvÃªnio</div>
+      <div class="msec">Convênio</div>
       <div class="fgrid">
-        <div class="fg full"><span class="lbl">ConvÃªnio</span><select id="pm-conv"><option>IASEP</option><option>UNIMED</option><option>Particular</option><option>Outro</option></select></div>
+        <div class="fg full"><span class="lbl">Convênio</span><select id="pm-conv"><option>IASEP</option><option>UNIMED</option><option>Particular</option><option>Outro</option></select></div>
       </div>
-      <div class="msec">EndereÃ§o</div>
+      <div class="msec">Endereço</div>
       <div class="fgrid">
-        <div class="fg full"><span class="lbl">EndereÃ§o</span><input id="pm-end" placeholder="Rua, nÃºmero"/></div>
+        <div class="fg full"><span class="lbl">Endereço</span><input id="pm-end" placeholder="Rua, número"/></div>
         <div class="fg"><span class="lbl">Bairro</span><input id="pm-bairro" placeholder="Bairro"/></div>
         <div class="fg"><span class="lbl">Cidade</span><input id="pm-cidade" placeholder="Cidade"/></div>
         <div class="fg"><span class="lbl">UF</span>
@@ -342,21 +342,21 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
   </div>
 </div>
 
-<!-- MODAL USUÃRIO -->
+<!-- MODAL USUÁRIO -->
 <div class="mbd" id="um" style="display:none" onclick="if(event.target===this)closeM('um')">
   <div class="modal">
-    <div class="mhdr"><span class="mtitle" id="um-title">Novo UsuÃ¡rio</span><button class="mclose" onclick="closeM('um')">âœ•</button></div>
+    <div class="mhdr"><span class="mtitle" id="um-title">Novo Usuário</span><button class="mclose" onclick="closeM('um')">✕</button></div>
     <div class="mbody">
       <div class="fgrid">
-        <div class="fg full"><span class="lbl">Nome completo *</span><input id="um-nome" placeholder="Nome do usuÃ¡rio"/></div>
+        <div class="fg full"><span class="lbl">Nome completo *</span><input id="um-nome" placeholder="Nome do usuário"/></div>
         <div class="fg"><span class="lbl">Login *</span><input id="um-login" placeholder="Ex: joao.silva"/></div>
-        <div class="fg"><span class="lbl">Perfil</span><select id="um-role"><option value="admin">ðŸ‘‘ Admin</option><option value="cliente">ðŸ©º Fisioterapeuta</option></select></div>
-        <div class="fg full"><span class="lbl">Senha *</span><input type="password" id="um-pass" placeholder="MÃ­nimo 4 caracteres"/></div>
+        <div class="fg"><span class="lbl">Perfil</span><select id="um-role"><option value="admin">👑 Admin</option><option value="cliente">🩺 Fisioterapeuta</option></select></div>
+        <div class="fg full"><span class="lbl">Senha *</span><input type="password" id="um-pass" placeholder="Mínimo 4 caracteres"/></div>
         <div class="fg full" id="um-pass2-wrap"><span class="lbl">Confirmar senha *</span><input type="password" id="um-pass2" placeholder="Repita a senha"/></div>
       </div>
       <div style="margin-top:1rem;padding:.75rem 1rem;background:#F0EFEB;border-radius:var(--rs);font-size:12px;color:#333333">
-        ðŸ‘‘ Admin â€” acesso total + gerenciar usuÃ¡rios<br>
-        ðŸ©º Fisioterapeuta â€” registrar, pacientes e relatÃ³rios
+        👑 Admin — acesso total + gerenciar usuários<br>
+        🩺 Fisioterapeuta — registrar, pacientes e relatórios
       </div>
     </div>
     <div class="mfooter"><button class="btn btn-g btn-sm" onclick="closeM('um')">Cancelar</button><button class="btn btn-p btn-sm" onclick="saveUsuario()">Salvar</button></div>
@@ -366,11 +366,11 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 <!-- MODAL SENHA -->
 <div class="mbd" id="pwd-m" style="display:none" onclick="if(event.target===this)closeM('pwd-m')">
   <div class="modal" style="max-width:380px">
-    <div class="mhdr"><span class="mtitle">Trocar Senha</span><button class="mclose" onclick="closeM('pwd-m')">âœ•</button></div>
+    <div class="mhdr"><span class="mtitle">Trocar Senha</span><button class="mclose" onclick="closeM('pwd-m')">✕</button></div>
     <div class="mbody">
-      <div class="fg" style="margin-bottom:.85rem"><span class="lbl">Senha atual</span><input type="password" id="pwd-old" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"/></div>
-      <div class="fg" style="margin-bottom:.85rem"><span class="lbl">Nova senha</span><input type="password" id="pwd-new" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"/></div>
-      <div class="fg"><span class="lbl">Confirmar nova senha</span><input type="password" id="pwd-new2" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"/></div>
+      <div class="fg" style="margin-bottom:.85rem"><span class="lbl">Senha atual</span><input type="password" id="pwd-old" placeholder="••••••••"/></div>
+      <div class="fg" style="margin-bottom:.85rem"><span class="lbl">Nova senha</span><input type="password" id="pwd-new" placeholder="••••••••"/></div>
+      <div class="fg"><span class="lbl">Confirmar nova senha</span><input type="password" id="pwd-new2" placeholder="••••••••"/></div>
     </div>
     <div class="mfooter"><button class="btn btn-g btn-sm" onclick="closeM('pwd-m')">Cancelar</button><button class="btn btn-p btn-sm" onclick="saveSenha()">Salvar</button></div>
   </div>
@@ -379,36 +379,36 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 <!-- MODAL ACESSO -->
 <div class="mbd" id="ac-modal" style="display:none" onclick="if(event.target===this)closeM('ac-modal')">
   <div class="modal" style="max-width:380px">
-    <div class="mhdr"><span class="mtitle">Configurar Acesso</span><button class="mclose" onclick="closeM('ac-modal')">âœ•</button></div>
+    <div class="mhdr"><span class="mtitle">Configurar Acesso</span><button class="mclose" onclick="closeM('ac-modal')">✕</button></div>
     <div class="mbody">
       <input type="hidden" id="ac-uid"/>
       <div style="font-weight:600;font-size:15px;color:#1C1C1A;margin-bottom:1rem" id="ac-nome"></div>
       <div class="fg" style="margin-bottom:1rem">
-        <span class="lbl">PerÃ­odo de acesso</span>
+        <span class="lbl">Período de acesso</span>
         <select id="ac-period" style="font-size:15px;padding:.75rem 1rem">
-          <option value="30d">ðŸ“… 30 dias</option>
-          <option value="2m">ðŸ“… 2 meses</option>
-          <option value="3m">ðŸ“… 3 meses</option>
-          <option value="6m">ðŸ“… 6 meses</option>
-          <option value="1a">ðŸ“… 1 ano</option>
-          <option value="ilimitado">â™¾ï¸ Ilimitado</option>
+          <option value="30d">📅 30 dias</option>
+          <option value="2m">📅 2 meses</option>
+          <option value="3m">📅 3 meses</option>
+          <option value="6m">📅 6 meses</option>
+          <option value="1a">📅 1 ano</option>
+          <option value="ilimitado">♾️ Ilimitado</option>
         </select>
       </div>
       <div style="padding:.75rem 1rem;background:#F0EFEB;border-radius:var(--rs);font-size:13px;color:#333333">
-        O acesso comeÃ§a a contar a partir de hoje. O fisioterapeuta Ã© bloqueado automaticamente ao expirar.
+        O acesso começa a contar a partir de hoje. O fisioterapeuta é bloqueado automaticamente ao expirar.
       </div>
     </div>
-    <div class="mfooter"><button class="btn btn-g btn-sm" onclick="closeM('ac-modal')">Cancelar</button><button class="btn btn-p btn-sm" onclick="saveAcesso()">âœ“ Confirmar</button></div>
+    <div class="mfooter"><button class="btn btn-g btn-sm" onclick="closeM('ac-modal')">Cancelar</button><button class="btn btn-p btn-sm" onclick="saveAcesso()">✓ Confirmar</button></div>
   </div>
 </div>
 
 <script>
-// â•â• SUPABASE â•â•
+// ══ SUPABASE ══
 const SUPA_URL='https://brfgaimisvhcnkvqraql.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJyZmdhaW1pc3ZoY25rdnFyYXFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5NTI5NDYsImV4cCI6MjA5MTUyODk0Nn0.UdGf8xR_ntjYCItmf9ppQPyhvgXPZh5ISulZ1MNzsLE';
 const sb=supabase.createClient(SUPA_URL,SUPA_KEY);
 
-// â•â• SESSÃƒO â•â•
+// ══ SESSÃO ══
 const TIMEOUT_MS=10*60*1000;
 let session=null;
 let _lastActivity=Date.now();
@@ -433,7 +433,7 @@ function readSession(){
   return null;
 }
 
-// â•â• STATE â•â•
+// ══ STATE ══
 let patients=[],records=[],users=[];
 let editPat=null,editUsr=null;
 let selPat=null,selCode=null;
@@ -442,12 +442,12 @@ let maxT=20;
 let relTipo='mensal',relMes=new Date().getMonth(),relAno=new Date().getFullYear(),relConv='',relClinica='',relFilter='T';
 let lastClinica=localStorage.getItem('fp_clinica')||'';
 
-// â•â• HELPERS â•â•
+// ══ HELPERS ══
 function hp(s){let h=0;for(let i=0;i<s.length;i++){h=(Math.imul(31,h)+s.charCodeAt(i))|0}return h.toString(36);}
-const fmtDate=d=>d?new Date(d+'T12:00:00').toLocaleDateString('pt-BR'):'â€”';
+const fmtDate=d=>d?new Date(d+'T12:00:00').toLocaleDateString('pt-BR'):'—';
 const today=()=>new Date().toISOString().split('T')[0];
 const ini=n=>(n||'?').split(' ').map(p=>p[0]).join('').slice(0,2).toUpperCase();
-const MESES=['Janeiro','Fevereiro','MarÃ§o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const MESES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const MS=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const DIAS_PT=['DOM','SEG','TER','QUA','QUI','SEX','SAB'];
 const nextT=pid=>records.filter(r=>r.pat_id===pid&&r.code==='T').length+1;
@@ -468,12 +468,12 @@ function addMoreT(){
   }
   // Scroll to show new buttons
   wrap.scrollIntoView({behavior:'smooth',block:'nearest'});
-  toast(`âœ“ SessÃµes atÃ© T${maxT} disponÃ­veis`);
+  toast(`✓ Sessões até T${maxT} disponíveis`);
 }
 const lastRec=pid=>[...records].filter(r=>r.pat_id===pid).sort((a,b)=>b.date.localeCompare(a.date))[0]||null;
 const can=p=>{if(!session)return false;if(session.role==='admin')return true;return['registro','pacientes','relatorio','perfil'].includes(p);};
 const calcIdade=nasc=>{if(!nasc)return null;const d=new Date(nasc+'T12:00:00');const h=new Date();let i=h.getFullYear()-d.getFullYear();if(h.getMonth()<d.getMonth()||(h.getMonth()===d.getMonth()&&h.getDate()<d.getDate()))i--;return i;};
-const fmtDatetime=d=>{if(!d)return'Nunca';const dt=new Date(d);const diff=Math.floor((Date.now()-dt)/1000);if(diff<60)return'agora mesmo';if(diff<3600)return`hÃ¡ ${Math.floor(diff/60)}min`;if(diff<86400)return`hÃ¡ ${Math.floor(diff/3600)}h`;return dt.toLocaleDateString('pt-BR');};
+const fmtDatetime=d=>{if(!d)return'Nunca';const dt=new Date(d);const diff=Math.floor((Date.now()-dt)/1000);if(diff<60)return'agora mesmo';if(diff<3600)return`há ${Math.floor(diff/60)}min`;if(diff<86400)return`há ${Math.floor(diff/3600)}h`;return dt.toLocaleDateString('pt-BR');};
 
 function maskDate(el){let v=el.value.replace(/[^\d]/g,'');if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2);if(v.length>5)v=v.slice(0,5)+'/'+v.slice(5);el.value=v.slice(0,10);}
 function maskCPF(el){let v=el.value.replace(/[^\d]/g,'');if(v.length>3)v=v.slice(0,3)+'.'+v.slice(3);if(v.length>7)v=v.slice(0,7)+'.'+v.slice(7);if(v.length>11)v=v.slice(0,11)+'-'+v.slice(11);el.value=v.slice(0,14);}
@@ -488,7 +488,7 @@ function closeM(id){document.getElementById(id).style.display='none';}
 const CONV_STYLE={IASEP:'background:#F0EFEB;color:#111111',UNIMED:'background:#EAF3DE;color:#3B6D11',Particular:'background:#F8F7F4;color:#5F5E5A',Outro:'background:#EEEDFE;color:#534AB7'};
 const AV_STYLE={admin:'background:#FAEEDA;color:#854F0B',cliente:'background:#F0EFEB;color:#111111'};
 
-// â•â• SIDEBAR â•â•
+// ══ SIDEBAR ══
 function toggleSidebar(){document.getElementById('sidebarEl').classList.toggle('open');document.getElementById('sb-overlay').classList.toggle('open');}
 function closeSidebar(){document.getElementById('sidebarEl').classList.remove('open');document.getElementById('sb-overlay').classList.remove('open');}
 
@@ -505,10 +505,10 @@ function buildSidebar(){
   const tabs=[
     {id:'registro',label:'Registrar'},
     {id:'pacientes',label:'Pacientes'},
-    {id:'relatorio',label:'RelatÃ³rio'},
+    {id:'relatorio',label:'Relatório'},
     {id:'perfil',label:'Meu Perfil'},
-    {id:'clientes',label:'VisÃ£o Geral',admin:true},
-    {id:'usuarios',label:'UsuÃ¡rios',admin:true},
+    {id:'clientes',label:'Visão Geral',admin:true},
+    {id:'usuarios',label:'Usuários',admin:true},
   ];
   document.getElementById('sidebarEl').innerHTML=
     `<div class="sidebar-section">Menu</div>`+
@@ -517,7 +517,7 @@ function buildSidebar(){
         <span class="sidebar-icon">${ICONS[t.id]||''}</span>${t.label}
       </button>`
     ).join('')+
-    `<div class="sidebar-footer">ConectaSaÃºde &nbsp;v1.0<br>
+    `<div class="sidebar-footer">ConectaSaúde &nbsp;v1.0<br>
      <span style="color:var(--n4)">Desenvolvido por Eduardo Ribeiro</span></div>`;
 }
 
@@ -527,7 +527,7 @@ function showPage(p){
   const si=document.getElementById('si-'+p);if(si)si.classList.add('active');
   const mc=document.getElementById('main-content');
   if(!can(p)&&!(p==='usuarios'&&session.role==='admin')&&!(p==='clientes'&&session.role==='admin')){
-    mc.innerHTML=`<div class="access-denied"><div style="font-size:3rem;margin-bottom:1rem">ðŸ”’</div><div style="font-family:var(--FT);font-size:1.4rem;color:var(--n5);margin-bottom:.5rem">Acesso restrito</div></div>`;return;
+    mc.innerHTML=`<div class="access-denied"><div style="font-size:3rem;margin-bottom:1rem">🔒</div><div style="font-family:var(--FT);font-size:1.4rem;color:var(--n5);margin-bottom:.5rem">Acesso restrito</div></div>`;return;
   }
   if(p==='registro')renderRegistro();
   else if(p==='pacientes')renderPacientes();
@@ -537,15 +537,15 @@ function showPage(p){
   else if(p==='usuarios')renderUsuarios();
 }
 
-// â•â• AUTH â•â•
+// ══ AUTH ══
 async function doLogin(){
   const login=document.getElementById('lu').value.trim().toLowerCase();
   const pass=document.getElementById('lp').value;
-  if(!login||!pass){showErr('Preencha usuÃ¡rio e senha');return;}
+  if(!login||!pass){showErr('Preencha usuário e senha');return;}
   const btn=document.getElementById('login-btn');btn.textContent='Entrando...';btn.disabled=true;
   try{
     const{data,error}=await sb.from('users').select('*').eq('login',login).eq('pass_hash',hp(pass)).maybeSingle();
-    btn.textContent='Entrar â†’';btn.disabled=false;
+    btn.textContent='Entrar →';btn.disabled=false;
     if(error||!data){
       _loginAttempts++;
       if(_loginAttempts>=MAX_ATTEMPTS){
@@ -555,7 +555,7 @@ async function doLogin(){
         document.getElementById('lu').disabled=true;
         document.getElementById('lp').disabled=true;
       } else {
-        showErr(`UsuÃ¡rio ou senha incorretos. Tentativa ${_loginAttempts} de ${MAX_ATTEMPTS}.`);
+        showErr(`Usuário ou senha incorretos. Tentativa ${_loginAttempts} de ${MAX_ATTEMPTS}.`);
       }
       return;
     }
@@ -564,7 +564,7 @@ async function doLogin(){
     if(data.role!=='admin'&&data.expires_at&&new Date(data.expires_at)<new Date()){showErr('Acesso expirado. Contate o administrador.');return;}
     session=data;saveSession(session);
     await bootApp();
-  }catch(e){btn.textContent='Entrar â†’';btn.disabled=false;showErr('Erro de conexÃ£o. Tente novamente.');}
+  }catch(e){btn.textContent='Entrar →';btn.disabled=false;showErr('Erro de conexão. Tente novamente.');}
 }
 function showErr(msg){const e=document.getElementById('login-error');e.textContent=msg;e.style.display='block';}
 function showRegErr(msg){const e=document.getElementById('reg-error');e.textContent=msg;e.style.display='block';}
@@ -585,13 +585,13 @@ function showWelcomeModal(nome){
   div.id='welcome-modal';
   div.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1.5rem';
   div.innerHTML=`<div style="background:#fff;border-radius:16px;padding:2rem;max-width:380px;width:100%;text-align:center;box-shadow:0 25px 60px rgba(0,0,0,.3)">
-    <div style="font-size:3rem;margin-bottom:.75rem">ðŸŽ‰</div>
+    <div style="font-size:3rem;margin-bottom:.75rem">🎉</div>
     <div style="font-family:var(--FB);font-size:1.4rem;font-weight:700;color:#1C1C1E;margin-bottom:.5rem">Bem-vindo(a), ${nome.split(' ')[0]}!</div>
     <div style="font-size:14px;color:#555;margin-bottom:1.25rem">Sua conta foi criada com sucesso.</div>
     <div style="background:linear-gradient(135deg,#7C3AED,#5B21B6);border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;color:#fff">
-      <div style="font-size:13px;opacity:.85;margin-bottom:.25rem">VocÃª tem acesso gratuito por</div>
+      <div style="font-size:13px;opacity:.85;margin-bottom:.25rem">Você tem acesso gratuito por</div>
       <div style="font-size:2.5rem;font-weight:800;letter-spacing:-1px">30 dias</div>
-      <div style="font-size:12px;opacity:.75;margin-top:.25rem">ApÃ³s esse perÃ­odo, o administrador do painel renova seu acesso.</div>
+      <div style="font-size:12px;opacity:.75;margin-top:.25rem">Após esse período, o administrador do painel renova seu acesso.</div>
     </div>
     <div style="font-size:12px;color:#888;margin-bottom:1.25rem">
       Precisa de ajuda? Entre em contato:<br>
@@ -599,7 +599,7 @@ function showWelcomeModal(nome){
     </div>
     <button onclick="document.getElementById('welcome-modal').remove();showApp()" 
       style="width:100%;padding:.85rem;background:#7C3AED;color:#fff;border:none;border-radius:var(--rs);font-family:var(--FB);font-size:15px;font-weight:700;cursor:pointer">
-      ComeÃ§ar agora â†’
+      Começar agora →
     </button>
   </div>`;
   document.body.appendChild(div);
@@ -620,9 +620,9 @@ async function doRegister(){
   document.getElementById('reg-error').style.display='none';
   if(!nome){showRegErr('Informe seu nome completo.');return;}
   if(!login||login.length<3){showRegErr('Login deve ter ao menos 3 caracteres.');return;}
-  if(!/^[a-z0-9._]+$/.test(login)){showRegErr('Login sÃ³ pode ter letras, nÃºmeros, ponto e underscore.');return;}
+  if(!/^[a-z0-9._]+$/.test(login)){showRegErr('Login só pode ter letras, números, ponto e underscore.');return;}
   if(pass.length<4){showRegErr('Senha deve ter ao menos 4 caracteres.');return;}
-  if(pass!==pass2){showRegErr('As senhas nÃ£o coincidem.');return;}
+  if(pass!==pass2){showRegErr('As senhas não coincidem.');return;}
 
   const btn=document.getElementById('register-btn');
   btn.textContent='Criando conta...';btn.disabled=true;
@@ -630,7 +630,7 @@ async function doRegister(){
   try{
     // Check if login already exists
     const{data:existing}=await sb.from('users').select('id').eq('login',login).maybeSingle();
-    if(existing){showRegErr('Este login jÃ¡ estÃ¡ em uso. Escolha outro.');btn.textContent='Criar conta â†’';btn.disabled=false;return;}
+    if(existing){showRegErr('Este login já está em uso. Escolha outro.');btn.textContent='Criar conta →';btn.disabled=false;return;}
 
     // Create user with cliente role and ativo=true
     const expires30=new Date(Date.now()+30*24*60*60*1000).toISOString();
@@ -639,16 +639,16 @@ async function doRegister(){
       .insert({nome,login,pass_hash:hp(pass),role:'cliente',ativo:true,expires_at:expires30,ocupacao})
       .select().single();
 
-    if(error||!data){showRegErr('Erro ao criar conta. Tente novamente.');btn.textContent='Criar conta â†’';btn.disabled=false;return;}
+    if(error||!data){showRegErr('Erro ao criar conta. Tente novamente.');btn.textContent='Criar conta →';btn.disabled=false;return;}
 
     // Auto login after register
     session=data;saveSession(session);
-    btn.textContent='Criar conta â†’';btn.disabled=false;
+    btn.textContent='Criar conta →';btn.disabled=false;
     await bootApp();
-    toast(`âœ“ Bem-vindo(a), ${data.nome.split(' ')[0]}! Conta criada com sucesso.`);
+    toast(`✓ Bem-vindo(a), ${data.nome.split(' ')[0]}! Conta criada com sucesso.`);
   }catch(e){
-    showRegErr('Erro de conexÃ£o. Tente novamente.');
-    btn.textContent='Criar conta â†’';btn.disabled=false;
+    showRegErr('Erro de conexão. Tente novamente.');
+    btn.textContent='Criar conta →';btn.disabled=false;
   }
 }
 
@@ -665,7 +665,7 @@ async function bootApp(){
       av.style.cssText=AV_STYLE[session.role]||AV_STYLE.cliente;
     }
     document.getElementById('nav-name').textContent=session.nome||'';
-    document.getElementById('nav-role').textContent=session.role==='admin'?'ðŸ‘‘ Admin':(session.ocupacao||'Fisioterapeuta');
+    document.getElementById('nav-role').textContent=session.role==='admin'?'👑 Admin':(session.ocupacao||'Fisioterapeuta');
     // Plan badge
     const planEl=document.getElementById('nav-plan');
     if(planEl&&session.role!=='admin'){
@@ -677,14 +677,14 @@ async function bootApp(){
           planEl.textContent='Expirado';
           planEl.style.cssText='font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#3A0A0A;color:#FF6B6B;border:1px solid #7F1D1D';
         } else if(diff<=7){
-          planEl.textContent=`âš  ${diff}d restante${diff!==1?'s':''}`;
+          planEl.textContent=`⚠ ${diff}d restante${diff!==1?'s':''}`;
           planEl.style.cssText='font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#3A2200;color:#FFB347;border:1px solid #7C3A00';
         } else {
-          planEl.textContent=`Free Â· ${diff}d restantes`;
+          planEl.textContent=`Free · ${diff}d restantes`;
           planEl.style.cssText='font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:#1E0A3C;color:#C8B8FF;border:1px solid #3D1F78';
         }
       } else {
-        planEl.textContent='âœ“ Ativo';
+        planEl.textContent='✓ Ativo';
         planEl.style.cssText='font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:#0A2A0A;color:#4ADE80;border:1px solid #166534';
       }
     } else if(planEl){
@@ -707,7 +707,7 @@ function doLogout(){
   patients=[];records=[];users=[];selPat=null;selCode=null;
 }
 
-// â•â• DATA â•â•
+// ══ DATA ══
 async function loadAll(){
   let pq=sb.from('patients').select('*').order('nome');
   let rq=sb.from('records').select('*').order('date',{ascending:false});
@@ -717,7 +717,7 @@ async function loadAll(){
 }
 async function updateLastSeen(){if(!session)return;try{await sb.from('users').update({last_seen:new Date().toISOString()}).eq('id',session.id);}catch(e){}}
 
-// â•â• REGISTRO â•â•
+// ══ REGISTRO ══
 function renderRegistro(){
   const mes=new Date().getMonth(),ano=new Date().getFullYear();
   const mm=String(mes+1).padStart(2,'0');
@@ -726,25 +726,25 @@ function renderRegistro(){
   const mc=document.getElementById('main-content');
   mc.innerHTML=`
     <div class="stats">
-      <div class="stat"><div class="stat-label">SessÃµes este mÃªs</div><div class="stat-value" style="color:#3B6D11">${T}</div><div class="stat-sub">atend. T</div></div>
-      <div class="stat"><div class="stat-label">AvaliaÃ§Ãµes</div><div class="stat-value" style="color:#185FA5">${AV}</div><div class="stat-sub">este mÃªs</div></div>
-      <div class="stat"><div class="stat-label">Faltas FNJ</div><div class="stat-value" style="color:#993C1D">${FNJ}</div><div class="stat-sub">este mÃªs</div></div>
+      <div class="stat"><div class="stat-label">Sessões este mês</div><div class="stat-value" style="color:#3B6D11">${T}</div><div class="stat-sub">atend. T</div></div>
+      <div class="stat"><div class="stat-label">Avaliações</div><div class="stat-value" style="color:#185FA5">${AV}</div><div class="stat-sub">este mês</div></div>
+      <div class="stat"><div class="stat-label">Faltas FNJ</div><div class="stat-value" style="color:#993C1D">${FNJ}</div><div class="stat-sub">este mês</div></div>
       <div class="stat"><div class="stat-label">Pacientes</div><div class="stat-value">${patients.length}</div><div class="stat-sub">cadastrados</div></div>
     </div>
     <div class="qp">
       <div class="card">
         <div class="card-title">Registrar Atendimento</div>
 
-        <!-- CLÃNICA com autocomplete -->
+        <!-- CLÍNICA com autocomplete -->
         <div class="fg pd-wrap" id="clinica-wrap" style="margin-bottom:.75rem">
-          <span class="lbl">ClÃ­nica</span>
-          <input type="text" id="reg-clinica" placeholder="Digite o nome da clÃ­nica..." autocomplete="off"
+          <span class="lbl">Clínica</span>
+          <input type="text" id="reg-clinica" placeholder="Digite o nome da clínica..." autocomplete="off"
             value="${lastClinica}"
             oninput="this.value=this.value.toUpperCase();lastClinica=this.value;localStorage.setItem('fp_clinica',this.value);filterClinicas(this.value)"
             onfocus="filterClinicas(this.value)"
             style="font-weight:500;text-transform:uppercase"/>
           <div class="pd" id="clinica-dd" style="display:none"></div>
-          <div style="font-size:11px;color:var(--n4);margin-top:3px">Salva automaticamente para o prÃ³ximo registro</div>
+          <div style="font-size:11px;color:var(--n4);margin-top:3px">Salva automaticamente para o próximo registro</div>
           <div id="clinica-tags" style="display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.5rem">
             ${[...new Set(records.filter(r=>r.clinica).map(r=>r.clinica))].sort().map(c=>`
               <button onclick="selectClinica('${c.replace(/'/g,'\'')}')" style="padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid #D3D1C7;background:${lastClinica===c?'#111':'#F0EFEB'};color:${lastClinica===c?'#fff':'#333'};transition:all .12s">${c}</button>
@@ -759,7 +759,7 @@ function renderRegistro(){
           <div class="pd" id="pat-dd" style="display:none"></div>
         </div>
         <div id="pat-sel-box" style="display:none;margin-bottom:.75rem;padding:.75rem 1rem;background:#F0EFEB;border-radius:var(--rs);border:1px solid #D3D1C7;position:relative">
-          <button onclick="clearPatSel()" style="position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;color:#5F5E5A;font-size:12px">âœ• Trocar</button>
+          <button onclick="clearPatSel()" style="position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;color:#5F5E5A;font-size:12px">✕ Trocar</button>
           <div style="font-weight:600;font-size:14px;color:#111111" id="psel-name"></div>
           <div style="font-size:12px;color:#5F5E5A;margin-top:2px" id="psel-info"></div>
           <div style="font-size:12px;color:#333333;margin-top:3px;font-weight:500" id="psel-next"></div>
@@ -768,11 +768,11 @@ function renderRegistro(){
           <div style="font-size:11px;font-weight:700;color:var(--amb);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem">Novo paciente</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem">
             <div class="fg" style="grid-column:1/-1"><span class="lbl">Nome completo *</span><input id="np-nome" placeholder="Nome do paciente" oninput="this.value=this.value.toUpperCase()" style="text-transform:uppercase"/></div>
-            <div class="fg" style="grid-column:1/-1"><span class="lbl">ConvÃªnio</span><select id="np-conv"><option>IASEP</option><option>UNIMED</option><option>Particular</option><option>Outro</option></select></div>
+            <div class="fg" style="grid-column:1/-1"><span class="lbl">Convênio</span><select id="np-conv"><option>IASEP</option><option>UNIMED</option><option>Particular</option><option>Outro</option></select></div>
           </div>
           <div style="display:flex;gap:.5rem;margin-top:.75rem">
             <button class="btn btn-g btn-sm" onclick="cancelNewPat()">Cancelar</button>
-            <button class="btn btn-sm" style="background:var(--amb);color:#000;font-weight:700" onclick="confirmNewPat()">âœ“ Confirmar</button>
+            <button class="btn btn-sm" style="background:var(--amb);color:#000;font-weight:700" onclick="confirmNewPat()">✓ Confirmar</button>
           </div>
         </div>
         <div class="fg" style="margin-bottom:.75rem">
@@ -780,23 +780,23 @@ function renderRegistro(){
           <input type="date" id="reg-date" value="${today()}"/>
         </div>
         <div class="fg" style="margin-bottom:1.25rem">
-          <span class="lbl" style="margin-bottom:.4rem">SessÃµes</span>
+          <span class="lbl" style="margin-bottom:.4rem">Sessões</span>
           <div class="cpicker" id="t-buttons-wrap" style="margin-bottom:.4rem;flex-wrap:wrap">
             ${renderTButtons()}
           </div>
           <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.4rem;flex-wrap:wrap">
-            <button class="cbtn cbtn-AV" id="cb-AV" onclick="selectCode('AV')">AV (AvaliaÃ§Ã£o)</button>
+            <button class="cbtn cbtn-AV" id="cb-AV" onclick="selectCode('AV')">AV (Avaliação)</button>
             <button class="cbtn cbtn-FNJ" id="cb-FNJ" onclick="selectCode('FNJ')">FNJ (Faltou)</button>
             <button class="cbtn cbtn-OA" id="cb-OA" onclick="selectCode('OA')">Outros Atendimentos</button>
             <div style="flex:1"></div>
-            <button onclick="addMoreT()" style="background:#F0EFEB;border:1px solid #D3D1C7;border-radius:var(--rs);padding:.35rem .75rem;font-size:13px;font-weight:600;cursor:pointer;color:#333;display:flex;align-items:center;gap:4px">+ Mais sessÃµes</button>
+            <button onclick="addMoreT()" style="background:#F0EFEB;border:1px solid #D3D1C7;border-radius:var(--rs);padding:.35rem .75rem;font-size:13px;font-weight:600;cursor:pointer;color:#333;display:flex;align-items:center;gap:4px">+ Mais sessões</button>
           </div>
           <div id="code-prev" style="margin-top:.5rem;font-size:13px;color:var(--n5)"></div>
         </div>
-        <button class="btn btn-p btn-full" id="save-reg-btn" onclick="saveRegistro()">âœ“ Salvar Atendimento</button>
+        <button class="btn btn-p btn-full" id="save-reg-btn" onclick="saveRegistro()">✓ Salvar Atendimento</button>
       </div>
       <div class="card">
-        <div class="card-title">Ãšltimos Registros</div>
+        <div class="card-title">Últimos Registros</div>
         <div id="recent-list">${recentHTML()}</div>
       </div>
     </div>`;
@@ -806,18 +806,18 @@ function renderRegistro(){
 
 function recentHTML(){
   const last=[...records].sort((a,b)=>b.date.localeCompare(a.date)||b.id.localeCompare(a.id)).slice(0,12);
-  if(!last.length)return'<div class="empty"><div class="empty-icon">ðŸ“‹</div><div class="empty-text">Nenhum registro ainda.</div></div>';
+  if(!last.length)return'<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">Nenhum registro ainda.</div></div>';
   return last.map(r=>{
     const p=patients.find(x=>x.id===r.pat_id);
     const lbl=r.code==='T'?`T${r.t_num}`:r.code==='OA'&&r.t_num?`T${r.t_num}`:r.code;
-    const clinicaTag=r.clinica?`<span style="font-size:10px;color:var(--n4);margin-left:4px">Â· ${r.clinica}</span>`:'';
+    const clinicaTag=r.clinica?`<span style="font-size:10px;color:var(--n4);margin-left:4px">· ${r.clinica}</span>`:'';
     const cls=r.code==='T'?'bdg-T':r.code==='AV'?'bdg-AV':r.code==='OA'?'bdg-OA':'bdg-FNJ';
     const canDel=session.role==='admin'||r.reg_by===session.id;
     return`<div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid var(--n2)">
       <div><div style="font-size:13px;font-weight:500;color:#1C1C1A">${p?.nome||'?'} ${clinicaTag}</div><div style="font-size:11px;color:var(--n4)">${fmtDate(r.date)}</div></div>
       <div style="display:flex;align-items:center;gap:.4rem">
         <span class="bdg ${cls}">${lbl}</span>
-        ${canDel?`<button class="btn btn-xs btn-d" onclick="deleteRecord('${r.id}')">âœ•</button>`:''}
+        ${canDel?`<button class="btn btn-xs btn-d" onclick="deleteRecord('${r.id}')">✕</button>`:''}
       </div>
     </div>`;
   }).join('');
@@ -857,7 +857,7 @@ function filterPats(q){
   if(!q.trim()){dd.style.display='none';return;}
   const hits=patients.filter(p=>p.nome.toLowerCase().includes(q.toLowerCase())).slice(0,10);
   dd.innerHTML=hits.map(p=>`<div class="popt" onclick="selectPat('${p.id}')">
-    <div class="on">${p.nome}</div><div class="os">${p.convenio} Â· Pront. ${p.prontuario||'â€”'}</div>
+    <div class="on">${p.nome}</div><div class="os">${p.convenio} · Pront. ${p.prontuario||'—'}</div>
   </div>`).join('')+createBtn;
   dd.style.display='block';
 }
@@ -871,7 +871,7 @@ function selectPat(id){
   document.getElementById('psel-name').textContent=selPat.nome;
   document.getElementById('psel-info').textContent=selPat.convenio||'';
   const last=lastRec(selPat.id);
-  document.getElementById('psel-next').textContent=`PrÃ³xima: T${nextT(selPat.id)} Â· Ãšltimo: ${last?fmtDate(last.date):'nenhum'}`;
+  document.getElementById('psel-next').textContent=`Próxima: T${nextT(selPat.id)} · Último: ${last?fmtDate(last.date):'nenhum'}`;
   updateCodePrev();
 }
 
@@ -901,7 +901,7 @@ function cancelNewPat(){
 
 async function confirmNewPat(){
   const nome=document.getElementById('np-nome').value.trim();
-  if(!nome){toast('âš  Informe o nome',true);return;}
+  if(!nome){toast('⚠ Informe o nome',true);return;}
   const data={nome,convenio:document.getElementById('np-conv').value,owner_id:session.id};
   const{data:d,error}=await sb.from('patients').insert(data).select().single();
   if(error){toast('Erro ao criar paciente',true);return;}
@@ -912,8 +912,8 @@ async function confirmNewPat(){
   document.getElementById('pat-sel-box').style.display='block';
   document.getElementById('psel-name').textContent=d.nome;
   document.getElementById('psel-info').textContent=d.convenio||'';
-  document.getElementById('psel-next').textContent='Primeira sessÃ£o: T1';
-  toast(`âœ“ Paciente "${d.nome}" cadastrado!`);
+  document.getElementById('psel-next').textContent='Primeira sessão: T1';
+  toast(`✓ Paciente "${d.nome}" cadastrado!`);
   updateCodePrev();
 }
 
@@ -930,30 +930,30 @@ function updateCodePrev(){
   const el=document.getElementById('code-prev');if(!el)return;
   if(!selCode){el.textContent='';return;}
   const tm=selCode.match(/^T(\d+)$/);
-  if(tm){el.textContent=`â†’ Registrar sessÃ£o ${selCode}`;el.style.color='#3B6D11';}
-  else if(selCode==='AV'){el.textContent='â†’ AvaliaÃ§Ã£o inicial';el.style.color='#185FA5';}
-  else if(selCode==='FNJ'){el.textContent='â†’ Faltou sem justificativa';el.style.color='#993C1D';}
-  else if(selCode==='OA'){el.textContent='â†’ Outros Atendimentos';el.style.color='#5B21B6';}
+  if(tm){el.textContent=`→ Registrar sessão ${selCode}`;el.style.color='#3B6D11';}
+  else if(selCode==='AV'){el.textContent='→ Avaliação inicial';el.style.color='#185FA5';}
+  else if(selCode==='FNJ'){el.textContent='→ Faltou sem justificativa';el.style.color='#993C1D';}
+  else if(selCode==='OA'){el.textContent='→ Outros Atendimentos';el.style.color='#5B21B6';}
 }
 
 async function saveRegistro(){
-  if(!selPat){toast('âš  Selecione um paciente',true);return;}
-  if(!selCode){toast('âš  Selecione o cÃ³digo',true);return;}
+  if(!selPat){toast('⚠ Selecione um paciente',true);return;}
+  if(!selCode){toast('⚠ Selecione o código',true);return;}
   const date=document.getElementById('reg-date').value;
-  if(!date){toast('âš  Informe a data',true);return;}
+  if(!date){toast('⚠ Informe a data',true);return;}
   const btn=document.getElementById('save-reg-btn');
   btn.textContent='Salvando...';btn.disabled=true;
   const tm=selCode.match(/^T(\d+)$/);
   const tNum=tm?parseInt(tm[1]):null;
-  // Se o paciente for Particular e for sessÃ£o T, salva como OA
+  // Se o paciente for Particular e for sessão T, salva como OA
   const isParticular=selPat?.convenio==='Particular';
-  const dbCode=tm?(isParticular?'OA':'T'):selCode; // Particular+T â†’ OA
+  const dbCode=tm?(isParticular?'OA':'T'):selCode; // Particular+T → OA
   const clinicaVal=document.getElementById('reg-clinica')?.value.trim()||lastClinica||null;
   const{data,error}=await sb.from('records').insert({pat_id:selPat.id,date,code:dbCode,t_num:tNum,reg_by:session.id,owner_id:session.id,clinica:clinicaVal}).select().single();
-  btn.textContent='âœ“ Salvar Atendimento';btn.disabled=false;
+  btn.textContent='✓ Salvar Atendimento';btn.disabled=false;
   if(error){toast('Erro ao salvar',true);return;}
   records.unshift(data);
-  toast(`âœ“ ${selPat.nome.split(' ')[0]} â€” ${tNum?`T${tNum}`:selCode} em ${fmtDate(date)}`);
+  toast(`✓ ${selPat.nome.split(' ')[0]} — ${tNum?`T${tNum}`:selCode} em ${fmtDate(date)}`);
   selPat=null;selCode=null;
   renderRegistro();
 }
@@ -967,7 +967,7 @@ async function deleteRecord(id){
   renderRegistro();
 }
 
-// â•â• PACIENTES â•â•
+// ══ PACIENTES ══
 let _pacSelectMode=false;
 let _pacSort={col:'nome',dir:1}; // col: nome|convenio|sessoes|ultima, dir: 1=asc -1=desc
 
@@ -976,7 +976,7 @@ function togglePacSelect(){
   const btn=document.getElementById('pac-sel-btn');
   const delBtn=document.getElementById('pac-del-btn');
   const thChk=document.getElementById('pac-th-chk');
-  if(btn)btn.textContent=_pacSelectMode?'âœ• Cancelar':'â˜‘ Selecionar';
+  if(btn)btn.textContent=_pacSelectMode?'✕ Cancelar':'☑ Selecionar';
   document.querySelectorAll('.pac-chk-cell').forEach(el=>el.style.display=_pacSelectMode?'':'none');
   if(thChk)thChk.style.display=_pacSelectMode?'':'none';
   if(delBtn)delBtn.style.display='none';
@@ -1004,14 +1004,14 @@ async function deleteSelectedPacs(){
   const ids=[...document.querySelectorAll('.pac-chk:checked')].map(el=>el.value);
   if(!ids.length)return;
   const nomes=ids.map(id=>patients.find(p=>p.id===id)?.nome||'?');
-  if(!confirm(`Excluir ${ids.length} paciente${ids.length!==1?'s':''}?\n${nomes.join(', ')}\n\nTodos os registros serÃ£o removidos.`))return;
+  if(!confirm(`Excluir ${ids.length} paciente${ids.length!==1?'s':''}?\n${nomes.join(', ')}\n\nTodos os registros serão removidos.`))return;
   for(const id of ids){
     await sb.from('records').delete().eq('pat_id',id);
     await sb.from('patients').delete().eq('id',id);
     patients=patients.filter(p=>p.id!==id);
     records=records.filter(r=>r.pat_id!==id);
   }
-  toast(`âœ“ ${ids.length} paciente${ids.length!==1?'s':''} excluÃ­do${ids.length!==1?'s':''}`);
+  toast(`✓ ${ids.length} paciente${ids.length!==1?'s':''} excluído${ids.length!==1?'s':''}`);
   _pacSelectMode=false;
   renderPacientes();
 }
@@ -1020,19 +1020,19 @@ function renderPacientes(){
   document.getElementById('main-content').innerHTML=`
     <div class="sec-hdr"><span class="sec-title">Pacientes</span></div>
     <div style="display:flex;gap:.75rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap">
-      <input type="text" id="pac-s" placeholder="ðŸ”  Buscar paciente..." oninput="filterPacTbl()" style="max-width:360px"/>
-      <button class="btn btn-g btn-sm" id="pac-sel-btn" onclick="togglePacSelect()">â˜‘ Selecionar</button>
+      <input type="text" id="pac-s" placeholder="🔍  Buscar paciente..." oninput="filterPacTbl()" style="max-width:360px"/>
+      <button class="btn btn-g btn-sm" id="pac-sel-btn" onclick="togglePacSelect()">☑ Selecionar</button>
       <button class="btn btn-d btn-sm" id="pac-del-btn" style="display:none" onclick="deleteSelectedPacs()">Excluir selecionados</button>
     </div>
     <div class="tbl-wrap">
       <table>
         <thead><tr>
           <th id="pac-th-chk" style="display:none;width:36px"><input type="checkbox" id="pac-chk-all" onclick="toggleAllPacChk(this)"/></th>
-          <th>NÂº</th>
-          <th onclick="sortPac('nome')" style="cursor:pointer;user-select:none">Nome ${_pacSort.col==='nome'?(_pacSort.dir===1?'â†‘':'â†“'):''}</th>
-          <th onclick="sortPac('convenio')" style="cursor:pointer;user-select:none">ConvÃªnio ${_pacSort.col==='convenio'?(_pacSort.dir===1?'â†‘':'â†“'):''}</th>
-          <th onclick="sortPac('sessoes')" style="cursor:pointer;user-select:none;text-align:center">SessÃµes ${_pacSort.col==='sessoes'?(_pacSort.dir===1?'â†‘':'â†“'):''}</th>
-          <th onclick="sortPac('ultima')" style="cursor:pointer;user-select:none;text-align:center">Ãšltima ${_pacSort.col==='ultima'?(_pacSort.dir===1?'â†‘':'â†“'):''}</th>
+          <th>Nº</th>
+          <th onclick="sortPac('nome')" style="cursor:pointer;user-select:none">Nome ${_pacSort.col==='nome'?(_pacSort.dir===1?'↑':'↓'):''}</th>
+          <th onclick="sortPac('convenio')" style="cursor:pointer;user-select:none">Convênio ${_pacSort.col==='convenio'?(_pacSort.dir===1?'↑':'↓'):''}</th>
+          <th onclick="sortPac('sessoes')" style="cursor:pointer;user-select:none;text-align:center">Sessões ${_pacSort.col==='sessoes'?(_pacSort.dir===1?'↑':'↓'):''}</th>
+          <th onclick="sortPac('ultima')" style="cursor:pointer;user-select:none;text-align:center">Última ${_pacSort.col==='ultima'?(_pacSort.dir===1?'↑':'↓'):''}</th>
           <th></th>
         </tr></thead>
         <tbody id="pac-tbody">${pacTbodyHTML(patients)}</tbody>
@@ -1079,7 +1079,7 @@ function filterPacTbl(){
 }
 
 function pacTbodyHTML(pats){
-  if(!pats.length)return`<tr><td colspan="9"><div class="empty"><div class="empty-icon">ðŸ‘¥</div><div class="empty-text">Nenhum paciente.</div></div></td></tr>`;
+  if(!pats.length)return`<tr><td colspan="9"><div class="empty"><div class="empty-icon">👥</div><div class="empty-text">Nenhum paciente.</div></div></td></tr>`;
   const sorted=getSortedPats(pats);
   return sorted.map((p,i)=>{
     const pR=records.filter(r=>r.pat_id===p.id);
@@ -1087,7 +1087,7 @@ function pacTbodyHTML(pats){
     const last=[...pR].sort((a,b)=>b.date.localeCompare(a.date))[0];
     const cs=CONV_STYLE[p.convenio]||CONV_STYLE['Outro'];
     const idade=calcIdade(p.data_nasc);
-    const sx={'F':'â™€','M':'â™‚','O':'â€“'}[p.sexo]||'';
+    const sx={'F':'♀','M':'♂','O':'–'}[p.sexo]||'';
     return`<tr id="pac-row-${p.id}">
       <td class="pac-chk-cell" style="display:none;text-align:center"><input type="checkbox" class="pac-chk" value="${p.id}" onchange="onPacChkChange()"/></td>
       <td style="color:var(--n4);font-size:12px">${i+1}</td>
@@ -1098,10 +1098,10 @@ function pacTbodyHTML(pats){
 
 
       <td style="font-weight:700;color:var(--grn)">${tC}</td>
-      <td style="color:var(--n4);font-size:12px">${last?fmtDate(last.date):'â€”'}</td>
+      <td style="color:var(--n4);font-size:12px">${last?fmtDate(last.date):'—'}</td>
       <td><div style="display:flex;gap:.25rem">
-        <button class="btn btn-xs btn-g" onclick="openPatModal('${p.id}')">âœ</button>
-        ${session.role==='admin'?`<button class="btn btn-xs btn-d" onclick="deletePaciente('${p.id}')">âœ•</button>`:''}
+        <button class="btn btn-xs btn-g" onclick="openPatModal('${p.id}')">✏</button>
+        ${session.role==='admin'?`<button class="btn btn-xs btn-d" onclick="deletePaciente('${p.id}')">✕</button>`:''}
       </div></td>
     </tr>`;
   }).join('');
@@ -1129,12 +1129,12 @@ function openPatModal(id){
 
 async function savePaciente(){
   const nome=document.getElementById('pm-nome').value.trim();
-  if(!nome){toast('âš  Informe o nome',true);return;}
+  if(!nome){toast('⚠ Informe o nome',true);return;}
   const data={nome,data_nasc:brToIso(document.getElementById('pm-nasc').value)||null,sexo:document.getElementById('pm-sexo').value||null,cpf:document.getElementById('pm-cpf').value.trim(),rg:document.getElementById('pm-rg').value.trim(),tel:document.getElementById('pm-tel').value.trim(),convenio:document.getElementById('pm-conv').value,endereco:document.getElementById('pm-end').value.trim(),bairro:document.getElementById('pm-bairro').value.trim(),cidade:document.getElementById('pm-cidade').value.trim(),uf:document.getElementById('pm-uf').value||null};
   const{data:d,error}=await sb.from('patients').update(data).eq('id',editPat.id).select().single();
   if(error){toast('Erro ao salvar',true);return;}
   patients=patients.map(p=>p.id===editPat.id?d:p);
-  toast('âœ“ Paciente atualizado');closeM('pm');renderPacientes();
+  toast('✓ Paciente atualizado');closeM('pm');renderPacientes();
 }
 
 async function deletePaciente(id){
@@ -1146,18 +1146,18 @@ async function deletePaciente(id){
   toast('Paciente removido');renderPacientes();
 }
 
-// â•â• RELATÃ“RIO â•â•
+// ══ RELATÓRIO ══
 function renderRelatorio(){
   const mesOpts=MESES.map((m,i)=>`<option value="${i}"${i===relMes?' selected':''}>${m}</option>`).join('');
   const anos=[...new Set([...records.map(r=>r.date?.slice(0,4)),String(relAno),String(relAno-1)])].filter(Boolean).sort().reverse();
   const anoOpts=anos.map(a=>`<option value="${a}"${a===String(relAno)?' selected':''}>${a}</option>`).join('');
   document.getElementById('main-content').innerHTML=`
     <div class="sec-hdr">
-      <span class="sec-title">RelatÃ³rio</span>
+      <span class="sec-title">Relatório</span>
       <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-        <button class="btn btn-g btn-sm" onclick="exportCSV()">â¬‡ CSV</button>
-        <button class="btn btn-g btn-sm" onclick="printReport()">ðŸ–¨ï¸ Imprimir</button>
-        <button class="btn btn-p btn-sm" onclick="printReport()">ðŸ“„ PDF</button>
+        <button class="btn btn-g btn-sm" onclick="exportCSV()">⬇ CSV</button>
+        <button class="btn btn-g btn-sm" onclick="printReport()">🖨️ Imprimir</button>
+        <button class="btn btn-p btn-sm" onclick="printReport()">📄 PDF</button>
       </div>
     </div>
     <div class="msr">
@@ -1165,14 +1165,14 @@ function renderRelatorio(){
       <select id="rel-mes" onchange="relMes=Number(this.value);doRelatorio()" ${relTipo==='anual'?'style="display:none"':''}>${mesOpts}</select>
       <select id="rel-ano" onchange="relAno=Number(this.value);doRelatorio()">${anoOpts}</select>
       <select id="rel-conv" onchange="relConv=this.value;doRelatorio()">
-        <option value="">Todos os convÃªnios</option>
+        <option value="">Todos os convênios</option>
         <option value="IASEP"${relConv==='IASEP'?' selected':''}>IASEP</option>
         <option value="UNIMED"${relConv==='UNIMED'?' selected':''}>UNIMED</option>
         <option value="Particular"${relConv==='Particular'?' selected':''}>Particular</option>
         <option value="Outro"${relConv==='Outro'?' selected':''}>Outro</option>
       </select>
       <select id="rel-clinica" onchange="relClinica=this.value;doRelatorio()">
-        <option value="">Todas as clÃ­nicas</option>
+        <option value="">Todas as clínicas</option>
         ${[...new Set(records.filter(r=>r.clinica).map(r=>r.clinica))].sort().map(c=>`<option value="${c}"${relClinica===c?' selected':''}>${c}</option>`).join('')}
       </select>
     </div>
@@ -1180,10 +1180,10 @@ function renderRelatorio(){
       <button class="rel-fbtn rel-fbtn-ALL${relFilter==='ALL'?' active':''}" onclick="setRelFilter('ALL')" style="${relFilter==='ALL'?'background:#333;color:#fff;border-color:#333':''}">Todos</button>
       <button class="rel-fbtn rel-fbtn-T${relFilter==='T'?' active':''}" onclick="setRelFilter('T')">Atendimentos T</button>
       <button class="rel-fbtn rel-fbtn-OA${relFilter==='OA'?' active':''}" onclick="setRelFilter('OA')">Outros Atendimentos</button>
-      <button class="rel-fbtn rel-fbtn-AV${relFilter==='AV'?' active':''}" onclick="setRelFilter('AV')">AvaliaÃ§Ã£o</button>
+      <button class="rel-fbtn rel-fbtn-AV${relFilter==='AV'?' active':''}" onclick="setRelFilter('AV')">Avaliação</button>
     </div>
     <div class="stats" id="rel-stats"></div>
-    <div id="rel-chart-card" style="display:none" class="card"><div class="card-title">Atendimentos por mÃªs â€” ${relAno}</div><div id="rel-chart"></div></div>
+    <div id="rel-chart-card" style="display:none" class="card"><div class="card-title">Atendimentos por mês — ${relAno}</div><div id="rel-chart"></div></div>
     <div class="card" style="padding:0;overflow:hidden"><div class="rel-wrap" id="rel-tabela"></div></div>`;
   doRelatorio();
 }
@@ -1209,8 +1209,8 @@ function doRelatorio(){
 
 function relStats(T,AV,FNJ,label){
   document.getElementById('rel-stats').innerHTML=`
-    <div class="stat"><div class="stat-label">SessÃµes T</div><div class="stat-value" style="color:#3B6D11">${T}</div><div class="stat-sub">${label}</div></div>
-    <div class="stat"><div class="stat-label">AvaliaÃ§Ãµes</div><div class="stat-value" style="color:#185FA5">${AV}</div><div class="stat-sub">${label}</div></div>
+    <div class="stat"><div class="stat-label">Sessões T</div><div class="stat-value" style="color:#3B6D11">${T}</div><div class="stat-sub">${label}</div></div>
+    <div class="stat"><div class="stat-label">Avaliações</div><div class="stat-value" style="color:#185FA5">${AV}</div><div class="stat-sub">${label}</div></div>
     <div class="stat"><div class="stat-label">Faltas FNJ</div><div class="stat-value" style="color:#993C1D">${FNJ}</div><div class="stat-sub">${label}</div></div>
     <div class="stat"><div class="stat-label">Total</div><div class="stat-value">${T+AV+FNJ}</div><div class="stat-sub">atendimentos</div></div>`;
 }
@@ -1236,13 +1236,13 @@ function _buildMensalSingleTable(filterCode, colorHex, convenioOverride){
     return`<tr><td style="color:var(--n4);font-size:11px;text-align:center">${i+1}</td><td class="nc">${p.nome}</td>${cells}<td style="text-align:center;font-weight:700;color:${colorHex}">${cnt}</td></tr>`;
   }).join('');
   const totR=days.map(({date})=>{const c=mR.filter(r=>r.date===date).length;return`<td style="text-align:center">${c||''}</td>`;}).join('');
-  const labelFilter={'T':'Atendimentos T','OA':'Outros Atendimentos','AV':'AvaliaÃ§Ã£o','FNJ':'Faltas FNJ'};
-  const lbl=[labelFilter[filterCode]||filterCode,convFilter,relClinica].filter(Boolean).join(' Â· ');
+  const labelFilter={'T':'Atendimentos T','OA':'Outros Atendimentos','AV':'Avaliação','FNJ':'Faltas FNJ'};
+  const lbl=[labelFilter[filterCode]||filterCode,convFilter,relClinica].filter(Boolean).join(' · ');
   return`<div style="margin-bottom:1.5rem">
     <div style="background:${colorHex};color:#fff;text-align:center;padding:.6rem 1rem;font-weight:700;font-size:13px;border-radius:var(--r) var(--r) 0 0;text-transform:uppercase;letter-spacing:.05em">${lbl}</div>
     <div style="overflow-x:auto;border:1px solid var(--n3);border-top:none;border-radius:0 0 var(--r) var(--r)">
       <table class="rel-tbl">
-        <thead><tr><th>NÂº</th><th class="nc" style="text-align:left">PACIENTE</th>${dayH}<th>T</th></tr></thead>
+        <thead><tr><th>Nº</th><th class="nc" style="text-align:left">PACIENTE</th>${dayH}<th>T</th></tr></thead>
         <tbody>${rows}</tbody>
         <tfoot><tr><td colspan="2" style="text-align:left;padding-left:1rem">TOTAL</td>${totR}<td>${mR.length}</td></tr></tfoot>
       </table>
@@ -1262,13 +1262,13 @@ function renderMensal(){
   const colorHex=colorMap[relFilter]||'#111111';
   const wrap=document.getElementById('rel-tabela');
   if(!relConv){
-    // Separar por convÃªnio
+    // Separar por convênio
     const convs=['IASEP','UNIMED','Particular','Outro'];
     let html=convs.map(c=>_buildMensalSingleTable(relFilter,colorHex,c)).join('');
-    wrap.innerHTML=html||'<div class="empty" style="padding:2rem"><div class="empty-icon">ðŸ“Š</div><div class="empty-text">Nenhum atendimento.</div></div>';
+    wrap.innerHTML=html||'<div class="empty" style="padding:2rem"><div class="empty-icon">📊</div><div class="empty-text">Nenhum atendimento.</div></div>';
   } else {
     const tbl=_buildMensalSingleTable(relFilter,colorHex);
-    wrap.innerHTML=tbl||'<div class="empty" style="padding:2rem"><div class="empty-icon">ðŸ“Š</div><div class="empty-text">Nenhum atendimento.</div></div>';
+    wrap.innerHTML=tbl||'<div class="empty" style="padding:2rem"><div class="empty-icon">📊</div><div class="empty-text">Nenhum atendimento.</div></div>';
   }
 }
 
@@ -1289,7 +1289,7 @@ function renderAnual(){
     return`<tr><td style="color:var(--n4);font-size:11px;text-align:center">${i+1}</td><td class="nc">${p.nome}</td>${cols}<td style="text-align:center;font-weight:700;color:var(--grn)">${tot}</td></tr>`;
   }).join('');
   const totR=Array.from({length:12},(_,m)=>{const mm=String(m+1).padStart(2,'0');const t=yR.filter(r=>r.code==='T'&&r.date?.startsWith(`${relAno}-${mm}`)).length;return`<td style="text-align:center">${t||''}</td>`;}).join('');
-  document.getElementById('rel-tabela').innerHTML=`<table class="rel-tbl"><thead><tr><th>NÂº</th><th class="nc" style="text-align:left">PACIENTE</th>${hdr}<th>TOTAL</th></tr></thead><tbody>${rows||'<tr><td colspan="15" style="text-align:center;padding:1.5rem;color:var(--n4)">Nenhum registro.</td></tr>'}</tbody><tfoot><tr><td colspan="2" style="text-align:left;padding-left:1rem">TOTAL</td>${totR}<td>${T}</td></tr></tfoot></table>`;
+  document.getElementById('rel-tabela').innerHTML=`<table class="rel-tbl"><thead><tr><th>Nº</th><th class="nc" style="text-align:left">PACIENTE</th>${hdr}<th>TOTAL</th></tr></thead><tbody>${rows||'<tr><td colspan="15" style="text-align:center;padding:1.5rem;color:var(--n4)">Nenhum registro.</td></tr>'}</tbody><tfoot><tr><td colspan="2" style="text-align:left;padding-left:1rem">TOTAL</td>${totR}<td>${T}</td></tr></tfoot></table>`;
 }
 
 function _printBuildTable(code, conv, days, mm, color){
@@ -1301,7 +1301,7 @@ function _printBuildTable(code, conv, days, mm, color){
   const pIds=[...new Set(mR.map(r=>r.pat_id))];
   const pats=patients.filter(p=>pIds.includes(p.id)&&(!conv||p.convenio===conv));
   if(!pats.length)return'';
-  const tituloTabela=[code==='T'?'Atendimentos':code==='OA'?'Outros Atendimentos':'AvaliaÃ§Ã£o',conv||'',relClinica||''].filter(Boolean).join(' â€” ');
+  const tituloTabela=[code==='T'?'Atendimentos':code==='OA'?'Outros Atendimentos':'Avaliação',conv||'',relClinica||''].filter(Boolean).join(' — ');
   const dayH=days.map(({dt})=>`<th style="border:1px solid #999;padding:3px 2px;text-align:center;font-size:9px;background:#333;color:#fff;min-width:28px">${dt.getDate()}<br>${['D','S','T','Q','Q','S','S'][dt.getDay()]}</th>`).join('');
   const rows=pats.map((p,i)=>{
     const cells=days.map(({date})=>{
@@ -1324,7 +1324,7 @@ function _printBuildTable(code, conv, days, mm, color){
     <div style="overflow-x:auto">
       <table style="width:100%;border-collapse:collapse">
         <thead><tr style="background:#333;color:#fff">
-          <th style="border:1px solid #999;padding:3px;font-size:9px;width:20px">NÂº</th>
+          <th style="border:1px solid #999;padding:3px;font-size:9px;width:20px">Nº</th>
           <th style="border:1px solid #999;padding:3px;font-size:9px;text-align:left;min-width:140px">PACIENTE</th>
           ${dayH}
           <th style="border:1px solid #999;padding:3px;font-size:9px;width:22px">T</th>
@@ -1347,10 +1347,10 @@ function printAll(){
   for(let d=1;d<=dim;d++){const dt=new Date(relAno,relMes,d);if(dt.getDay()>0&&dt.getDay()<6)days.push({date:`${relAno}-${mm}-${String(d).padStart(2,'0')}`,dt});}
 
   const footer=`<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:8px;color:#999;border-top:1px solid #ddd;padding-top:4px">
-    <span>ConectaSaÃºde Â· Desenvolvido por Eduardo Ribeiro</span><span>${periodo}</span>
+    <span>ConectaSaúde · Desenvolvido por Eduardo Ribeiro</span><span>${periodo}</span>
   </div>`;
 
-  // ConvÃªnios a iterar: se filtrado, sÃ³ um; caso contrÃ¡rio, todos
+  // Convênios a iterar: se filtrado, só um; caso contrário, todos
   const convList=relConv?[relConv]:['IASEP','UNIMED','Particular','Outro'];
   let pages=[];
 
@@ -1361,7 +1361,7 @@ function printAll(){
     if(!tT&&!tOA&&!tAV)continue;
     const header=`<div style="text-align:center;margin-bottom:10px">
       <div style="font-size:18px;font-weight:700;text-transform:uppercase">${relClinica?relClinica:conv}</div>
-      <div style="font-size:13px;font-weight:600;color:#333;margin-top:4px">${periodo} &nbsp;Â·&nbsp; ${session.nome}</div>
+      <div style="font-size:13px;font-weight:600;color:#333;margin-top:4px">${periodo} &nbsp;·&nbsp; ${session.nome}</div>
     </div>`;
     const block=`${header}${tT}${tOA}${tAV}${footer}`;
     pages.push(`<div style="page-break-after:always">${block}</div>`);
@@ -1373,7 +1373,7 @@ function printAll(){
 
   const w=window.open('','_blank','width=1200,height=800');
   w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"/>
-  <title>RelatÃ³rio â€” ${periodo}</title>
+  <title>Relatório — ${periodo}</title>
   <style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;font-size:10px;background:#fff;padding:16px}
   @media print{@page{size:A4 landscape;margin:.8cm}body{padding:0}}</style>
   </head><body>${pages.join('')}<script>window.onload=()=>{window.print()}<\/script></body></html>`);
@@ -1384,16 +1384,16 @@ function printReport(){
   if(relFilter==='ALL'){printAll();return;}
   const mm=String(relMes+1).padStart(2,'0');
   const _pfc=relFilter==='T'?'T':relFilter;
-  const periodo=relTipo==='anual'?`Anual â€” ${relAno}`:`${MESES[relMes]} de ${relAno}`;
+  const periodo=relTipo==='anual'?`Anual — ${relAno}`:`${MESES[relMes]} de ${relAno}`;
   const convList=relConv?[relConv]:['IASEP','UNIMED','Particular','Outro'];
 
-  // â”€â”€ MENSAL â”€â”€
+  // ── MENSAL ──
   if(relTipo==='mensal'){
     const days=[];const dim=new Date(relAno,relMes+1,0).getDate();
     for(let d=1;d<=dim;d++){const dt=new Date(relAno,relMes,d);if(dt.getDay()>0&&dt.getDay()<6)days.push({date:`${relAno}-${mm}-${String(d).padStart(2,'0')}`,dt});}
     const colorMap={'T':'#1B5E20','OA':'#5B21B6','AV':'#0D47A1','FNJ':'#B71C1C'};
     const color=colorMap[_pfc]||'#1B5E20';
-    const labelMap={'T':'ATENDIMENTOS','OA':'OUTROS ATENDIMENTOS','AV':'AVALIAÃ‡ÃƒO','FNJ':'FALTAS FNJ'};
+    const labelMap={'T':'ATENDIMENTOS','OA':'OUTROS ATENDIMENTOS','AV':'AVALIAÇÃO','FNJ':'FALTAS FNJ'};
     const _tCodesP=['T','FNJ'];
     let pages=[];
     for(const conv of convList){
@@ -1412,22 +1412,22 @@ function printReport(){
         return`<tr style="background:${i%2===0?'#fff':'#f5f5f5'}"><td style="border:1px solid #ddd;text-align:center;font-size:10px;color:#666;padding:4px">${i+1}</td><td style="border:1px solid #ddd;padding:4px 8px;font-size:11px;font-weight:600;text-transform:uppercase">${p.nome}</td>${cells}<td style="border:1px solid #ddd;text-align:center;font-weight:700;color:${color};font-size:11px">${tT||''}</td></tr>`;
       }).join('');
       const totR=days.map(({date})=>{const c=base.filter(r=>r.date===date).length;return`<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:10px">${c||''}</td>`;}).join('');
-      const tableHTML=`<table style="width:100%;border-collapse:collapse"><thead><tr style="background:#1E1E3A;color:#C8B8FF"><th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px;width:24px">NÂº</th><th style="border:1px solid #444;padding:6px;text-align:left;font-size:11px;min-width:180px">PACIENTE</th>${dayH}<th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px;width:28px">T</th></tr></thead><tbody>${rows}</tbody><tfoot><tr style="background:#e8e8e8"><td colspan="2" style="border:1px solid #bbb;padding:5px 8px;font-weight:700;font-size:11px">TOTAL</td>${totR}<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:11px">${T}</td></tr></tfoot></table>`;
-      const convTitulo=relClinica?`${conv} â€” ${relClinica}`:conv;
+      const tableHTML=`<table style="width:100%;border-collapse:collapse"><thead><tr style="background:#1E1E3A;color:#C8B8FF"><th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px;width:24px">Nº</th><th style="border:1px solid #444;padding:6px;text-align:left;font-size:11px;min-width:180px">PACIENTE</th>${dayH}<th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px;width:28px">T</th></tr></thead><tbody>${rows}</tbody><tfoot><tr style="background:#e8e8e8"><td colspan="2" style="border:1px solid #bbb;padding:5px 8px;font-weight:700;font-size:11px">TOTAL</td>${totR}<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:11px">${T}</td></tr></tfoot></table>`;
+      const convTitulo=relClinica?`${conv} — ${relClinica}`:conv;
       const page=`<div style="page-break-after:always">
         <div style="text-align:center;margin-bottom:6px">
-          <div style="background:#1E1E3A;color:#fff;padding:12px;font-size:17px;font-weight:700;text-transform:uppercase;letter-spacing:.05em">${convTitulo} â€” ${labelMap[_pfc]||_pfc}</div>
-          <div style="background:#2C1F6A;color:#C8B8FF;padding:7px;font-size:13px;font-weight:600">${periodo} &nbsp;Â·&nbsp; ${session.nome}</div>
+          <div style="background:#1E1E3A;color:#fff;padding:12px;font-size:17px;font-weight:700;text-transform:uppercase;letter-spacing:.05em">${convTitulo} — ${labelMap[_pfc]||_pfc}</div>
+          <div style="background:#2C1F6A;color:#C8B8FF;padding:7px;font-size:13px;font-weight:600">${periodo} &nbsp;·&nbsp; ${session.nome}</div>
         </div>
         <div style="display:flex;gap:8px;margin-bottom:10px">
-          <div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">SessÃµes T</div><div style="font-size:1.2rem;font-weight:700;color:#1B5E20">${T}</div></div>
-          <div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">AvaliaÃ§Ãµes</div><div style="font-size:1.2rem;font-weight:700;color:#0D47A1">${AV}</div></div>
+          <div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">Sessões T</div><div style="font-size:1.2rem;font-weight:700;color:#1B5E20">${T}</div></div>
+          <div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">Avaliações</div><div style="font-size:1.2rem;font-weight:700;color:#0D47A1">${AV}</div></div>
           <div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">Faltas FNJ</div><div style="font-size:1.2rem;font-weight:700;color:#B71C1C">${FNJ}</div></div>
           <div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">Total</div><div style="font-size:1.2rem;font-weight:700">${T+AV+FNJ}</div></div>
         </div>
         ${tableHTML}
         <div style="margin-top:8px;padding-top:6px;border-top:1px solid #ddd;font-size:9px;color:#999;display:flex;justify-content:space-between">
-          <span>ConectaSaÃºde Â· Desenvolvido por Eduardo Ribeiro</span><span>${periodo} Â· ${conv}</span>
+          <span>ConectaSaúde · Desenvolvido por Eduardo Ribeiro</span><span>${periodo} · ${conv}</span>
         </div>
       </div>`;
       pages.push(page);
@@ -1435,7 +1435,7 @@ function printReport(){
     if(!pages.length){toast('Nenhum atendimento para imprimir.',true);return;}
     pages[pages.length-1]=pages[pages.length-1].replace('page-break-after:always','page-break-after:auto');
     const w=window.open('','_blank','width=1200,height=800');
-    w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/><title>Atendimentos â€” ${periodo}</title>
+    w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/><title>Atendimentos — ${periodo}</title>
     <style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;color:#1a1a1a;padding:20px;background:#fff}
     @media print{body{padding:12px}@page{margin:1cm;size:A4 landscape}}</style></head><body>
     ${pages.join('')}<script>window.onload=()=>{window.print()}<\/script></body></html>`);
@@ -1443,23 +1443,23 @@ function printReport(){
     return;
   }
 
-  // â”€â”€ ANUAL (mantÃ©m lÃ³gica simples) â”€â”€
+  // ── ANUAL (mantém lógica simples) ──
   let fR=relConv?records.filter(r=>patients.find(p=>p.id===r.pat_id)?.convenio===relConv):records;
   if(relClinica)fR=fR.filter(r=>r.clinica===relClinica);
   const _tCodesP=['T','FNJ'];
   const base=fR.filter(r=>r.date?.startsWith(String(relAno))&&(relFilter==='T'?_tCodesP.includes(r.code):r.code===_pfc));
   const T=base.filter(r=>r.code==='T').length,AV=base.filter(r=>r.code==='AV').length,FNJ=base.filter(r=>r.code==='FNJ').length;
-  const convLabel=relConv?` Â· ${relConv}`:'';
-  const clinicaLabel=relClinica?` Â· ${relClinica}`:'';
+  const convLabel=relConv?` · ${relConv}`:'';
+  const clinicaLabel=relClinica?` · ${relClinica}`:'';
   const pIds=[...new Set(base.map(r=>r.pat_id))];
   const pats=patients.filter(p=>pIds.includes(p.id)&&(!relConv||p.convenio===relConv));
   const hdr=MS.map(m=>`<th style="border:1px solid #444;padding:5px 4px;text-align:center;font-size:10px;background:#1E1E3A;color:#C8B8FF">${m}</th>`).join('');
   const rows=pats.map((p,i)=>{const cols=Array.from({length:12},(_,m)=>{const mm2=String(m+1).padStart(2,'0');const t=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(`${relAno}-${mm2}`)).length;return`<td style="border:1px solid #ddd;text-align:center;font-size:11px;color:${t?'#1B5E20':'#ccc'};font-weight:${t?700:400};padding:4px">${t||''}</td>`;}).join('');const tot=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(String(relAno))).length;return`<tr style="background:${i%2===0?'#fff':'#f5f5f5'}"><td style="border:1px solid #ddd;text-align:center;color:#666;font-size:10px;padding:4px">${i+1}</td><td style="border:1px solid #ddd;padding:4px 8px;font-size:11px;font-weight:600;text-transform:uppercase">${p.nome}</td>${cols}<td style="border:1px solid #ddd;text-align:center;font-weight:700;color:#1B5E20;font-size:11px;padding:4px">${tot}</td></tr>`;}).join('');
   const totR=Array.from({length:12},(_,m)=>{const mm2=String(m+1).padStart(2,'0');const t=base.filter(r=>r.code==='T'&&r.date?.startsWith(`${relAno}-${mm2}`)).length;return`<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:10px;padding:4px">${t||''}</td>`;}).join('');
-  const tableHTML=`<table style="width:100%;border-collapse:collapse"><thead><tr style="background:#1E1E3A;color:#C8B8FF"><th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px;width:24px">NÂº</th><th style="border:1px solid #444;padding:6px;text-align:left;font-size:11px;min-width:180px">PACIENTE</th>${hdr}<th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px">TOTAL</th></tr></thead><tbody>${rows}</tbody><tfoot><tr style="background:#e8e8e8"><td colspan="2" style="border:1px solid #bbb;padding:5px 8px;font-weight:700;font-size:11px">TOTAL</td>${totR}<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:11px">${T}</td></tr></tfoot></table>`;
+  const tableHTML=`<table style="width:100%;border-collapse:collapse"><thead><tr style="background:#1E1E3A;color:#C8B8FF"><th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px;width:24px">Nº</th><th style="border:1px solid #444;padding:6px;text-align:left;font-size:11px;min-width:180px">PACIENTE</th>${hdr}<th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px">TOTAL</th></tr></thead><tbody>${rows}</tbody><tfoot><tr style="background:#e8e8e8"><td colspan="2" style="border:1px solid #bbb;padding:5px 8px;font-weight:700;font-size:11px">TOTAL</td>${totR}<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:11px">${T}</td></tr></tfoot></table>`;
   const w=window.open('','_blank','width=1200,height=800');
   w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/>
-  <title>Atendimentos â€” ${periodo}</title>
+  <title>Atendimentos — ${periodo}</title>
   <style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;color:#1a1a1a;padding:20px;background:#fff}
   .htitle{background:#1E1E3A;color:#fff;text-align:center;padding:14px;font-size:19px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
   .hsub{background:#2C1F6A;color:#C8B8FF;text-align:center;padding:8px;font-size:14px;font-weight:600;margin-bottom:14px}
@@ -1467,21 +1467,21 @@ function printReport(){
   .sl{font-size:9px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.05em}.sv{font-size:1.3rem;font-weight:700}
   .ftr{margin-top:14px;padding-top:8px;border-top:1px solid #ddd;font-size:10px;color:#888;display:flex;justify-content:space-between}
   @media print{body{padding:12px}@page{margin:1cm;size:A4 landscape}}</style></head><body>
-  <div class="htitle">${relClinica?relClinica.toUpperCase():relConv?relConv.toUpperCase():'SAÃšDE CENTER'} â€” ${_pfc==='T'?'ATENDIMENTOS':_pfc==='OA'?'OUTROS ATENDIMENTOS':_pfc==='AV'?'AVALIAÃ‡ÃƒO':_pfc}</div>
-  <div class="hsub">${periodo}${convLabel}${clinicaLabel} &nbsp;Â·&nbsp; ${session.nome}</div>
+  <div class="htitle">${relClinica?relClinica.toUpperCase():relConv?relConv.toUpperCase():'SAÚDE CENTER'} — ${_pfc==='T'?'ATENDIMENTOS':_pfc==='OA'?'OUTROS ATENDIMENTOS':_pfc==='AV'?'AVALIAÇÃO':_pfc}</div>
+  <div class="hsub">${periodo}${convLabel}${clinicaLabel} &nbsp;·&nbsp; ${session.nome}</div>
   <div class="stats">
-    <div class="stat"><div class="sl">SessÃµes T</div><div class="sv" style="color:#1B5E20">${T}</div></div>
-    <div class="stat"><div class="sl">AvaliaÃ§Ãµes</div><div class="sv" style="color:#0D47A1">${AV}</div></div>
+    <div class="stat"><div class="sl">Sessões T</div><div class="sv" style="color:#1B5E20">${T}</div></div>
+    <div class="stat"><div class="sl">Avaliações</div><div class="sv" style="color:#0D47A1">${AV}</div></div>
     <div class="stat"><div class="sl">Faltas FNJ</div><div class="sv" style="color:#B71C1C">${FNJ}</div></div>
     <div class="stat"><div class="sl">Total</div><div class="sv">${T+AV+FNJ}</div></div>
   </div>
   ${tableHTML}
-  <div class="ftr"><span>ConectaSaÃºde Â· Desenvolvido por Eduardo Ribeiro</span><span>${periodo}${convLabel}${clinicaLabel}</span></div>
+  <div class="ftr"><span>ConectaSaúde · Desenvolvido por Eduardo Ribeiro</span><span>${periodo}${convLabel}${clinicaLabel}</span></div>
   <script>window.onload=()=>{window.print()}<\/script></body></html>`);
   w.document.close();
 }
 
-// â•â• RENDER ALL (3 tabelas) â•â•
+// ══ RENDER ALL (3 tabelas) ══
 function buildMensalTable(filterCode, label, colorHex, convenioOverride){
   const mm=String(relMes+1).padStart(2,'0');
   const days=[];const dim=new Date(relAno,relMes+1,0).getDate();
@@ -1513,7 +1513,7 @@ function buildMensalTable(filterCode, label, colorHex, convenioOverride){
     <div style="background:${colorHex};color:#fff;text-align:center;padding:.6rem 1rem;font-weight:700;font-size:13px;border-radius:var(--r) var(--r) 0 0;text-transform:uppercase;letter-spacing:.05em">${label}</div>
     <div style="overflow-x:auto;border:1px solid var(--n3);border-top:none;border-radius:0 0 var(--r) var(--r)">
       <table class="rel-tbl">
-        <thead><tr><th>NÂº</th><th class="nc" style="text-align:left">PACIENTE</th>${dayH}<th>T</th></tr></thead>
+        <thead><tr><th>Nº</th><th class="nc" style="text-align:left">PACIENTE</th>${dayH}<th>T</th></tr></thead>
         <tbody>${rows}</tbody>
         <tfoot><tr><td colspan="2" style="text-align:left;padding-left:1rem">TOTAL</td>${totR}<td>${total}</td></tr></tfoot>
       </table>
@@ -1524,7 +1524,7 @@ function buildMensalTable(filterCode, label, colorHex, convenioOverride){
 function _buildConvBlock(conv,relClinica){
   const tT=buildMensalTable('T',[`Atendimentos`,conv,relClinica].filter(Boolean).join(' '),'#111111',conv);
   const tOA=buildMensalTable('OA',[`Outros Atendimentos`,conv,relClinica].filter(Boolean).join(' '),'#5B21B6',conv);
-  const tAV=buildMensalTable('AV',[`AvaliaÃ§Ã£o`,conv,relClinica].filter(Boolean).join(' '),'#185FA5',conv);
+  const tAV=buildMensalTable('AV',[`Avaliação`,conv,relClinica].filter(Boolean).join(' '),'#185FA5',conv);
   if(!tT&&!tOA&&!tAV)return'';
   return`<div style="margin-bottom:2rem">${tT}${tOA}${tAV}</div>`;
 }
@@ -1536,22 +1536,22 @@ function renderMensalAll(){
   const mR=fR.filter(r=>r.date?.startsWith(`${relAno}-${mm}`));
   const T=mR.filter(r=>r.code==='T').length,AV=mR.filter(r=>r.code==='AV').length,FNJ=mR.filter(r=>r.code==='FNJ').length,OA=mR.filter(r=>r.code==='OA').length;
   document.getElementById('rel-stats').innerHTML=`
-    <div class="stat"><div class="stat-label">SessÃµes T</div><div class="stat-value" style="color:#3B6D11">${T}</div><div class="stat-sub">${MESES[relMes]}</div></div>
+    <div class="stat"><div class="stat-label">Sessões T</div><div class="stat-value" style="color:#3B6D11">${T}</div><div class="stat-sub">${MESES[relMes]}</div></div>
     <div class="stat"><div class="stat-label">Outros Atend.</div><div class="stat-value" style="color:#5B21B6">${OA}</div><div class="stat-sub">${MESES[relMes]}</div></div>
-    <div class="stat"><div class="stat-label">AvaliaÃ§Ãµes</div><div class="stat-value" style="color:#185FA5">${AV}</div><div class="stat-sub">${MESES[relMes]}</div></div>
+    <div class="stat"><div class="stat-label">Avaliações</div><div class="stat-value" style="color:#185FA5">${AV}</div><div class="stat-sub">${MESES[relMes]}</div></div>
     <div class="stat"><div class="stat-label">Total</div><div class="stat-value">${T+OA+AV+FNJ}</div><div class="stat-sub">atendimentos</div></div>`;
   const wrap=document.getElementById('rel-tabela');
   if(!wrap)return;
   if(!relConv){
-    // Separar por convÃªnio
+    // Separar por convênio
     const convs=['IASEP','UNIMED','Particular','Outro'];
     let html=convs.map(c=>_buildConvBlock(c,relClinica)).join('');
-    wrap.innerHTML=html||'<div class="empty" style="padding:2rem"><div class="empty-icon">ðŸ“Š</div><div class="empty-text">Nenhum atendimento.</div></div>';
+    wrap.innerHTML=html||'<div class="empty" style="padding:2rem"><div class="empty-icon">📊</div><div class="empty-text">Nenhum atendimento.</div></div>';
   } else {
     const tabelaT=buildMensalTable('T',[`Atendimentos`,relConv,relClinica].filter(Boolean).join(' '),'#111111');
     const tabelaOA=buildMensalTable('OA',[`Outros Atendimentos`,relConv,relClinica].filter(Boolean).join(' '),'#5B21B6');
-    const tabelaAV=buildMensalTable('AV',[`AvaliaÃ§Ã£o`,relConv,relClinica].filter(Boolean).join(' '),'#185FA5');
-    wrap.innerHTML=`<div style="padding:0">${tabelaT}${tabelaOA}${tabelaAV}${(!tabelaT&&!tabelaOA&&!tabelaAV)?'<div class="empty" style="padding:2rem"><div class="empty-icon">ðŸ“Š</div><div class="empty-text">Nenhum atendimento.</div></div>':''}</div>`;
+    const tabelaAV=buildMensalTable('AV',[`Avaliação`,relConv,relClinica].filter(Boolean).join(' '),'#185FA5');
+    wrap.innerHTML=`<div style="padding:0">${tabelaT}${tabelaOA}${tabelaAV}${(!tabelaT&&!tabelaOA&&!tabelaAV)?'<div class="empty" style="padding:2rem"><div class="empty-icon">📊</div><div class="empty-text">Nenhum atendimento.</div></div>':''}</div>`;
   }
 }
 
@@ -1566,23 +1566,23 @@ function exportCSV(){
   const fP=relConv?patients.filter(p=>p.convenio===relConv):patients;
   let csv='';
   if(relTipo==='anual'){
-    csv=`Paciente,ConvÃªnio,${MS.join(',')},Total\n`;
+    csv=`Paciente,Convênio,${MS.join(',')},Total\n`;
     fP.forEach(p=>{const m=Array.from({length:12},(_,i)=>{const mm2=String(i+1).padStart(2,'0');return records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(`${relAno}-${mm2}`)).length;});csv+=`"${p.nome}","${p.convenio}",${m.join(',')},${m.reduce((a,b)=>a+b,0)}\n`;});
   } else {
     const dim=new Date(relAno,relMes+1,0).getDate();
     const days=Array.from({length:dim},(_,i)=>`${relAno}-${mm}-${String(i+1).padStart(2,'0')}`);
-    csv=`Paciente,ConvÃªnio,${days.map(d=>new Date(d+'T12:00:00').getDate()).join(',')},Total T\n`;
+    csv=`Paciente,Convênio,${days.map(d=>new Date(d+'T12:00:00').getDate()).join(',')},Total T\n`;
     fP.forEach(p=>{const cells=days.map(d=>{const r=records.find(x=>x.pat_id===p.id&&x.date===d);return r?(r.code==='T'?`T${r.t_num}`:r.code):'';});const t=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(`${relAno}-${mm}`)).length;csv+=`"${p.nome}","${p.convenio}",${cells.map(c=>`"${c}"`).join(',')},${t}\n`;});
   }
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));
   a.download=`atendimentos_${relTipo==='anual'?relAno:`${MESES[relMes]}_${relAno}`}.csv`;a.click();
-  toast('âœ“ CSV exportado');
+  toast('✓ CSV exportado');
 }
 
-// â•â• VISÃƒO GERAL â•â•
+// ══ VISÃO GERAL ══
 async function renderClientes(){
   const mc=document.getElementById('main-content');
-  mc.innerHTML='<div class="empty"><div class="empty-icon" style="font-size:1.5rem;animation:spin .7s linear infinite">âŸ³</div><div class="empty-text">Carregando...</div></div>';
+  mc.innerHTML='<div class="empty"><div class="empty-icon" style="font-size:1.5rem;animation:spin .7s linear infinite">⟳</div><div class="empty-text">Carregando...</div></div>';
   const[pr,rr,ur]=await Promise.all([sb.from('patients').select('*'),sb.from('records').select('*'),sb.from('users').select('*').order('nome')]);
   const allP=pr.data||[],allR=rr.data||[],allU=ur.data||[];
   const clientes=allU.filter(u=>u.role!=='admin');
@@ -1611,33 +1611,33 @@ async function renderClientes(){
             <span style="font-weight:600;font-size:15px;color:#1C1C1A">${u.nome}</span>
             <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:#F0EFEB;color:#5F5E5A;border:1px solid #D3D1C7;margin-left:2px">${u.ocupacao||'Fisioterapeuta'}</span>
           </div>
-          <div style="font-size:12px;color:#888780;margin-top:2px">@${u.login} Â· ${on?'<span style="color:var(--grn);font-weight:500">Online agora</span>':fmtDatetime(u.last_seen)}</div>
+          <div style="font-size:12px;color:#888780;margin-top:2px">@${u.login} · ${on?'<span style="color:var(--grn);font-weight:500">Online agora</span>':fmtDatetime(u.last_seen)}</div>
         </div>
         <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
           ${statusBdg(u)}
-          <button class="btn btn-g btn-sm" onclick="toggleAtivo('${u.id}',${u.ativo!==false},'${u.nome}')">${u.ativo===false?'â–¶ Ativar':'â¸ Suspender'}</button>
-          <button class="btn btn-p btn-sm" onclick="openAcessoModal('${u.id}','${u.nome}')">â± Acesso</button>
+          <button class="btn btn-g btn-sm" onclick="toggleAtivo('${u.id}',${u.ativo!==false},'${u.nome}')">${u.ativo===false?'▶ Ativar':'⏸ Suspender'}</button>
+          <button class="btn btn-p btn-sm" onclick="openAcessoModal('${u.id}','${u.nome}')">⏱ Acesso</button>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem">
         <div style="background:#F8F7F4;border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:#888780;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Pacientes</div><div style="font-family:var(--FT);font-size:1.4rem;color:#1C1C1A">${uP}</div></div>
-        <div style="background:#F8F7F4;border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:#888780;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">SessÃµes T</div><div style="font-family:var(--FT);font-size:1.4rem;color:#3B6D11">${uT}</div></div>
+        <div style="background:#F8F7F4;border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:#888780;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Sessões T</div><div style="font-family:var(--FT);font-size:1.4rem;color:#3B6D11">${uT}</div></div>
         <div style="background:#F8F7F4;border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:#888780;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Faltas FNJ</div><div style="font-family:var(--FT);font-size:1.4rem;color:#993C1D">${uFNJ}</div></div>
-        <div style="background:#F8F7F4;border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:#888780;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Acesso atÃ©</div><div style="font-size:13px;font-weight:600;color:#5F5E5A;margin-top:4px">${exp}</div></div>
+        <div style="background:#F8F7F4;border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:#888780;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Acesso até</div><div style="font-size:13px;font-weight:600;color:#5F5E5A;margin-top:4px">${exp}</div></div>
       </div>
     </div>`;
   }).join('');
   // Count by ocupacao
   const ocupCounts={};clientes.forEach(u=>{const o=u.ocupacao||'Fisioterapeuta';ocupCounts[o]=(ocupCounts[o]||0)+1;});
-  const ocupLabel=Object.entries(ocupCounts).map(([o,c])=>`${c} ${o}`).join(' Â· ')||`${clientes.length} profissional${clientes.length!==1?'s':''}`;
-  mc.innerHTML=`<div class="sec-hdr"><span class="sec-title">VisÃ£o Geral dos Clientes</span><span style="font-size:13px;color:var(--n4)">${ocupLabel}</span></div>${clientes.length?cards:'<div class="empty"><div class="empty-icon">ðŸ‘¥</div><div class="empty-text">Nenhum profissional cadastrado.</div></div>'}`;
+  const ocupLabel=Object.entries(ocupCounts).map(([o,c])=>`${c} ${o}`).join(' · ')||`${clientes.length} profissional${clientes.length!==1?'s':''}`;
+  mc.innerHTML=`<div class="sec-hdr"><span class="sec-title">Visão Geral dos Clientes</span><span style="font-size:13px;color:var(--n4)">${ocupLabel}</span></div>${clientes.length?cards:'<div class="empty"><div class="empty-icon">👥</div><div class="empty-text">Nenhum profissional cadastrado.</div></div>'}`;
 }
 
 async function toggleAtivo(id,ativo,nome){
   if(!confirm(`Deseja ${ativo?'suspender':'ativar'} o acesso de ${nome}?`))return;
   const{error}=await sb.from('users').update({ativo:!ativo}).eq('id',id);
   if(error){toast('Erro ao atualizar',true);return;}
-  toast(`âœ“ Acesso de ${nome} ${ativo?'suspenso':'ativado'}`);
+  toast(`✓ Acesso de ${nome} ${ativo?'suspenso':'ativado'}`);
   renderClientes();
 }
 
@@ -1656,12 +1656,12 @@ async function saveAcesso(){
   const{error}=await sb.from('users').update({expires_at:expires,ativo:true}).eq('id',uid);
   if(error){toast('Erro ao salvar',true);return;}
   const labels={'30d':'30 dias','2m':'2 meses','3m':'3 meses','6m':'6 meses','1a':'1 ano','ilimitado':'ilimitado'};
-  toast(`âœ“ Acesso definido: ${labels[period]}`);
+  toast(`✓ Acesso definido: ${labels[period]}`);
   closeM('ac-modal');renderClientes();
 }
 
 
-// â•â• PERFIL â•â•
+// ══ PERFIL ══
 function renderPerfil(){
   const mc=document.getElementById('main-content');
   const avatarHTML=session.avatar_url
@@ -1682,15 +1682,15 @@ function renderPerfil(){
           </div>
           <div style="text-align:center">
             <div style="font-weight:600;font-size:16px;color:#1C1C1A">${session.nome}</div>
-            <div style="font-size:13px;color:#888780;margin-top:2px">@${session.login||''} Â· ${session.role==='admin'?'Admin':(session.ocupacao||'Fisioterapeuta')}</div>
+            <div style="font-size:13px;color:#888780;margin-top:2px">@${session.login||''} · ${session.role==='admin'?'Admin':(session.ocupacao||'Fisioterapeuta')}</div>
           </div>
           <div style="width:100%">
             <div style="font-size:11px;font-weight:700;color:#5F5E5A;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem">Selecionar foto</div>
             <input type="file" id="avatar-file" accept="image/*" onchange="previewAvatar(this)"
               style="width:100%;padding:.5rem;border:1px dashed #D3D1C7;border-radius:var(--rs);background:#F8F7F4;color:#5F5E5A;font-size:13px;cursor:pointer"/>
-            <div style="font-size:11px;color:#888780;margin-top:.4rem">JPG, PNG ou WEBP Â· MÃ¡ximo 2MB</div>
+            <div style="font-size:11px;color:#888780;margin-top:.4rem">JPG, PNG ou WEBP · Máximo 2MB</div>
           </div>
-          <button class="btn btn-p btn-full" onclick="uploadAvatar()">ðŸ“· Salvar foto</button>
+          <button class="btn btn-p btn-full" onclick="uploadAvatar()">📷 Salvar foto</button>
           ${session.avatar_url?`<button class="btn btn-g btn-full" onclick="removeAvatar()" style="margin-top:-.5rem">Remover foto</button>`:''}
         </div>
       </div>
@@ -1701,11 +1701,11 @@ function renderPerfil(){
         <div style="display:flex;flex-direction:column;gap:.85rem">
           <div class="fg">
             <span class="lbl">Senha atual</span>
-            <input type="password" id="p-pwd-old" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"/>
+            <input type="password" id="p-pwd-old" placeholder="••••••••"/>
           </div>
           <div class="fg">
             <span class="lbl">Nova senha</span>
-            <input type="password" id="p-pwd-new" placeholder="MÃ­nimo 4 caracteres"/>
+            <input type="password" id="p-pwd-new" placeholder="Mínimo 4 caracteres"/>
             <div id="pwd-strength" style="margin-top:.3rem;font-size:11px;color:#888780"></div>
           </div>
           <div class="fg">
@@ -1715,10 +1715,10 @@ function renderPerfil(){
             <div id="pwd-match" style="margin-top:.3rem;font-size:11px"></div>
           </div>
           <div style="margin-top:.25rem">
-            <button class="btn btn-p btn-full" onclick="savePerfilSenha()">ðŸ”‘ Alterar senha</button>
+            <button class="btn btn-p btn-full" onclick="savePerfilSenha()">🔑 Alterar senha</button>
           </div>
           <div style="padding:.75rem 1rem;background:#F8F7F4;border-radius:var(--rs);font-size:12px;color:#5F5E5A;border:1px solid #E8E7E3">
-            ðŸ’¡ Use ao menos 4 caracteres. Recomendamos misturar letras, nÃºmeros e sÃ­mbolos.
+            💡 Use ao menos 4 caracteres. Recomendamos misturar letras, números e símbolos.
           </div>
         </div>
       </div>
@@ -1728,7 +1728,7 @@ function renderPerfil(){
 function previewAvatar(input){
   const file=input.files[0];
   if(!file)return;
-  if(file.size>2*1024*1024){toast('âš  Imagem muito grande (mÃ¡x 2MB)',true);input.value='';return;}
+  if(file.size>2*1024*1024){toast('⚠ Imagem muito grande (máx 2MB)',true);input.value='';return;}
   const reader=new FileReader();
   reader.onload=e=>{
     const prev=document.getElementById('avatar-preview');
@@ -1739,9 +1739,9 @@ function previewAvatar(input){
 
 async function uploadAvatar(){
   const input=document.getElementById('avatar-file');
-  if(!input||!input.files[0]){toast('âš  Selecione uma foto',true);return;}
+  if(!input||!input.files[0]){toast('⚠ Selecione uma foto',true);return;}
   const file=input.files[0];
-  if(file.size>2*1024*1024){toast('âš  Imagem muito grande (mÃ¡x 2MB)',true);return;}
+  if(file.size>2*1024*1024){toast('⚠ Imagem muito grande (máx 2MB)',true);return;}
   const btn=document.querySelector('#main-content .btn-p');
   if(btn){btn.textContent='Salvando...';btn.disabled=true;}
   try{
@@ -1764,13 +1764,13 @@ async function uploadAvatar(){
       nav_av.innerHTML=`<img src="${avatarUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`;
     }
     users=users.map(u=>u.id===session.id?{...u,avatar_url:avatarUrl}:u);
-    toast('âœ“ Foto atualizada com sucesso!');
+    toast('✓ Foto atualizada com sucesso!');
     renderPerfil();
   }catch(e){
     console.error(e);
     toast('Erro ao salvar foto',true);
   }finally{
-    if(btn){btn.textContent='ðŸ“· Salvar foto';btn.disabled=false;}
+    if(btn){btn.textContent='📷 Salvar foto';btn.disabled=false;}
   }
 }
 
@@ -1788,7 +1788,7 @@ async function removeAvatar(){
     nav_av.style.cssText=AV_STYLE[session.role]||AV_STYLE.cliente;
   }
   users=users.map(u=>u.id===session.id?{...u,avatar_url:null}:u);
-  toast('âœ“ Foto removida');
+  toast('✓ Foto removida');
   renderPerfil();
 }
 
@@ -1797,8 +1797,8 @@ function checkPwdMatch(){
   const nw2=document.getElementById('p-pwd-new2')?.value||'';
   const el=document.getElementById('pwd-match');
   if(!el||!nw2)return;
-  if(nw===nw2){el.textContent='âœ“ Senhas coincidem';el.style.color='#3B6D11';}
-  else{el.textContent='âœ• Senhas nÃ£o coincidem';el.style.color='#993C1D';}
+  if(nw===nw2){el.textContent='✓ Senhas coincidem';el.style.color='#3B6D11';}
+  else{el.textContent='✕ Senhas não coincidem';el.style.color='#993C1D';}
 }
 
 async function savePerfilSenha(){
@@ -1806,9 +1806,9 @@ async function savePerfilSenha(){
   const nw=document.getElementById('p-pwd-new')?.value||'';
   const nw2=document.getElementById('p-pwd-new2')?.value||'';
   const u=users.find(x=>x.id===session.id);
-  if(!u||u.pass_hash!==hp(old)){toast('âš  Senha atual incorreta',true);return;}
-  if(nw.length<4){toast('âš  Nova senha muito curta',true);return;}
-  if(nw!==nw2){toast('âš  As senhas nÃ£o coincidem',true);return;}
+  if(!u||u.pass_hash!==hp(old)){toast('⚠ Senha atual incorreta',true);return;}
+  if(nw.length<4){toast('⚠ Nova senha muito curta',true);return;}
+  if(nw!==nw2){toast('⚠ As senhas não coincidem',true);return;}
   const{error}=await sb.from('users').update({pass_hash:hp(nw)}).eq('id',session.id);
   if(error){toast('Erro ao salvar',true);return;}
   users=users.map(x=>x.id===session.id?{...x,pass_hash:hp(nw)}:x);
@@ -1816,17 +1816,17 @@ async function savePerfilSenha(){
   document.getElementById('p-pwd-new').value='';
   document.getElementById('p-pwd-new2').value='';
   document.getElementById('pwd-match').textContent='';
-  toast('âœ“ Senha alterada com sucesso!');
+  toast('✓ Senha alterada com sucesso!');
 }
 
-// â•â• USUÃRIOS â•â•
+// ══ USUÁRIOS ══
 function renderUsuarios(){
   document.getElementById('main-content').innerHTML=`
     <div class="sec-hdr">
-      <span class="sec-title">UsuÃ¡rios</span>
+      <span class="sec-title">Usuários</span>
       <div style="display:flex;gap:.5rem">
-        <button class="btn btn-g btn-sm" onclick="openM('pwd-m')">ðŸ”‘ Trocar senha</button>
-        <button class="btn btn-p btn-sm" onclick="openUsrModal(null)">+ Novo UsuÃ¡rio</button>
+        <button class="btn btn-g btn-sm" onclick="openM('pwd-m')">🔑 Trocar senha</button>
+        <button class="btn btn-p btn-sm" onclick="openUsrModal(null)">+ Novo Usuário</button>
       </div>
     </div>
     <div id="usr-list">${usrListHTML()}</div>`;
@@ -1842,7 +1842,7 @@ function usrListHTML(){
     if(u.role!=='admin'){
       if(u.ativo===false)sb2=`<span class="bdg" style="background:var(--red0);color:var(--red)">Suspensa</span>`;
       else if(u.expires_at&&new Date(u.expires_at)<now)sb2=`<span class="bdg" style="background:var(--amb0);color:var(--amb)">Expirada</span>`;
-      else if(u.expires_at){const d=Math.ceil((new Date(u.expires_at)-now)/(1000*60*60*24));sb2=d<=7?`<span class="bdg" style="background:var(--amb0);color:var(--amb)">${d}d rest.</span>`:`<span class="bdg" style="background:var(--grn0);color:var(--grn)">Ativo Â· ${new Date(u.expires_at).toLocaleDateString('pt-BR')}</span>`;}
+      else if(u.expires_at){const d=Math.ceil((new Date(u.expires_at)-now)/(1000*60*60*24));sb2=d<=7?`<span class="bdg" style="background:var(--amb0);color:var(--amb)">${d}d rest.</span>`:`<span class="bdg" style="background:var(--grn0);color:var(--grn)">Ativo · ${new Date(u.expires_at).toLocaleDateString('pt-BR')}</span>`;}
       else sb2=`<span class="bdg" style="background:var(--p9);color:var(--p1)">Ilimitado</span>`;
     }
     return`<div class="ucard">
@@ -1850,13 +1850,13 @@ function usrListHTML(){
         ${u.avatar_url?`<img src="${u.avatar_url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`:`${ini(u.nome)}`}
       </div>
       <div style="flex:1;min-width:0">
-        <div style="font-weight:600;font-size:15px;color:#1C1C1A">${u.nome}${isSelf?` <span style="font-size:11px;color:var(--n4)">(vocÃª)</span>`:''}</div>
-        <div style="font-size:12px;color:#888780;margin-top:2px">@${u.login} Â· <span class="bdg ${u.role==='admin'?'bdg-admin':'bdg-fisio'}">${rl}</span> ${sb2}</div>
+        <div style="font-weight:600;font-size:15px;color:#1C1C1A">${u.nome}${isSelf?` <span style="font-size:11px;color:var(--n4)">(você)</span>`:''}</div>
+        <div style="font-size:12px;color:#888780;margin-top:2px">@${u.login} · <span class="bdg ${u.role==='admin'?'bdg-admin':'bdg-fisio'}">${rl}</span> ${sb2}</div>
       </div>
       <div style="display:flex;gap:.4rem;flex-wrap:wrap">
-        ${u.role!=='admin'?`<button class="btn btn-amb btn-sm" onclick="openAcessoModal('${u.id}','${u.nome}')">â± Acesso</button>`:''}
-        <button class="btn btn-g btn-sm" onclick="openUsrModal('${u.id}')">âœ Editar</button>
-        ${!isSelf?`<button class="btn btn-d btn-sm" onclick="deleteUser('${u.id}')">âœ•</button>`:''}
+        ${u.role!=='admin'?`<button class="btn btn-amb btn-sm" onclick="openAcessoModal('${u.id}','${u.nome}')">⏱ Acesso</button>`:''}
+        <button class="btn btn-g btn-sm" onclick="openUsrModal('${u.id}')">✏ Editar</button>
+        ${!isSelf?`<button class="btn btn-d btn-sm" onclick="deleteUser('${u.id}')">✕</button>`:''}
       </div>
     </div>`;
   }).join('');
@@ -1864,12 +1864,12 @@ function usrListHTML(){
 
 function openUsrModal(id){
   editUsr=id?users.find(u=>u.id===id):null;
-  document.getElementById('um-title').textContent=editUsr?'Editar UsuÃ¡rio':'Novo UsuÃ¡rio';
+  document.getElementById('um-title').textContent=editUsr?'Editar Usuário':'Novo Usuário';
   document.getElementById('um-nome').value=editUsr?.nome||'';
   document.getElementById('um-login').value=editUsr?.login||'';
   document.getElementById('um-role').value=editUsr?.role||'cliente';
   document.getElementById('um-pass').value='';document.getElementById('um-pass2').value='';
-  document.getElementById('um-pass').placeholder=editUsr?'Deixe em branco para nÃ£o alterar':'MÃ­nimo 4 caracteres';
+  document.getElementById('um-pass').placeholder=editUsr?'Deixe em branco para não alterar':'Mínimo 4 caracteres';
   document.getElementById('um-pass2-wrap').style.display=editUsr?'none':'flex';
   openM('um');
 }
@@ -1880,32 +1880,32 @@ async function saveUsuario(){
   const role=document.getElementById('um-role').value;
   const pass=document.getElementById('um-pass').value;
   const pass2=document.getElementById('um-pass2').value;
-  if(!nome||!login){toast('âš  Preencha nome e login',true);return;}
-  if(users.find(u=>u.login===login&&u.id!==editUsr?.id)){toast('âš  Login jÃ¡ em uso',true);return;}
+  if(!nome||!login){toast('⚠ Preencha nome e login',true);return;}
+  if(users.find(u=>u.login===login&&u.id!==editUsr?.id)){toast('⚠ Login já em uso',true);return;}
   const payload={nome,login,role};
-  if(pass){if(pass.length<4){toast('âš  Senha muito curta',true);return;}if(!editUsr&&pass!==pass2){toast('âš  Senhas nÃ£o coincidem',true);return;}payload.pass_hash=hp(pass);}
+  if(pass){if(pass.length<4){toast('⚠ Senha muito curta',true);return;}if(!editUsr&&pass!==pass2){toast('⚠ Senhas não coincidem',true);return;}payload.pass_hash=hp(pass);}
   if(editUsr){
     const{data,error}=await sb.from('users').update(payload).eq('id',editUsr.id).select().single();
     if(error){toast('Erro ao salvar',true);return;}
     users=users.map(u=>u.id===editUsr.id?data:u);
     if(editUsr.id===session.id){session={...session,...data};saveSession(session);}
-    toast('âœ“ UsuÃ¡rio atualizado');
+    toast('✓ Usuário atualizado');
   } else {
-    if(!pass){toast('âš  Informe a senha',true);return;}
+    if(!pass){toast('⚠ Informe a senha',true);return;}
     const{data,error}=await sb.from('users').insert(payload).select().single();
     if(error){toast('Erro ao salvar',true);return;}
-    users.push(data);toast('âœ“ UsuÃ¡rio criado');
+    users.push(data);toast('✓ Usuário criado');
   }
   closeM('um');renderUsuarios();
 }
 
 async function deleteUser(id){
-  if(id===session.id){toast('NÃ£o pode remover vocÃª mesmo',true);return;}
+  if(id===session.id){toast('Não pode remover você mesmo',true);return;}
   const u=users.find(x=>x.id===id);
   const patsCnt=patients.filter(p=>p.owner_id===id).length;
   const msg=patsCnt>0
-    ?`Remover "${u?.nome}"?\n\nIsso vai excluir tambÃ©m ${patsCnt} paciente${patsCnt!==1?'s':''} e todos os registros vinculados.\n\nEsta aÃ§Ã£o nÃ£o pode ser desfeita.`
-    :`Remover "${u?.nome}"? Esta aÃ§Ã£o nÃ£o pode ser desfeita.`;
+    ?`Remover "${u?.nome}"?\n\nIsso vai excluir também ${patsCnt} paciente${patsCnt!==1?'s':''} e todos os registros vinculados.\n\nEsta ação não pode ser desfeita.`
+    :`Remover "${u?.nome}"? Esta ação não pode ser desfeita.`;
   if(!confirm(msg))return;
 
   // 1. Delete records of all patients of this user
@@ -1928,7 +1928,7 @@ async function deleteUser(id){
   users=users.filter(x=>x.id!==id);
   patients=patients.filter(p=>p.owner_id!==id);
   records=records.filter(r=>r.owner_id!==id&&r.reg_by!==id);
-  toast(`âœ“ UsuÃ¡rio e ${userPatsCnt} paciente${userPatIds.length!==1?'s':''} removidos`.replace('userPatsCnt',userPatIds.length));
+  toast(`✓ Usuário e ${userPatsCnt} paciente${userPatIds.length!==1?'s':''} removidos`.replace('userPatsCnt',userPatIds.length));
   renderUsuarios();
 }
 
@@ -1937,18 +1937,18 @@ async function saveSenha(){
   const nw=document.getElementById('pwd-new').value;
   const nw2=document.getElementById('pwd-new2').value;
   const u=users.find(x=>x.id===session.id);
-  if(!u||u.pass_hash!==hp(old)){toast('âš  Senha atual incorreta',true);return;}
-  if(nw.length<4){toast('âš  Nova senha muito curta',true);return;}
-  if(nw!==nw2){toast('âš  Senhas nÃ£o coincidem',true);return;}
+  if(!u||u.pass_hash!==hp(old)){toast('⚠ Senha atual incorreta',true);return;}
+  if(nw.length<4){toast('⚠ Nova senha muito curta',true);return;}
+  if(nw!==nw2){toast('⚠ Senhas não coincidem',true);return;}
   const{error}=await sb.from('users').update({pass_hash:hp(nw)}).eq('id',session.id);
   if(error){toast('Erro ao salvar',true);return;}
   users=users.map(x=>x.id===session.id?{...x,pass_hash:hp(nw)}:x);
-  closeM('pwd-m');toast('âœ“ Senha alterada!');
+  closeM('pwd-m');toast('✓ Senha alterada!');
 }
 
-// â•â• INIT â•â•
+// ══ INIT ══
 window.addEventListener('DOMContentLoaded', async ()=>{
-  // Restaurar sessÃ£o sem consultar servidor
+  // Restaurar sessão sem consultar servidor
   session=readSession();
   if(session){
     document.getElementById('login-page').style.display='none';
@@ -1956,14 +1956,14 @@ window.addEventListener('DOMContentLoaded', async ()=>{
     await bootApp();
   }
 
-  // Timer de inatividade (sÃ³ em memÃ³ria â€” intencional)
+  // Timer de inatividade (só em memória — intencional)
   _lastActivity=Date.now();
   ['click','keydown','mousedown','touchstart','scroll'].forEach(ev=>{
     document.addEventListener(ev,()=>{_lastActivity=Date.now();},{passive:true});
   });
   setInterval(()=>{
     if(!session)return;
-    if(Date.now()-_lastActivity>TIMEOUT_MS){toast('SessÃ£o encerrada por inatividade.',true);setTimeout(doLogout,1500);}
+    if(Date.now()-_lastActivity>TIMEOUT_MS){toast('Sessão encerrada por inatividade.',true);setTimeout(doLogout,1500);}
   },30000);
 });
 </script>

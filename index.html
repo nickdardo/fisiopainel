@@ -1750,12 +1750,35 @@ async function saveUsuario(){
 }
 
 async function deleteUser(id){
-  if(id===session.id){toast('⚠ Não pode remover você mesmo',true);return;}
+  if(id===session.id){toast('Não pode remover você mesmo',true);return;}
   const u=users.find(x=>x.id===id);
-  if(!confirm(`Remover "${u?.nome}"?`))return;
+  const patsCnt=patients.filter(p=>p.owner_id===id).length;
+  const msg=patsCnt>0
+    ?`Remover "${u?.nome}"?\n\nIsso vai excluir também ${patsCnt} paciente${patsCnt!==1?'s':''} e todos os registros vinculados.\n\nEsta ação não pode ser desfeita.`
+    :`Remover "${u?.nome}"? Esta ação não pode ser desfeita.`;
+  if(!confirm(msg))return;
+
+  // 1. Delete records of all patients of this user
+  const userPatIds=patients.filter(p=>p.owner_id===id).map(p=>p.id);
+  for(const pid of userPatIds){
+    await sb.from('records').delete().eq('pat_id',pid);
+    await sb.from('patients').delete().eq('id',pid);
+  }
+  // 2. Delete records registered by this user
+  await sb.from('records').delete().eq('reg_by',id);
+  await sb.from('records').delete().eq('owner_id',id);
+  // 3. Delete avatar from storage
+  if(u?.avatar_url){
+    try{await sb.storage.from('avatars').remove([`${id}/avatar.jpg`,`${id}/avatar.png`,`${id}/avatar.webp`]);}catch(e){}
+  }
+  // 4. Delete user
   const{error}=await sb.from('users').delete().eq('id',id);
-  if(error){toast('Erro ao remover',true);return;}
-  users=users.filter(x=>x.id!==id);toast('Usuário removido');
+  if(error){toast('Erro ao remover: '+error.message,true);return;}
+
+  users=users.filter(x=>x.id!==id);
+  patients=patients.filter(p=>p.owner_id!==id);
+  records=records.filter(r=>r.owner_id!==id&&r.reg_by!==id);
+  toast(`✓ Usuário e ${userPatsCnt} paciente${userPatIds.length!==1?'s':''} removidos`.replace('userPatsCnt',userPatIds.length));
   renderUsuarios();
 }
 

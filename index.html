@@ -1283,77 +1283,84 @@ function renderAnual(){
   document.getElementById('rel-tabela').innerHTML=`<table class="rel-tbl"><thead><tr><th>Nº</th><th class="nc" style="text-align:left">PACIENTE</th>${hdr}<th>TOTAL</th></tr></thead><tbody>${rows||'<tr><td colspan="15" style="text-align:center;padding:1.5rem;color:var(--n4)">Nenhum registro.</td></tr>'}</tbody><tfoot><tr><td colspan="2" style="text-align:left;padding-left:1rem">TOTAL</td>${totR}<td>${T}</td></tr></tfoot></table>`;
 }
 
+function _printBuildTable(code, conv, days, mm, color){
+  const _codes=code==='T'?['T','FNJ']:[code];
+  let fR=conv?records.filter(r=>patients.find(p=>p.id===r.pat_id)?.convenio===conv):records;
+  if(relClinica)fR=fR.filter(r=>r.clinica===relClinica);
+  const mR=fR.filter(r=>r.date?.startsWith(`${relAno}-${mm}`)&&_codes.includes(r.code));
+  if(!mR.length)return'';
+  const pIds=[...new Set(mR.map(r=>r.pat_id))];
+  const pats=patients.filter(p=>pIds.includes(p.id)&&(!conv||p.convenio===conv));
+  if(!pats.length)return'';
+  const tituloTabela=[code==='T'?'Atendimentos':code==='OA'?'Outros Atendimentos':'Avaliação',conv||'',relClinica||''].filter(Boolean).join(' — ');
+  const dayH=days.map(({dt})=>`<th style="border:1px solid #999;padding:3px 2px;text-align:center;font-size:9px;background:#333;color:#fff;min-width:28px">${dt.getDate()}<br>${['D','S','T','Q','Q','S','S'][dt.getDay()]}</th>`).join('');
+  const rows=pats.map((p,i)=>{
+    const cells=days.map(({date})=>{
+      const r=records.find(x=>x.pat_id===p.id&&x.date===date&&_codes.includes(x.code));
+      if(!r)return'<td style="border:1px solid #ddd;text-align:center;padding:2px"></td>';
+      const lbl=r.code==='T'?`T${r.t_num}`:r.code;
+      return`<td style="border:1px solid #ddd;text-align:center;padding:2px;font-size:9px;font-weight:700;color:${color}">${lbl}</td>`;
+    }).join('');
+    const cnt=mR.filter(r=>r.pat_id===p.id).length;
+    return`<tr style="background:${i%2?'#f9f9f9':'#fff'}">
+      <td style="border:1px solid #ddd;text-align:center;font-size:9px;color:#666;padding:3px">${i+1}</td>
+      <td style="border:1px solid #ddd;padding:3px 6px;font-size:9px;font-weight:700;text-transform:uppercase">${p.nome}</td>
+      ${cells}
+      <td style="border:1px solid #ddd;text-align:center;font-weight:700;color:${color};font-size:10px">${cnt}</td>
+    </tr>`;
+  }).join('');
+  const totR=days.map(({date})=>{const c=mR.filter(r=>r.date===date).length;return`<td style="border:1px solid #999;text-align:center;font-size:9px;font-weight:700">${c||''}</td>`;}).join('');
+  return`<div style="margin-bottom:16px">
+    <div style="background:${color};color:#fff;text-align:center;padding:6px;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.05em">${tituloTabela}</div>
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr style="background:#333;color:#fff">
+          <th style="border:1px solid #999;padding:3px;font-size:9px;width:20px">Nº</th>
+          <th style="border:1px solid #999;padding:3px;font-size:9px;text-align:left;min-width:140px">PACIENTE</th>
+          ${dayH}
+          <th style="border:1px solid #999;padding:3px;font-size:9px;width:22px">T</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+        <tfoot><tr style="background:#eee;font-weight:700">
+          <td colspan="2" style="border:1px solid #999;padding:3px 6px;font-size:9px">TOTAL</td>
+          ${totR}
+          <td style="border:1px solid #999;text-align:center;font-size:9px">${mR.length}</td>
+        </tr></tfoot>
+      </table>
+    </div>
+  </div>`;
+}
+
 function printAll(){
   const mm=String(relMes+1).padStart(2,'0');
-  const titulo=relClinica||(relConv?`${relConv} SAÚDE CENTER`:'SAÚDE CENTER');
   const periodo=`${MESES[relMes]} de ${relAno}`;
-  const now=new Date().toLocaleDateString('pt-BR');
   const days=[];const dim=new Date(relAno,relMes+1,0).getDate();
   for(let d=1;d<=dim;d++){const dt=new Date(relAno,relMes,d);if(dt.getDay()>0&&dt.getDay()<6)days.push({date:`${relAno}-${mm}-${String(d).padStart(2,'0')}`,dt});}
 
-  function buildTable(code,label,color){
-    let fR=relConv?records.filter(r=>patients.find(p=>p.id===r.pat_id)?.convenio===relConv):records;
-    if(relClinica)fR=fR.filter(r=>r.clinica===relClinica);
-    const _codes=code==='T'?['T','FNJ']:[code];const mR=fR.filter(r=>r.date?.startsWith(`${relAno}-${mm}`)&&_codes.includes(r.code));
-    if(!mR.length)return'';
-    const pIds=[...new Set(mR.map(r=>r.pat_id))];
-    const pats=patients.filter(p=>pIds.includes(p.id));
-    const dayH=days.map(({dt})=>`<th style="border:1px solid #999;padding:3px 2px;text-align:center;font-size:9px;background:#333;color:#fff;min-width:28px">${dt.getDate()}<br>${['D','S','T','Q','Q','S','S'][dt.getDay()]}</th>`).join('');
-    const rows=pats.map((p,i)=>{
-      const cells=days.map(({date})=>{
-        const _codesB=code==='T'?['T','FNJ']:[code];const r=records.find(x=>x.pat_id===p.id&&x.date===date&&_codesB.includes(x.code));
-        if(!r)return'<td style="border:1px solid #ddd;text-align:center;padding:2px"></td>';
-        const lbl=r.code==='T'?`T${r.t_num}`:r.code; // use r.code not filterCode
-        return`<td style="border:1px solid #ddd;text-align:center;padding:2px;font-size:9px;font-weight:700;color:${color}">${lbl}</td>`;
-      }).join('');
-      const cnt=mR.filter(r=>r.pat_id===p.id).length;
-      return`<tr style="background:${i%2?'#f9f9f9':'#fff'}">
-        <td style="border:1px solid #ddd;text-align:center;font-size:9px;color:#666;padding:3px">${i+1}</td>
-        <td style="border:1px solid #ddd;padding:3px 6px;font-size:9px;font-weight:700;text-transform:uppercase">${p.nome}</td>
-        ${cells}
-        <td style="border:1px solid #ddd;text-align:center;font-weight:700;color:${color};font-size:10px">${cnt}</td>
-      </tr>`;
-    }).join('');
-    const totR=days.map(({date})=>{const c=mR.filter(r=>r.date===date).length;return`<td style="border:1px solid #999;text-align:center;font-size:9px;font-weight:700">${c||''}</td>`;}).join('');
-    return`<div style="margin-bottom:16px">
-      <div style="background:${color};color:#fff;text-align:center;padding:6px;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.05em">${label.toUpperCase()} — ${titulo.toUpperCase()}</div>
-      <div style="overflow-x:auto">
-        <table style="width:100%;border-collapse:collapse">
-          <thead><tr style="background:#333;color:#fff">
-            <th style="border:1px solid #999;padding:3px;font-size:9px;width:20px">Nº</th>
-            <th style="border:1px solid #999;padding:3px;font-size:9px;text-align:left;min-width:140px">PACIENTE</th>
-            ${dayH}
-            <th style="border:1px solid #999;padding:3px;font-size:9px;width:22px">T</th>
-          </tr></thead>
-          <tbody>${rows}</tbody>
-          <tfoot><tr style="background:#eee;font-weight:700">
-            <td colspan="2" style="border:1px solid #999;padding:3px 6px;font-size:9px">TOTAL</td>
-            ${totR}
-            <td style="border:1px solid #999;text-align:center;font-size:9px">${mR.length}</td>
-          </tr></tfoot>
-        </table>
-      </div>
-    </div>`;
-  }
-
-  const tabelaT=buildTable('T','Atendimentos','#111111');
-  const tabelaOA=buildTable('OA','Outros Atendimentos','#5B21B6');
-  const tabelaAV=buildTable('AV','Avaliação','#185FA5');
-
-  if(!tabelaT&&!tabelaOA&&!tabelaAV){toast('Nenhum atendimento para imprimir.',true);return;}
-
-  const header=`<div style="text-align:center;margin-bottom:10px">
-    <div style="font-size:18px;font-weight:700;text-transform:uppercase">${titulo}</div>
-    <div style="font-size:13px;font-weight:600;color:#333;margin-top:4px">${periodo} &nbsp;·&nbsp; ${session.nome}</div>
-  </div>`;
   const footer=`<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:8px;color:#999;border-top:1px solid #ddd;padding-top:4px">
     <span>ConectaSaúde · Desenvolvido por Eduardo Ribeiro</span><span>${periodo}</span>
   </div>`;
 
-  const mkPage=(tabela)=>tabela?`<div style="page-break-after:always">${header}${tabela}${footer}</div>`:'';
-  const pages=[mkPage(tabelaT),mkPage(tabelaOA),mkPage(tabelaAV)].filter(Boolean);
-  // Last page: no page break
-  if(pages.length)pages[pages.length-1]=pages[pages.length-1].replace('page-break-after:always','page-break-after:auto');
+  // Convênios a iterar: se filtrado, só um; caso contrário, todos
+  const convList=relConv?[relConv]:['IASEP','UNIMED','Particular','Outro'];
+  let pages=[];
+
+  for(const conv of convList){
+    const tT=_printBuildTable('T',conv,days,mm,'#111111');
+    const tOA=_printBuildTable('OA',conv,days,mm,'#5B21B6');
+    const tAV=_printBuildTable('AV',conv,days,mm,'#185FA5');
+    if(!tT&&!tOA&&!tAV)continue;
+    const header=`<div style="text-align:center;margin-bottom:10px">
+      <div style="font-size:18px;font-weight:700;text-transform:uppercase">${relClinica?relClinica:conv}</div>
+      <div style="font-size:13px;font-weight:600;color:#333;margin-top:4px">${periodo} &nbsp;·&nbsp; ${session.nome}</div>
+    </div>`;
+    const block=`${header}${tT}${tOA}${tAV}${footer}`;
+    pages.push(`<div style="page-break-after:always">${block}</div>`);
+  }
+
+  if(!pages.length){toast('Nenhum atendimento para imprimir.',true);return;}
+  // Remove page-break from last page
+  pages[pages.length-1]=pages[pages.length-1].replace('page-break-after:always','page-break-after:auto');
 
   const w=window.open('','_blank','width=1200,height=800');
   w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"/>
@@ -1367,43 +1374,80 @@ function printAll(){
 function printReport(){
   if(relFilter==='ALL'){printAll();return;}
   const mm=String(relMes+1).padStart(2,'0');
-  let fR=relConv?records.filter(r=>patients.find(p=>p.id===r.pat_id)?.convenio===relConv):records;
-  if(relClinica)fR=fR.filter(r=>r.clinica===relClinica);
-  let fRp=relConv?records.filter(r=>patients.find(p=>p.id===r.pat_id)?.convenio===relConv):records;
-  if(relClinica)fRp=fRp.filter(r=>r.clinica===relClinica);
-  const _pfc=relFilter==='T'?'T':relFilter; // print filter code
-  const baseAll=relTipo==='anual'?fRp.filter(r=>r.date?.startsWith(String(relAno))):fRp.filter(r=>r.date?.startsWith(`${relAno}-${mm}`));
-  const _tCodesP=['T','FNJ'];const base=baseAll.filter(r=>relFilter==='T'?_tCodesP.includes(r.code):r.code===_pfc);
-  const T=base.filter(r=>r.code==='T').length,AV=base.filter(r=>r.code==='AV').length,FNJ=base.filter(r=>r.code==='FNJ').length,OA=base.filter(r=>r.code==='OA').length;
+  const _pfc=relFilter==='T'?'T':relFilter;
   const periodo=relTipo==='anual'?`Anual — ${relAno}`:`${MESES[relMes]} de ${relAno}`;
-  const convLabel=relConv?` · ${relConv}`:'';
-  const clinicaLabel=relClinica?` · ${relClinica}`:'';
+  const convList=relConv?[relConv]:['IASEP','UNIMED','Particular','Outro'];
 
-  let tableHTML='';
+  // ── MENSAL ──
   if(relTipo==='mensal'){
-    const dim=new Date(relAno,relMes+1,0).getDate();
-    const days=[];
+    const days=[];const dim=new Date(relAno,relMes+1,0).getDate();
     for(let d=1;d<=dim;d++){const dt=new Date(relAno,relMes,d);if(dt.getDay()>0&&dt.getDay()<6)days.push({date:`${relAno}-${mm}-${String(d).padStart(2,'0')}`,dt});}
-    const pIds=[...new Set(base.map(r=>r.pat_id))];
-    const pats=patients.filter(p=>pIds.includes(p.id)&&(!relConv||p.convenio===relConv));
-    const dayH=days.map(({dt})=>`<th style="text-align:center;min-width:36px;font-size:9px;padding:4px 2px;border:1px solid #ccc;background:#1E1E3A;color:#C8B8FF"><div style="font-weight:700">${DIAS_PT[dt.getDay()]}</div><div style="opacity:.8">${String(dt.getDate()).padStart(2,'0')}/${mm}</div></th>`).join('');
-    const rows=pats.map((p,i)=>{
-      const cells=days.map(({date})=>{const r=records.find(x=>x.pat_id===p.id&&x.date===date&&(relFilter==='T'?_tCodesP.includes(x.code):x.code===_pfc));if(!r)return'<td style="border:1px solid #ddd;text-align:center;padding:3px"></td>';const lbl=r.code==='T'?`T${r.t_num}`:r.code==='OA'&&r.t_num?`T${r.t_num}`:r.code;const col=r.code==='T'?'#1B5E20':r.code==='AV'?'#0D47A1':r.code==='OA'?'#5B21B6':'#B71C1C';return`<td style="border:1px solid #ddd;text-align:center;padding:3px;font-size:10px;font-weight:700;color:${col}">${lbl}</td>`;}).join('');
-      const tT=records.filter(r=>r.pat_id===p.id&&(relFilter==='T'?_tCodesP.includes(r.code):r.code===_pfc)&&r.date?.startsWith(`${relAno}-${mm}`)).length;
-      return`<tr style="background:${i%2===0?'#fff':'#f5f5f5'}"><td style="border:1px solid #ddd;text-align:center;font-size:10px;color:#666;padding:4px">${i+1}</td><td style="border:1px solid #ddd;padding:4px 8px;font-size:11px;font-weight:600;text-transform:uppercase">${p.nome}</td>${cells}<td style="border:1px solid #ddd;text-align:center;font-weight:700;color:#1B5E20;font-size:11px">${tT||''}</td></tr>`;
-    }).join('');
-    const totR=days.map(({date})=>{const c=records.filter(r=>r.date===date&&(relFilter==='T'?_tCodesP.includes(r.code):r.code===_pfc)&&(relConv?patients.find(p=>p.id===r.pat_id)?.convenio===relConv:true)).length;return`<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:10px">${c||''}</td>`;}).join('');
-    tableHTML=`<table style="width:100%;border-collapse:collapse"><thead><tr style="background:#1E1E3A;color:#C8B8FF"><th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px;width:24px">Nº</th><th style="border:1px solid #444;padding:6px;text-align:left;font-size:11px;min-width:180px">PACIENTE</th>${dayH}<th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px;width:28px">T</th></tr></thead><tbody>${rows}</tbody><tfoot><tr style="background:#e8e8e8"><td colspan="2" style="border:1px solid #bbb;padding:5px 8px;font-weight:700;font-size:11px">TOTAL</td>${totR}<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:11px">${T}</td></tr></tfoot></table>`;
-  } else {
-    const pIds=[...new Set(base.map(r=>r.pat_id))];
-    const pats=patients.filter(p=>pIds.includes(p.id)&&(!relConv||p.convenio===relConv));
-    const hdr=MS.map(m=>`<th style="border:1px solid #444;padding:5px 4px;text-align:center;font-size:10px;background:#1E1E3A;color:#C8B8FF">${m}</th>`).join('');
-    const rows=pats.map((p,i)=>{const cols=Array.from({length:12},(_,m)=>{const mm2=String(m+1).padStart(2,'0');const t=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(`${relAno}-${mm2}`)).length;return`<td style="border:1px solid #ddd;text-align:center;font-size:11px;color:${t?'#1B5E20':'#ccc'};font-weight:${t?700:400};padding:4px">${t||''}</td>`;}).join('');const tot=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(String(relAno))).length;return`<tr style="background:${i%2===0?'#fff':'#f5f5f5'}"><td style="border:1px solid #ddd;text-align:center;color:#666;font-size:10px;padding:4px">${i+1}</td><td style="border:1px solid #ddd;padding:4px 8px;font-size:11px;font-weight:600;text-transform:uppercase">${p.nome}</td>${cols}<td style="border:1px solid #ddd;text-align:center;font-weight:700;color:#1B5E20;font-size:11px;padding:4px">${tot}</td></tr>`;}).join('');
-    const totR=Array.from({length:12},(_,m)=>{const mm2=String(m+1).padStart(2,'0');const t=base.filter(r=>r.code==='T'&&r.date?.startsWith(`${relAno}-${mm2}`)).length;return`<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:10px;padding:4px">${t||''}</td>`;}).join('');
-    tableHTML=`<table style="width:100%;border-collapse:collapse"><thead><tr style="background:#1E1E3A;color:#C8B8FF"><th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px;width:24px">Nº</th><th style="border:1px solid #444;padding:6px;text-align:left;font-size:11px;min-width:180px">PACIENTE</th>${hdr}<th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px">TOTAL</th></tr></thead><tbody>${rows}</tbody><tfoot><tr style="background:#e8e8e8"><td colspan="2" style="border:1px solid #bbb;padding:5px 8px;font-weight:700;font-size:11px">TOTAL</td>${totR}<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:11px">${T}</td></tr></tfoot></table>`;
+    const colorMap={'T':'#1B5E20','OA':'#5B21B6','AV':'#0D47A1','FNJ':'#B71C1C'};
+    const color=colorMap[_pfc]||'#1B5E20';
+    const labelMap={'T':'ATENDIMENTOS','OA':'OUTROS ATENDIMENTOS','AV':'AVALIAÇÃO','FNJ':'FALTAS FNJ'};
+    const _tCodesP=['T','FNJ'];
+    let pages=[];
+    for(const conv of convList){
+      let fR=records.filter(r=>patients.find(p=>p.id===r.pat_id)?.convenio===conv);
+      if(relClinica)fR=fR.filter(r=>r.clinica===relClinica);
+      const base=fR.filter(r=>r.date?.startsWith(`${relAno}-${mm}`)&&(relFilter==='T'?_tCodesP.includes(r.code):r.code===_pfc));
+      if(!base.length)continue;
+      const pIds=[...new Set(base.map(r=>r.pat_id))];
+      const pats=patients.filter(p=>pIds.includes(p.id)&&p.convenio===conv);
+      if(!pats.length)continue;
+      const T=base.filter(r=>r.code==='T').length,AV=base.filter(r=>r.code==='AV').length,FNJ=base.filter(r=>r.code==='FNJ').length;
+      const dayH=days.map(({dt})=>`<th style="text-align:center;min-width:36px;font-size:9px;padding:4px 2px;border:1px solid #ccc;background:#1E1E3A;color:#C8B8FF"><div style="font-weight:700">${DIAS_PT[dt.getDay()]}</div><div style="opacity:.8">${String(dt.getDate()).padStart(2,'0')}/${mm}</div></th>`).join('');
+      const rows=pats.map((p,i)=>{
+        const cells=days.map(({date})=>{const r=records.find(x=>x.pat_id===p.id&&x.date===date&&(relFilter==='T'?_tCodesP.includes(x.code):x.code===_pfc));if(!r)return'<td style="border:1px solid #ddd;text-align:center;padding:3px"></td>';const lbl=r.code==='T'?`T${r.t_num}`:r.code==='OA'&&r.t_num?`T${r.t_num}`:r.code;const col=r.code==='T'?'#1B5E20':r.code==='AV'?'#0D47A1':r.code==='OA'?'#5B21B6':'#B71C1C';return`<td style="border:1px solid #ddd;text-align:center;padding:3px;font-size:10px;font-weight:700;color:${col}">${lbl}</td>`;}).join('');
+        const tT=base.filter(r=>r.pat_id===p.id).length;
+        return`<tr style="background:${i%2===0?'#fff':'#f5f5f5'}"><td style="border:1px solid #ddd;text-align:center;font-size:10px;color:#666;padding:4px">${i+1}</td><td style="border:1px solid #ddd;padding:4px 8px;font-size:11px;font-weight:600;text-transform:uppercase">${p.nome}</td>${cells}<td style="border:1px solid #ddd;text-align:center;font-weight:700;color:${color};font-size:11px">${tT||''}</td></tr>`;
+      }).join('');
+      const totR=days.map(({date})=>{const c=base.filter(r=>r.date===date).length;return`<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:10px">${c||''}</td>`;}).join('');
+      const tableHTML=`<table style="width:100%;border-collapse:collapse"><thead><tr style="background:#1E1E3A;color:#C8B8FF"><th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px;width:24px">Nº</th><th style="border:1px solid #444;padding:6px;text-align:left;font-size:11px;min-width:180px">PACIENTE</th>${dayH}<th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px;width:28px">T</th></tr></thead><tbody>${rows}</tbody><tfoot><tr style="background:#e8e8e8"><td colspan="2" style="border:1px solid #bbb;padding:5px 8px;font-weight:700;font-size:11px">TOTAL</td>${totR}<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:11px">${T}</td></tr></tfoot></table>`;
+      const convTitulo=relClinica?`${conv} — ${relClinica}`:conv;
+      const page=`<div style="page-break-after:always">
+        <div style="text-align:center;margin-bottom:6px">
+          <div style="background:#1E1E3A;color:#fff;padding:12px;font-size:17px;font-weight:700;text-transform:uppercase;letter-spacing:.05em">${convTitulo} — ${labelMap[_pfc]||_pfc}</div>
+          <div style="background:#2C1F6A;color:#C8B8FF;padding:7px;font-size:13px;font-weight:600">${periodo} &nbsp;·&nbsp; ${session.nome}</div>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:10px">
+          <div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">Sessões T</div><div style="font-size:1.2rem;font-weight:700;color:#1B5E20">${T}</div></div>
+          <div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">Avaliações</div><div style="font-size:1.2rem;font-weight:700;color:#0D47A1">${AV}</div></div>
+          <div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">Faltas FNJ</div><div style="font-size:1.2rem;font-weight:700;color:#B71C1C">${FNJ}</div></div>
+          <div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">Total</div><div style="font-size:1.2rem;font-weight:700">${T+AV+FNJ}</div></div>
+        </div>
+        ${tableHTML}
+        <div style="margin-top:8px;padding-top:6px;border-top:1px solid #ddd;font-size:9px;color:#999;display:flex;justify-content:space-between">
+          <span>ConectaSaúde · Desenvolvido por Eduardo Ribeiro</span><span>${periodo} · ${conv}</span>
+        </div>
+      </div>`;
+      pages.push(page);
+    }
+    if(!pages.length){toast('Nenhum atendimento para imprimir.',true);return;}
+    pages[pages.length-1]=pages[pages.length-1].replace('page-break-after:always','page-break-after:auto');
+    const w=window.open('','_blank','width=1200,height=800');
+    w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/><title>Atendimentos — ${periodo}</title>
+    <style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;color:#1a1a1a;padding:20px;background:#fff}
+    @media print{body{padding:12px}@page{margin:1cm;size:A4 landscape}}</style></head><body>
+    ${pages.join('')}<script>window.onload=()=>{window.print()}<\/script></body></html>`);
+    w.document.close();
+    return;
   }
 
-  const now=new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+  // ── ANUAL (mantém lógica simples) ──
+  let fR=relConv?records.filter(r=>patients.find(p=>p.id===r.pat_id)?.convenio===relConv):records;
+  if(relClinica)fR=fR.filter(r=>r.clinica===relClinica);
+  const _tCodesP=['T','FNJ'];
+  const base=fR.filter(r=>r.date?.startsWith(String(relAno))&&(relFilter==='T'?_tCodesP.includes(r.code):r.code===_pfc));
+  const T=base.filter(r=>r.code==='T').length,AV=base.filter(r=>r.code==='AV').length,FNJ=base.filter(r=>r.code==='FNJ').length;
+  const convLabel=relConv?` · ${relConv}`:'';
+  const clinicaLabel=relClinica?` · ${relClinica}`:'';
+  const pIds=[...new Set(base.map(r=>r.pat_id))];
+  const pats=patients.filter(p=>pIds.includes(p.id)&&(!relConv||p.convenio===relConv));
+  const hdr=MS.map(m=>`<th style="border:1px solid #444;padding:5px 4px;text-align:center;font-size:10px;background:#1E1E3A;color:#C8B8FF">${m}</th>`).join('');
+  const rows=pats.map((p,i)=>{const cols=Array.from({length:12},(_,m)=>{const mm2=String(m+1).padStart(2,'0');const t=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(`${relAno}-${mm2}`)).length;return`<td style="border:1px solid #ddd;text-align:center;font-size:11px;color:${t?'#1B5E20':'#ccc'};font-weight:${t?700:400};padding:4px">${t||''}</td>`;}).join('');const tot=records.filter(r=>r.pat_id===p.id&&r.code==='T'&&r.date?.startsWith(String(relAno))).length;return`<tr style="background:${i%2===0?'#fff':'#f5f5f5'}"><td style="border:1px solid #ddd;text-align:center;color:#666;font-size:10px;padding:4px">${i+1}</td><td style="border:1px solid #ddd;padding:4px 8px;font-size:11px;font-weight:600;text-transform:uppercase">${p.nome}</td>${cols}<td style="border:1px solid #ddd;text-align:center;font-weight:700;color:#1B5E20;font-size:11px;padding:4px">${tot}</td></tr>`;}).join('');
+  const totR=Array.from({length:12},(_,m)=>{const mm2=String(m+1).padStart(2,'0');const t=base.filter(r=>r.code==='T'&&r.date?.startsWith(`${relAno}-${mm2}`)).length;return`<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:10px;padding:4px">${t||''}</td>`;}).join('');
+  const tableHTML=`<table style="width:100%;border-collapse:collapse"><thead><tr style="background:#1E1E3A;color:#C8B8FF"><th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px;width:24px">Nº</th><th style="border:1px solid #444;padding:6px;text-align:left;font-size:11px;min-width:180px">PACIENTE</th>${hdr}<th style="border:1px solid #444;padding:6px;text-align:center;font-size:10px">TOTAL</th></tr></thead><tbody>${rows}</tbody><tfoot><tr style="background:#e8e8e8"><td colspan="2" style="border:1px solid #bbb;padding:5px 8px;font-weight:700;font-size:11px">TOTAL</td>${totR}<td style="border:1px solid #bbb;text-align:center;font-weight:700;font-size:11px">${T}</td></tr></tfoot></table>`;
   const w=window.open('','_blank','width=1200,height=800');
   w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/>
   <title>Atendimentos — ${periodo}</title>

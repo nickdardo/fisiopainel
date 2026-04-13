@@ -1227,7 +1227,7 @@ function printAll(){
       const cells=days.map(({date})=>{
         const _codesB=code==='T'?['T','FNJ']:[code];const r=records.find(x=>x.pat_id===p.id&&x.date===date&&_codesB.includes(x.code));
         if(!r)return'<td style="border:1px solid #ddd;text-align:center;padding:2px"></td>';
-        const lbl=code==='T'?`T${r.t_num}`:code;
+        const lbl=r.code==='T'?`T${r.t_num}`:r.code; // use r.code not filterCode
         return`<td style="border:1px solid #ddd;text-align:center;padding:2px;font-size:9px;font-weight:700;color:${color}">${lbl}</td>`;
       }).join('');
       const cnt=mR.filter(r=>r.pat_id===p.id).length;

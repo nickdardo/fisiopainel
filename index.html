@@ -1309,8 +1309,8 @@ function printAll(){
   if(!tabelaT&&!tabelaOA&&!tabelaAV){toast('Nenhum atendimento para imprimir.',true);return;}
 
   const header=`<div style="text-align:center;margin-bottom:10px">
-    <div style="font-size:13px;font-weight:700;text-transform:uppercase">${titulo}</div>
-    <div style="font-size:10px;color:#555">${periodo} &nbsp;·&nbsp; Emitido em ${now} &nbsp;·&nbsp; ${session.nome}</div>
+    <div style="font-size:18px;font-weight:700;text-transform:uppercase">${titulo}</div>
+    <div style="font-size:13px;font-weight:600;color:#333;margin-top:4px">${periodo} &nbsp;·&nbsp; ${session.nome}</div>
   </div>`;
   const footer=`<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:8px;color:#999;border-top:1px solid #ddd;padding-top:4px">
     <span>ConectaSaúde · Desenvolvido por Eduardo Ribeiro</span><span>${periodo}</span>
@@ -1374,14 +1374,14 @@ function printReport(){
   w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/>
   <title>Atendimentos — ${periodo}</title>
   <style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;color:#1a1a1a;padding:20px;background:#fff}
-  .htitle{background:#1E1E3A;color:#fff;text-align:center;padding:12px;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
-  .hsub{background:#2C1F6A;color:#C8B8FF;text-align:center;padding:6px;font-size:12px;margin-bottom:14px}
+  .htitle{background:#1E1E3A;color:#fff;text-align:center;padding:14px;font-size:19px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+  .hsub{background:#2C1F6A;color:#C8B8FF;text-align:center;padding:8px;font-size:14px;font-weight:600;margin-bottom:14px}
   .stats{display:flex;gap:10px;margin-bottom:14px}.stat{border:1px solid #ddd;border-radius:6px;padding:8px 16px;flex:1;text-align:center}
   .sl{font-size:9px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.05em}.sv{font-size:1.3rem;font-weight:700}
   .ftr{margin-top:14px;padding-top:8px;border-top:1px solid #ddd;font-size:10px;color:#888;display:flex;justify-content:space-between}
   @media print{body{padding:12px}@page{margin:1cm;size:A4 landscape}}</style></head><body>
   <div class="htitle">${relClinica?relClinica.toUpperCase():'IASEP SAÚDE CENTER'} — ${_pfc==='T'?'ATENDIMENTOS':_pfc==='OA'?'OUTROS ATENDIMENTOS':_pfc==='AV'?'AVALIAÇÃO':_pfc}</div>
-  <div class="hsub">${periodo}${convLabel}${clinicaLabel} &nbsp;·&nbsp; Emitido em ${now} &nbsp;·&nbsp; ${session.nome}</div>
+  <div class="hsub">${periodo}${convLabel}${clinicaLabel} &nbsp;·&nbsp; ${session.nome}</div>
   <div class="stats">
     <div class="stat"><div class="sl">Sessões T</div><div class="sv" style="color:#1B5E20">${T}</div></div>
     <div class="stat"><div class="sl">Avaliações</div><div class="sv" style="color:#0D47A1">${AV}</div></div>

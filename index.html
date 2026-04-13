@@ -686,7 +686,7 @@ function renderRegistro(){
         <div class="fg pd-wrap" style="margin-bottom:.75rem">
           <span class="lbl">Paciente</span>
           <input type="text" id="pat-search" placeholder="Digite o nome do paciente..." autocomplete="off"
-            oninput="filterPats(this.value)" onfocus="filterPats(this.value)"/>
+            oninput="this.value=this.value.toUpperCase();filterPats(this.value)" onfocus="filterPats(this.value)" style="text-transform:uppercase"/>
           <div class="pd" id="pat-dd" style="display:none"></div>
         </div>
         <div id="pat-sel-box" style="display:none;margin-bottom:.75rem;padding:.75rem 1rem;background:#F0EFEB;border-radius:var(--rs);border:1px solid #D3D1C7;position:relative">
@@ -698,7 +698,7 @@ function renderRegistro(){
         <div id="new-pat-box" style="display:none;margin-bottom:.75rem;padding:1rem;background:var(--amb0);border-radius:var(--rs);border:1px solid #3A2A00">
           <div style="font-size:11px;font-weight:700;color:var(--amb);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem">Novo paciente</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem">
-            <div class="fg" style="grid-column:1/-1"><span class="lbl">Nome completo *</span><input id="np-nome" placeholder="Nome do paciente"/></div>
+            <div class="fg" style="grid-column:1/-1"><span class="lbl">Nome completo *</span><input id="np-nome" placeholder="Nome do paciente" oninput="this.value=this.value.toUpperCase()" style="text-transform:uppercase"/></div>
             <div class="fg" style="grid-column:1/-1"><span class="lbl">Convênio</span><select id="np-conv"><option>IASEP</option><option>UNIMED</option><option>Particular</option><option>Outro</option></select></div>
           </div>
           <div style="display:flex;gap:.5rem;margin-top:.75rem">
@@ -876,7 +876,9 @@ async function saveRegistro(){
   btn.textContent='Salvando...';btn.disabled=true;
   const tm=selCode.match(/^T(\d+)$/);
   const tNum=tm?parseInt(tm[1]):null;
-  const dbCode=tm?'T':selCode; // T, AV, FNJ, or OA
+  // Se o paciente for Particular e for sessão T, salva como OA
+  const isParticular=selPat?.convenio==='Particular';
+  const dbCode=tm?(isParticular?'OA':'T'):selCode; // Particular+T → OA
   const clinicaVal=document.getElementById('reg-clinica')?.value.trim()||lastClinica||null;
   const{data,error}=await sb.from('records').insert({pat_id:selPat.id,date,code:dbCode,t_num:tNum,reg_by:session.id,owner_id:session.id,clinica:clinicaVal}).select().single();
   btn.textContent='✓ Salvar Atendimento';btn.disabled=false;

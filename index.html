@@ -41,9 +41,17 @@ body{font-family:var(--FB);background:#F8F7F4;color:#1C1C1A;min-height:100vh;fon
 .login-field input{width:100%;padding:.7rem 1rem;border:1px solid #3A3A3C;border-radius:var(--rs);font-family:var(--FB);font-size:14px;color:#F5F5F7;background:#2C2C2E;outline:none;transition:border-color .15s}
 .login-field input:focus{border-color:#7C3AED}
 .login-error{background:#2D0A0A;color:#FF6B6B;font-size:13px;padding:.6rem .85rem;border-radius:var(--rs);margin-bottom:1rem;display:none}
-.login-hint{font-size:11px;color:#636366;text-align:center;margin-top:1rem}
+.login-remember{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;margin-top:.25rem}
+.login-remember-label{font-size:13px;color:#AEAEB2;display:flex;align-items:center;gap:8px}
+.toggle{position:relative;width:40px;height:22px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0;position:absolute}
+.toggle-track{position:absolute;inset:0;background:#3A3A3C;border-radius:999px;cursor:pointer;transition:background .2s}
+.toggle input:checked+.toggle-track{background:#7C3AED}
+.toggle-track::after{content:'';position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:3px;left:3px;transition:transform .2s}
+.toggle input:checked+.toggle-track::after{transform:translateX(18px)}
+.login-remember-status{font-size:12px;font-weight:600;color:#A78BFA}
 
-/* ── NAV ── */
+.login-hint{font-size:11px;color:#636366;text-align:center;margin-top:1rem}
 .nav{background:#1C1C1E;border-bottom:1px solid #2C2C2E;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
 .nav-brand{font-family:var(--FT);font-size:1.35rem;color:#FFFFFF}
 .nav-brand span{color:#A78BFA}
@@ -209,11 +217,53 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
   .qp{grid-template-columns:1fr}
 }
 @media(max-width:600px){
-  .content{padding:1rem}
-  .stats{grid-template-columns:1fr 1fr}
+  /* Nav */
+  .nav{padding:0 1rem;height:52px}
+  .nav-brand{font-size:1.15rem}
+  #nav-name{display:none}
+  .nav-badge{font-size:10px;padding:2px 7px}
+  #nav-plan{display:none}
+  .logout-btn{padding:.25rem .55rem;font-size:11px}
+  /* Content */
+  .content{padding:.85rem}
+  /* Stats */
+  .stats{grid-template-columns:1fr 1fr;gap:.65rem}
+  .stat{padding:.85rem 1rem}
+  .stat-value{font-size:1.5rem}
+  /* Cards */
+  .card{padding:1rem}
+  /* Forms */
   .fgrid{grid-template-columns:1fr}
   .full{grid-column:1}
-  .nav-user span:not(.nav-badge){display:none}
+  /* Sec header */
+  .sec-hdr{gap:.4rem}
+  .sec-title{font-size:1.1rem}
+  /* Table scroll */
+  .tbl-wrap{border-radius:var(--rs)}
+  tbody td,thead th{padding:.6rem .75rem;font-size:12px}
+  /* Relative table */
+  .rel-tbl td,.rel-tbl th{font-size:11px;padding:.3rem .4rem}
+  /* Modal full width */
+  .mbd{padding:.5rem}
+  .modal{max-width:100%!important;border-radius:var(--r)}
+  .mbody{padding:1rem}
+  .mhdr{padding:1rem 1rem .75rem}
+  .mfooter{padding:.75rem 1rem}
+  /* User cards */
+  .ucard{flex-wrap:wrap;gap:.6rem}
+  .ucard>div:last-child{width:100%;justify-content:flex-end}
+  /* Filter buttons */
+  .rel-filter-btns{gap:.3rem}
+  .rel-fbtn{padding:.35rem .75rem;font-size:12px}
+  /* Msr selects */
+  .msr{gap:.4rem}
+  .msr select{font-size:13px;padding:.35rem .6rem}
+  /* Btn sm smaller on mobile */
+  .btn-sm{padding:.3rem .7rem;font-size:12px}
+  /* Stats on registro page */
+  .qp{gap:.75rem}
+  /* Section buttons */
+  .sec-hdr button{font-size:12px;padding:.3rem .65rem}
 }
 @media print{
   .nav,.sidebar,.sidebar-overlay,.sec-hdr button,.msr,.btn{display:none!important}
@@ -234,6 +284,13 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
       <div class="login-error" id="login-error"></div>
       <div class="login-field"><label>Usuário</label><input type="text" id="lu" placeholder="seu.usuario" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()"/></div>
       <div class="login-field"><label>Senha</label><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <div class="login-remember">
+        <label class="login-remember-label">
+          <label class="toggle"><input type="checkbox" id="lembrar-check" onchange="updateLembrarStatus()"/><div class="toggle-track"></div></label>
+          Lembrar acesso
+        </label>
+        <span class="login-remember-status" id="lembrar-status"></span>
+      </div>
       <button onclick="doLogin()" id="login-btn" style="margin-top:.5rem;width:100%;padding:.85rem;background:#7C3AED;color:#fff;border:none;border-radius:var(--rs);font-family:var(--FB);font-size:15px;font-weight:600;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#6D28D9'" onmouseout="this.style.background='#7C3AED'">Entrar →</button>
       <div style="display:flex;align-items:center;gap:.75rem;margin-top:1.25rem">
         <div style="flex:1;height:1px;background:#3A3A3C"></div>
@@ -538,9 +595,26 @@ function showPage(p){
 }
 
 // ══ AUTH ══
+function updateLembrarStatus(){
+  const on=document.getElementById('lembrar-check')?.checked;
+  const el=document.getElementById('lembrar-status');
+  if(el)el.textContent=on?'Ativo':'';
+}
+function loadSavedCredentials(){
+  try{
+    const saved=localStorage.getItem('fp_creds');
+    if(!saved)return;
+    const{login,pass}=JSON.parse(saved);
+    if(login){document.getElementById('lu').value=login;}
+    if(pass){document.getElementById('lp').value=pass;}
+    const chk=document.getElementById('lembrar-check');
+    if(chk){chk.checked=true;updateLembrarStatus();}
+  }catch(e){}
+}
 async function doLogin(){
   const login=document.getElementById('lu').value.trim().toLowerCase();
   const pass=document.getElementById('lp').value;
+  const lembrar=document.getElementById('lembrar-check')?.checked||false;
   if(!login||!pass){showErr('Preencha usuário e senha');return;}
   const btn=document.getElementById('login-btn');btn.textContent='Entrando...';btn.disabled=true;
   try{
@@ -562,6 +636,12 @@ async function doLogin(){
     _loginAttempts=0;
     if(data.ativo===false){showErr('Conta suspensa. Contate o administrador.');return;}
     if(data.role!=='admin'&&data.expires_at&&new Date(data.expires_at)<new Date()){showErr('Acesso expirado. Contate o administrador.');return;}
+    // Salvar ou limpar credenciais
+    if(lembrar){
+      try{localStorage.setItem('fp_creds',JSON.stringify({login,pass}));}catch(e){}
+    } else {
+      try{localStorage.removeItem('fp_creds');}catch(e){}
+    }
     session=data;saveSession(session);
     await bootApp();
   }catch(e){btn.textContent='Entrar →';btn.disabled=false;showErr('Erro de conexão. Tente novamente.');}
@@ -1954,6 +2034,9 @@ window.addEventListener('DOMContentLoaded', async ()=>{
     document.getElementById('login-page').style.display='none';
     document.getElementById('app-page').style.display='flex';
     await bootApp();
+  } else {
+    // Carregar credenciais salvas se existirem
+    loadSavedCredentials();
   }
 
   // Timer de inatividade (só em memória — intencional)

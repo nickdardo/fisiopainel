@@ -253,6 +253,15 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
         <div class="login-sub">Criar nova conta</div>
         <div class="login-error" id="reg-error"></div>
         <div class="login-field"><label>Nome completo *</label><input type="text" id="reg-nome" placeholder="Seu nome completo" onkeydown="if(event.key==='Enter')doRegister()"/></div>
+        <div class="login-field"><label>Ocupação *</label>
+          <select id="rocup" onchange="document.getElementById('ocup-preview').textContent=this.value"
+            style="width:100%;padding:.8rem;border-radius:var(--rs);border:1px solid #3A3A3C;background:#2C2C2E;color:#fff;font-size:14px;font-family:var(--FB)">
+            <option value="Fisioterapeuta">Fisioterapeuta</option>
+            <option value="Nutricionista">Nutricionista</option>
+            <option value="Terapeuta Ocupacional">Terapeuta Ocupacional</option>
+            <option value="Psicólogo">Psicólogo</option>
+          </select>
+        </div>
         <div class="login-field"><label>Usuário (login) *</label><input type="text" id="reg-login" placeholder="Ex: joao.silva" autocomplete="username" onkeydown="if(event.key==='Enter')doRegister()"/></div>
         <div class="login-field"><label>Senha *</label><input type="password" id="reg-pass" placeholder="Mínimo 4 caracteres" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/></div>
         <div class="login-field"><label>Confirmar senha *</label><input type="password" id="reg-pass2" placeholder="Repita a senha" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/></div>
@@ -559,6 +568,31 @@ function showRegister(){
   document.getElementById('reg-pass').value='';
   document.getElementById('reg-pass2').value='';
   setTimeout(()=>document.getElementById('reg-nome').focus(),100);
+}
+
+function showWelcomeModal(nome){
+  const div=document.createElement('div');
+  div.id='welcome-modal';
+  div.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1.5rem';
+  div.innerHTML=`<div style="background:#fff;border-radius:16px;padding:2rem;max-width:380px;width:100%;text-align:center;box-shadow:0 25px 60px rgba(0,0,0,.3)">
+    <div style="font-size:3rem;margin-bottom:.75rem">🎉</div>
+    <div style="font-family:var(--FB);font-size:1.4rem;font-weight:700;color:#1C1C1E;margin-bottom:.5rem">Bem-vindo(a), ${nome.split(' ')[0]}!</div>
+    <div style="font-size:14px;color:#555;margin-bottom:1.25rem">Sua conta foi criada com sucesso.</div>
+    <div style="background:linear-gradient(135deg,#7C3AED,#5B21B6);border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;color:#fff">
+      <div style="font-size:13px;opacity:.85;margin-bottom:.25rem">Você tem acesso gratuito por</div>
+      <div style="font-size:2.5rem;font-weight:800;letter-spacing:-1px">30 dias</div>
+      <div style="font-size:12px;opacity:.75;margin-top:.25rem">Após esse período, o administrador do painel renova seu acesso.</div>
+    </div>
+    <div style="font-size:12px;color:#888;margin-bottom:1.25rem">
+      Precisa de ajuda? Entre em contato:<br>
+      <a href="https://wa.me/5591985919201" target="_blank" style="color:#7C3AED;font-weight:600">(91) 98591-9201</a>
+    </div>
+    <button onclick="document.getElementById('welcome-modal').remove();showApp()" 
+      style="width:100%;padding:.85rem;background:#7C3AED;color:#fff;border:none;border-radius:var(--rs);font-family:var(--FB);font-size:15px;font-weight:700;cursor:pointer">
+      Começar agora →
+    </button>
+  </div>`;
+  document.body.appendChild(div);
 }
 
 function showLogin(){

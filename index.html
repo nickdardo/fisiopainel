@@ -1370,8 +1370,8 @@ function buildMensalTable(filterCode, label, colorHex){
     const cells=days.map(({date})=>{
       const r=records.find(x=>x.pat_id===p.id&&x.date===date&&_fc.includes(x.code));
       if(!r)return'<td class="cc"></td>';
-      const lbl=r.code==='T'?`T${r.t_num}`:'FNJ';
-      const cellColor=r.code==='FNJ'?'#993C1D':colorHex;
+      const lbl=r.code==='T'?`T${r.t_num}`:r.code;
+      const cellColor=r.code==='FNJ'?'#993C1D':r.code==='AV'?'#185FA5':r.code==='OA'?'#5B21B6':colorHex;
       return`<td class="cc ct" style="color:${cellColor};font-weight:700">${lbl}</td>`;
     }).join('');
     const cnt=mR.filter(r=>r.pat_id===p.id).length;

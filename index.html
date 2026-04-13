@@ -960,6 +960,7 @@ async function deleteRecord(id){
 
 // ══ PACIENTES ══
 let _pacSelectMode=false;
+let _pacSort={col:'nome',dir:1}; // col: nome|convenio|sessoes|ultima, dir: 1=asc -1=desc
 
 function togglePacSelect(){
   _pacSelectMode=!_pacSelectMode;
@@ -1016,21 +1017,62 @@ function renderPacientes(){
     </div>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th id="pac-th-chk" style="display:none;width:36px"><input type="checkbox" id="pac-chk-all" onclick="toggleAllPacChk(this)"/></th><th>Nº</th><th>Nome</th><th>Convênio</th><th>Sessões</th><th>Última</th><th></th></tr></thead>
+        <thead><tr>
+          <th id="pac-th-chk" style="display:none;width:36px"><input type="checkbox" id="pac-chk-all" onclick="toggleAllPacChk(this)"/></th>
+          <th>Nº</th>
+          <th onclick="sortPac('nome')" style="cursor:pointer;user-select:none">Nome ${_pacSort.col==='nome'?(_pacSort.dir===1?'↑':'↓'):''}</th>
+          <th onclick="sortPac('convenio')" style="cursor:pointer;user-select:none">Convênio ${_pacSort.col==='convenio'?(_pacSort.dir===1?'↑':'↓'):''}</th>
+          <th onclick="sortPac('sessoes')" style="cursor:pointer;user-select:none;text-align:center">Sessões ${_pacSort.col==='sessoes'?(_pacSort.dir===1?'↑':'↓'):''}</th>
+          <th onclick="sortPac('ultima')" style="cursor:pointer;user-select:none;text-align:center">Última ${_pacSort.col==='ultima'?(_pacSort.dir===1?'↑':'↓'):''}</th>
+          <th></th>
+        </tr></thead>
         <tbody id="pac-tbody">${pacTbodyHTML(patients)}</tbody>
       </table>
     </div>`;
 }
 
+function sortPac(col){
+  if(_pacSort.col===col){_pacSort.dir*=-1;}else{_pacSort.col=col;_pacSort.dir=1;}
+  filterPacTbl();
+  // Update header arrows
+  document.querySelectorAll('#pac-tbody').forEach(()=>{});
+  renderPacientes();
+  // Restore search
+  const q=document.getElementById('pac-s')?.value||'';
+  if(q)filterPacTbl();
+}
+
+function getSortedPats(pats){
+  return[...pats].sort((a,b)=>{
+    let va,vb;
+    if(_pacSort.col==='nome'){va=a.nome||'';vb=b.nome||'';return va.localeCompare(vb,'pt-BR')*_pacSort.dir;}
+    if(_pacSort.col==='convenio'){va=a.convenio||'';vb=b.convenio||'';return va.localeCompare(vb,'pt-BR')*_pacSort.dir;}
+    if(_pacSort.col==='sessoes'){
+      va=records.filter(r=>r.pat_id===a.id&&r.code==='T').length;
+      vb=records.filter(r=>r.pat_id===b.id&&r.code==='T').length;
+      return(va-vb)*_pacSort.dir;
+    }
+    if(_pacSort.col==='ultima'){
+      const la=[...records.filter(r=>r.pat_id===a.id)].sort((x,y)=>y.date.localeCompare(x.date))[0];
+      const lb=[...records.filter(r=>r.pat_id===b.id)].sort((x,y)=>y.date.localeCompare(x.date))[0];
+      va=la?.date||'0000';vb=lb?.date||'0000';
+      return va.localeCompare(vb)*_pacSort.dir;
+    }
+    return 0;
+  });
+}
+
 function filterPacTbl(){
   const q=(document.getElementById('pac-s')?.value||'').toLowerCase();
-  const f=patients.filter(p=>p.nome.toLowerCase().includes(q)||(p.prontuario||'').includes(q)||(p.convenio||'').toLowerCase().includes(q));
+  let f=patients.filter(p=>p.nome.toLowerCase().includes(q)||(p.convenio||'').toLowerCase().includes(q));
+  f=getSortedPats(f);
   const tb=document.getElementById('pac-tbody');if(tb)tb.innerHTML=pacTbodyHTML(f);
 }
 
 function pacTbodyHTML(pats){
   if(!pats.length)return`<tr><td colspan="9"><div class="empty"><div class="empty-icon">👥</div><div class="empty-text">Nenhum paciente.</div></div></td></tr>`;
-  return pats.map((p,i)=>{
+  const sorted=getSortedPats(pats);
+  return sorted.map((p,i)=>{
     const pR=records.filter(r=>r.pat_id===p.id);
     const tC=pR.filter(r=>r.code==='T').length;
     const last=[...pR].sort((a,b)=>b.date.localeCompare(a.date))[0];

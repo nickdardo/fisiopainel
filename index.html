@@ -1359,7 +1359,8 @@ function buildMensalTable(filterCode, label, colorHex){
   for(let d=1;d<=dim;d++){const dt=new Date(relAno,relMes,d);if(dt.getDay()>0&&dt.getDay()<6)days.push({date:`${relAno}-${mm}-${String(d).padStart(2,'0')}`,dt});}
   let fR=relConv?records.filter(r=>patients.find(p=>p.id===r.pat_id)?.convenio===relConv):records;
   if(relClinica)fR=fR.filter(r=>r.clinica===relClinica);
-  const mR=fR.filter(r=>r.date?.startsWith(`${relAno}-${mm}`)&&r.code===filterCode);
+  const _fc=filterCode==='T'?['T','FNJ']:[filterCode];
+  const mR=fR.filter(r=>r.date?.startsWith(`${relAno}-${mm}`)&&_fc.includes(r.code));
   if(!mR.length)return'';
   const pIds=[...new Set(mR.map(r=>r.pat_id))];
   const pats=patients.filter(p=>pIds.includes(p.id)&&(!relConv||p.convenio===relConv));
@@ -1367,10 +1368,11 @@ function buildMensalTable(filterCode, label, colorHex){
   const dayH=days.map(({dt})=>`<th class="dc">${dt.getDate()}<br><span style="font-size:9px;opacity:.7">${['DOM','SEG','TER','QUA','QUI','SEX','SAB'][dt.getDay()]}</span></th>`).join('');
   const rows=pats.map((p,i)=>{
     const cells=days.map(({date})=>{
-      const r=records.find(x=>x.pat_id===p.id&&x.date===date&&x.code===filterCode);
+      const r=records.find(x=>x.pat_id===p.id&&x.date===date&&_fc.includes(x.code));
       if(!r)return'<td class="cc"></td>';
-      const lbl=filterCode==='T'?`T${r.t_num}`:filterCode;
-      return`<td class="cc ct" style="color:${colorHex};font-weight:700">${lbl}</td>`;
+      const lbl=r.code==='T'?`T${r.t_num}`:'FNJ';
+      const cellColor=r.code==='FNJ'?'#993C1D':colorHex;
+      return`<td class="cc ct" style="color:${cellColor};font-weight:700">${lbl}</td>`;
     }).join('');
     const cnt=mR.filter(r=>r.pat_id===p.id).length;
     return`<tr><td style="text-align:center;color:var(--n4);font-size:11px">${i+1}</td><td class="nc">${p.nome}</td>${cells}<td style="text-align:center;font-weight:700;color:${colorHex}">${cnt}</td></tr>`;

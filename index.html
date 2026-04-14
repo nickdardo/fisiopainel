@@ -404,7 +404,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
         <div class="nav-avatar" id="nav-av"></div>
         <span id="nav-name"></span>
         <span class="nav-badge" id="nav-role"></span>
-        <span id="nav-plan" onclick="if(session&&session.role!=='admin')openPixModal()" style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;margin-left:2px;cursor:pointer;transition:opacity .15s" title="Renovar acesso"></span>
+        <span id="nav-plan" onclick="if(session&&session.role!=='admin')openPixModal()" style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;margin-left:2px;cursor:pointer;transition:opacity .15s,transform .15s" title="Clique para renovar acesso" onmouseover="if(this.textContent)this.style.opacity='.75'" onmouseout="this.style.opacity='1'"></span>
       </div>
       <button class="logout-btn" onclick="doLogout()">Sair</button>
     </div>

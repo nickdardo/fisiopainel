@@ -62,7 +62,7 @@ body{font-family:var(--FB);background:#F8F7F4;color:#1C1C1A;min-height:100vh;fon
 .nav-user{font-size:13px;color:#CCCCCC;display:flex;align-items:center;gap:8px}
 .nav-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
 .nav-badge{font-size:11px;padding:2px 9px;border-radius:999px;background:#2a2a2a;color:#CCCCCC;font-weight:600;border:1px solid #444444}
-.logout-btn{background:transparent;border:1px solid #444444;color:#AAAAAA;font-size:12px;padding:.3rem .75rem;border-radius:var(--rs);cursor:pointer;font-family:var(--FB);transition:all .12s}
+.logout-btn{background:transparent;border:1px solid #555555;color:#CCCCCC;font-size:13px;padding:.45rem 1rem;border-radius:var(--rs);cursor:pointer;font-family:var(--FB);transition:all .12s;font-weight:500}
 .logout-btn:hover{background:#222222;color:#FFFFFF}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;border-radius:6px}
 .hamburger span{display:block;width:22px;height:2px;background:#FFFFFF;border-radius:2px}
@@ -248,7 +248,9 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
   #nav-name{display:none}
   .nav-badge{display:none}
   #nav-plan{font-size:10px;padding:2px 7px;cursor:pointer}
-  .logout-btn{padding:.22rem .5rem;font-size:11px}
+#nav-plan{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;margin-left:2px;cursor:pointer;transition:opacity .15s;display:inline-block}
+#nav-plan:hover{opacity:.75}
+  .logout-btn{padding:.4rem .85rem;font-size:12px}
 
   /* ── Content ── */
   .content{padding:.85rem .85rem 1rem}
@@ -404,7 +406,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
         <div class="nav-avatar" id="nav-av"></div>
         <span id="nav-name"></span>
         <span class="nav-badge" id="nav-role"></span>
-        <span id="nav-plan" onclick="if(session&&session.role!=='admin')openPixModal()" style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;margin-left:2px;cursor:pointer;transition:opacity .15s,transform .15s" title="Clique para renovar acesso" onmouseover="if(this.textContent)this.style.opacity='.75'" onmouseout="this.style.opacity='1'"></span>
+        <span id="nav-plan" onclick="if(session&&session.role!=='admin')openPixModal()" title="Clique para renovar acesso"></span>
       </div>
       <button class="logout-btn" onclick="doLogout()">Sair</button>
     </div>
@@ -1946,6 +1948,60 @@ function renderPerfil(){
             💡 Use ao menos 4 caracteres. Recomendamos misturar letras, números e símbolos.
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- SUPORTE -->
+    <div class="card" style="max-width:800px;margin-top:.25rem">
+      <div class="card-title">Suporte & Informações</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+
+        <!-- Contato -->
+        <div style="background:#F8F7F4;border-radius:var(--rs);padding:1rem">
+          <div style="font-size:11px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem">📞 Fale com o suporte</div>
+          <a href="https://wa.me/5591985919201" target="_blank"
+            style="display:flex;align-items:center;gap:.6rem;background:#25D366;color:#fff;border-radius:var(--rs);padding:.65rem 1rem;text-decoration:none;font-weight:700;font-size:14px;margin-bottom:.5rem">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.557 4.122 1.529 5.855L.057 23.571l5.866-1.54A11.952 11.952 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.882a9.877 9.877 0 0 1-5.031-1.378l-.361-.214-3.741.981.999-3.648-.235-.374A9.856 9.856 0 0 1 2.118 12C2.118 6.534 6.534 2.118 12 2.118S21.882 6.534 21.882 12 17.466 21.882 12 21.882z"/></svg>
+            (91) 98591-9201
+          </a>
+          <div style="font-size:12px;color:#888780">💬 Atendimento via WhatsApp</div>
+          <div style="font-size:12px;color:#888780;margin-top:2px">🕐 Seg–Sex · 8h às 18h</div>
+        </div>
+
+        <!-- Sistema -->
+        <div style="background:#F8F7F4;border-radius:var(--rs);padding:1rem">
+          <div style="font-size:11px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem">ℹ️ Sobre o sistema</div>
+          <div style="display:flex;flex-direction:column;gap:.45rem">
+            <div style="display:flex;justify-content:space-between;font-size:13px">
+              <span style="color:#888780">Versão</span>
+              <span style="font-weight:600;color:#1C1C1A">ConectaSaúde v1.0</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:13px">
+              <span style="color:#888780">Desenvolvedor</span>
+              <span style="font-weight:600;color:#1C1C1A">Eduardo Ribeiro</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:13px">
+              <span style="color:#888780">Plataforma</span>
+              <span style="font-weight:600;color:#1C1C1A">Web + Mobile</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:13px">
+              <span style="color:#888780">Banco de dados</span>
+              <span style="font-weight:600;color:#1C1C1A">Supabase</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dicas -->
+        <div style="background:#EDE9FE;border-radius:var(--rs);padding:1rem;grid-column:1/-1">
+          <div style="font-size:11px;font-weight:700;color:#5B21B6;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem">💡 Dicas rápidas</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem .85rem">
+            <div style="font-size:12px;color:#4C1D95">📋 Registre atendimentos pelo menu <strong>Registrar</strong></div>
+            <div style="font-size:12px;color:#4C1D95">📊 Gere relatórios mensais ou anuais por convênio</div>
+            <div style="font-size:12px;color:#4C1D95">💳 Renove seu acesso clicando no badge roxo no topo</div>
+            <div style="font-size:12px;color:#4C1D95">🐛 Problemas? Fale com o suporte via WhatsApp</div>
+          </div>
+        </div>
+
       </div>
     </div>`;
 }

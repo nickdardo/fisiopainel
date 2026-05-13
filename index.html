@@ -43,6 +43,20 @@ body{font-family:var(--FB);background:#F8F7F4;color:#1C1C1A;min-height:100vh;fon
 .login-field label{display:block;font-size:11px;font-weight:700;color:#AEAEB2;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
 .login-field input{width:100%;padding:.7rem 1rem;border:1px solid #3A3A3C;border-radius:var(--rs);font-family:var(--FB);font-size:14px;color:#F5F5F7;background:#2C2C2E;outline:none;transition:border-color .15s}
 .login-field input:focus{border-color:#7C3AED}
+
+/* ✅ TOGGLE SENHA */
+.input-group{position:relative;display:flex;align-items:center}
+.input-group input{flex:1;padding-right:2.5rem}
+.toggle-password{position:absolute;right:12px;background:none;border:none;color:#AEAEB2;cursor:pointer;font-size:18px;padding:4px 8px;transition:color .2s}
+.toggle-password:hover{color:#A78BFA}
+
+/* Indicador de força de senha */
+.password-strength{display:none;margin-top:4px;height:4px;background:#3A3A3C;border-radius:2px;overflow:hidden}
+.password-strength.show{display:block}
+.password-strength-bar{height:100%;transition:all .3s;border-radius:2px}
+.password-strength-weak{width:33%;background:#FF6B6B}
+.password-strength-medium{width:66%;background:#FFB347}
+.password-strength-strong{width:100%;background:#4ade80}
 .login-error{background:#2D0A0A;color:#FF6B6B;font-size:13px;padding:.6rem .85rem;border-radius:var(--rs);margin-bottom:1rem;display:none}
 .login-remember{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;margin-top:.25rem}
 .login-remember-label{font-size:13px;color:#AEAEB2;display:flex;align-items:center;gap:8px}
@@ -340,7 +354,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
       <div class="login-sub">Sistema de Gestão de Atendimentos</div>
       <div class="login-error" id="login-error"></div>
       <div class="login-field"><label>Usuário</label><input type="text" id="lu" placeholder="seu.usuario" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-      <div class="login-field"><label>Senha</label><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <div class="login-field"><label>Senha</label><div class="input-group"><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/><button type="button" class="toggle-password" onclick="togglePasswordVisibility('lp')" title="Mostrar/ocultar senha">👁️</button></div></div>
       <div class="login-remember">
         <label class="login-remember-label">
           <label class="toggle"><input type="checkbox" id="lembrar-check" onchange="updateLembrarStatus()"/><div class="toggle-track"></div></label>
@@ -377,8 +391,8 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
           </select>
         </div>
         <div class="login-field"><label>Usuário (login) *</label><input type="text" id="reg-login" placeholder="Ex: joao.silva" autocomplete="username" onkeydown="if(event.key==='Enter')doRegister()"/></div>
-        <div class="login-field"><label>Senha *</label><input type="password" id="reg-pass" placeholder="Mínimo 4 caracteres" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/></div>
-        <div class="login-field"><label>Confirmar senha *</label><input type="password" id="reg-pass2" placeholder="Repita a senha" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/></div>
+        <div class="login-field"><label>Senha *</label><div class="input-group"><input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()" oninput="updatePasswordStrength(this.value)"/><button type="button" class="toggle-password" onclick="togglePasswordVisibility('reg-pass')" title="Mostrar/ocultar senha">👁️</button></div><div class="password-strength" id="strength-meter"><div class="password-strength-bar" id="strength-bar"></div></div></div>
+        <div class="login-field"><label>Confirmar senha *</label><div class="input-group"><input type="password" id="reg-pass2" placeholder="Repita a senha" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/><button type="button" class="toggle-password" onclick="togglePasswordVisibility('reg-pass2')" title="Mostrar/ocultar senha">👁️</button></div></div>
         <div style="padding:.75rem 1rem;background:#1E0A3C;border-radius:var(--rs);font-size:12px;color:#C8B8FF;margin-bottom:1rem;border:1px solid #2C1F4A">
           🩺 Conta criada como <strong id='ocup-preview'>Fisioterapeuta</strong>. O administrador configura seu período de acesso.
         </div>
@@ -640,6 +654,47 @@ function validarSenha(senha){
   if(!/[!@#$%^&*]/.test(senha))erros.push('Inclua caracteres especiais (!@#$%^&*)');
   return{valida:erros.length===0,erros:erros};
 }
+
+// ✅ NOVAS FUNÇÕES - TOGGLE DE SENHA
+function togglePasswordVisibility(fieldId){
+  const field=document.getElementById(fieldId);
+  const isPassword=field.type==='password';
+  field.type=isPassword?'text':'password';
+  event.target.textContent=isPassword?'🙈':'👁️';
+}
+
+function updatePasswordStrength(password){
+  const meter=document.getElementById('strength-meter');
+  const bar=document.getElementById('strength-bar');
+  
+  if(!password){
+    meter.classList.remove('show');
+    return;
+  }
+  
+  meter.classList.add('show');
+  
+  let strength=0;
+  if(password.length>=6)strength++;
+  if(password.length>=8)strength++;
+  if(/[a-z]/.test(password)&&/[A-Z]/.test(password))strength++;
+  if(/\d/.test(password))strength++;
+  if(/[!@#$%^&*]/.test(password))strength++;
+  
+  bar.className='password-strength-bar';
+  if(strength<=2)bar.classList.add('password-strength-weak');
+  else if(strength<=4)bar.classList.add('password-strength-medium');
+  else bar.classList.add('password-strength-strong');
+}
+
+// ✅ FUNÇÃO DE DEBUG (use no console)
+function debugHash(senha){
+  const hash=hp(senha);
+  console.log(`Senha: ${senha}`);
+  console.log(`Hash: ${hash}`);
+  console.log(`Hash esperado (Eduardo26019089@#): ilutzm`);
+  return hash;
+}
 const fmtDate=d=>d?new Date(d+'T12:00:00').toLocaleDateString('pt-BR'):'—';
 const today=()=>new Date().toISOString().split('T')[0];
 const ini=n=>(n||'?').split(' ').map(p=>p[0]).join('').slice(0,2).toUpperCase();
@@ -885,10 +940,8 @@ async function doRegister(){
   if(!login||login.length<3){showRegErr('Login deve ter ao menos 3 caracteres.');return;}
   if(!/^[a-z0-9._]+$/.test(login)){showRegErr('Login só pode ter letras, números, ponto e underscore.');return;}
   
-  // ✅ VALIDAÇÃO MELHORADA DE SENHA
-  if(pass.length<8){showRegErr('Senha deve ter ao menos 8 caracteres.');return;}
-  const valSenha=validarSenha(pass);
-  if(!valSenha.valida){showRegErr('⚠ Senha fraca:\n'+valSenha.erros.map(e=>'• '+e).join('\n'));return;}
+  // ✅ Validação de senha: COMPATÍVEL (apenas mínimo de 6 caracteres)
+  if(pass.length<6){showRegErr('Senha deve ter ao menos 6 caracteres.');return;}
   if(pass!==pass2){showRegErr('As senhas não coincidem.');return;}
 
   const btn=document.getElementById('register-btn');
@@ -899,11 +952,9 @@ async function doRegister(){
     const{data:existing}=await sb.from('users').select('id').eq('login',login).maybeSingle();
     if(existing){showRegErr('Este login já está em uso. Escolha outro.');btn.textContent='Criar conta →';btn.disabled=false;return;}
 
-    // Create user with cliente role and ativo=true
-    const expires30=new Date(Date.now()+30*24*60*60*1000).toISOString();
-    const ocupacao=document.getElementById('rocup')?.value||'Fisioterapeuta';
+    // Create user with cliente role
     const{data,error}=await sb.from('users')
-      .insert({nome,login,pass_hash:hp(pass),role:'cliente',ativo:true,expires_at:expires30,ocupacao})
+      .insert({nome,login,pass_hash:hp(pass),role:'cliente'})
       .select().single();
 
     if(error||!data){showRegErr('Erro ao criar conta. Tente novamente.');btn.textContent='Criar conta →';btn.disabled=false;return;}

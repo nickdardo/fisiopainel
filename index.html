@@ -356,7 +356,8 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 <div class="login-sub">Sistema de Gestão de Atendimentos</div>
 <div class="login-error" id="login-error"></div>
 <div class="login-field"><label>Usuário</label><input type="text" id="lu" placeholder="seu.usuario" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-      <div class="login-field"><label>Senha</label><div class="input-group"><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/><button type="button" class="toggle-password" onclick="togglePasswordVisibility('lp')" title="Ver/ocultar senha"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div></div>
+      <div class="login-field"><label>Senha</label><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/>
+</div>
 <div class="login-remember">
 <label class="login-remember-label">
 <label class="toggle"><input type="checkbox" id="lembrar-check" onchange="updateLembrarStatus()"/><div class="toggle-track"></div></label>
@@ -393,8 +394,10 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 </select>
 </div>
 <div class="login-field"><label>Usuário (login) *</label><input type="text" id="reg-login" placeholder="Ex: joao.silva" autocomplete="username" onkeydown="if(event.key==='Enter')doRegister()"/></div>
-<div class="login-field"><label>Senha *</label><div class="input-group"><input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()" oninput="updatePasswordStrength(this.value)"/><button type="button" class="toggle-password" onclick="togglePasswordVisibility('reg-pass')" title="Ver/ocultar senha"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div><div class="password-strength" id="strength-meter"><div class="password-strength-bar" id="strength-bar"></div></div></div>
-<div class="login-field"><label>Confirmar senha *</label><div class="input-group"><input type="password" id="reg-pass2" placeholder="Repita a senha" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/><button type="button" class="toggle-password" onclick="togglePasswordVisibility('reg-pass2')" title="Ver/ocultar senha"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div></div>
+<div class="login-field"><label>Senha *</label><input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()" oninput="updatePasswordStrength(this.value)"/></div><div class="password-strength" id="strength-meter"><div class="password-strength-bar" id="strength-bar"></div>
+</div>
+<div class="login-field"><label>Confirmar senha *</label><input type="password" id="reg-pass2" placeholder="Repita a senha" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/>
+</div>
 <div style="padding:.75rem 1rem;background:#1E0A3C;border-radius:var(--rs);font-size:12px;color:#C8B8FF;margin-bottom:1rem;border:1px solid #2C1F4A">
  Conta criada como<strong id='ocup-preview'>Fisioterapeuta</strong>. O administrador configura seu período de acesso.
 </div>
@@ -1094,10 +1097,14 @@ function renderRegistro(){
  const mc=document.getElementById('main-content');
  mc.innerHTML=`
 <div class="stats">
-<div class="stat"><div class="stat-label">Sessões este mês</div><div class="stat-value" style="color:#3B6D11">${T}</div><div class="stat-sub">atend. T</div></div>
-<div class="stat"><div class="stat-label">Avaliações</div><div class="stat-value" style="color:#185FA5">${AV}</div><div class="stat-sub">este mês</div></div>
-<div class="stat"><div class="stat-label">Faltas FNJ</div><div class="stat-value" style="color:#993C1D">${FNJ}</div><div class="stat-sub">este mês</div></div>
-<div class="stat"><div class="stat-label">Pacientes</div><div class="stat-value">${patients.length}</div><div class="stat-sub">cadastrados</div></div>
+<div class="stat"><div class="stat-label">Sessões este mês</div><div class="stat-value" style="color:#3B6D11">${T}</div><div class="stat-sub">atend. T
+</div>
+<div class="stat"><div class="stat-label">Avaliações</div><div class="stat-value" style="color:#185FA5">${AV}</div><div class="stat-sub">este mês
+</div>
+<div class="stat"><div class="stat-label">Faltas FNJ</div><div class="stat-value" style="color:#993C1D">${FNJ}</div><div class="stat-sub">este mês
+</div>
+<div class="stat"><div class="stat-label">Pacientes</div><div class="stat-value">${patients.length}</div><div class="stat-sub">cadastrados
+</div>
 </div>
 <div class="qp">
 <div class="card">
@@ -1182,7 +1189,8 @@ function recentHTML(){
  const cls=r.code==='T'?'bdg-T':r.code==='AV'?'bdg-AV':r.code==='OA'?'bdg-OA':'bdg-FNJ';
  const canDel=session.role==='admin'||r.reg_by===session.id;
  return`<div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid var(--n2)">
-<div><div style="font-size:13px;font-weight:500;color:#1C1C1A">${p?.nome||'?'} ${clinicaTag}</div><div style="font-size:11px;color:var(--n4)">${fmtDate(r.date)}</div></div>
+<div><div style="font-size:13px;font-weight:500;color:#1C1C1A">${p?.nome||'?'} ${clinicaTag}</div><div style="font-size:11px;color:var(--n4)">${fmtDate(r.date)}
+</div>
 <div style="display:flex;align-items:center;gap:.4rem">
 <span class="bdg ${cls}">${lbl}</span>
  ${canDel?`<button class="btn btn-xs btn-d" onclick="deleteRecord('${r.id}')"></button>`:''}
@@ -1558,7 +1566,8 @@ function renderRelatorio(){
 <button class="rel-fbtn rel-fbtn-AV${relFilter==='AV'?' active':''}" onclick="setRelFilter('AV')">Avaliação</button>
 </div>
 <div class="stats" id="rel-stats"></div>
-<div id="rel-chart-card" style="display:none" class="card"><div class="card-title">Atendimentos por mês — ${relAno}</div><div id="rel-chart"></div></div>
+<div id="rel-chart-card" style="display:none" class="card"><div class="card-title">Atendimentos por mês — ${relAno}</div><div id="rel-chart">
+</div>
 <div class="card" style="padding:0;overflow:hidden"><div class="rel-wrap" id="rel-tabela"></div></div>`;
  doRelatorio();
 }
@@ -1584,9 +1593,12 @@ function doRelatorio(){
 
 function relStats(T,AV,FNJ,label){
  document.getElementById('rel-stats').innerHTML=`
-<div class="stat"><div class="stat-label">Sessões T</div><div class="stat-value" style="color:#3B6D11">${T}</div><div class="stat-sub">${label}</div></div>
-<div class="stat"><div class="stat-label">Avaliações</div><div class="stat-value" style="color:#185FA5">${AV}</div><div class="stat-sub">${label}</div></div>
-<div class="stat"><div class="stat-label">Faltas FNJ</div><div class="stat-value" style="color:#993C1D">${FNJ}</div><div class="stat-sub">${label}</div></div>
+<div class="stat"><div class="stat-label">Sessões T</div><div class="stat-value" style="color:#3B6D11">${T}</div><div class="stat-sub">${label}
+</div>
+<div class="stat"><div class="stat-label">Avaliações</div><div class="stat-value" style="color:#185FA5">${AV}</div><div class="stat-sub">${label}
+</div>
+<div class="stat"><div class="stat-label">Faltas FNJ</div><div class="stat-value" style="color:#993C1D">${FNJ}</div><div class="stat-sub">${label}
+</div>
 <div class="stat"><div class="stat-label">Total</div><div class="stat-value">${T+AV+FNJ}</div><div class="stat-sub">atendimentos</div></div>`;
 }
 
@@ -1795,10 +1807,14 @@ function printReport(){
 <div style="background:#2C1F6A;color:#C8B8FF;padding:7px;font-size:13px;font-weight:600">${periodo} &nbsp;·&nbsp; ${session.nome}</div>
 </div>
 <div style="display:flex;gap:8px;margin-bottom:10px">
-<div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">Sessões T</div><div style="font-size:1.2rem;font-weight:700;color:#1B5E20">${T}</div></div>
-<div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">Avaliações</div><div style="font-size:1.2rem;font-weight:700;color:#0D47A1">${AV}</div></div>
-<div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">Faltas FNJ</div><div style="font-size:1.2rem;font-weight:700;color:#B71C1C">${FNJ}</div></div>
-<div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">Total</div><div style="font-size:1.2rem;font-weight:700">${T+AV+FNJ}</div></div>
+<div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">Sessões T</div><div style="font-size:1.2rem;font-weight:700;color:#1B5E20">${T}
+</div>
+<div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">Avaliações</div><div style="font-size:1.2rem;font-weight:700;color:#0D47A1">${AV}
+</div>
+<div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">Faltas FNJ</div><div style="font-size:1.2rem;font-weight:700;color:#B71C1C">${FNJ}
+</div>
+<div style="border:1px solid #ddd;border-radius:5px;padding:6px 14px;flex:1;text-align:center"><div style="font-size:8px;color:#888;font-weight:700;text-transform:uppercase">Total</div><div style="font-size:1.2rem;font-weight:700">${T+AV+FNJ}
+</div>
 </div>
  ${tableHTML}
 <div style="margin-top:8px;padding-top:6px;border-top:1px solid #ddd;font-size:9px;color:#999;display:flex;justify-content:space-between">
@@ -1845,10 +1861,14 @@ function printReport(){
 <div class="htitle">${relClinica?relClinica.toUpperCase():relConv?relConv.toUpperCase():'SAÚDE CENTER'} — ${_pfc==='T'?'ATENDIMENTOS':_pfc==='OA'?'OUTROS ATENDIMENTOS':_pfc==='AV'?'AVALIAÇÃO':_pfc}</div>
 <div class="hsub">${periodo}${convLabel}${clinicaLabel} &nbsp;·&nbsp; ${session.nome}</div>
 <div class="stats">
-<div class="stat"><div class="sl">Sessões T</div><div class="sv" style="color:#1B5E20">${T}</div></div>
-<div class="stat"><div class="sl">Avaliações</div><div class="sv" style="color:#0D47A1">${AV}</div></div>
-<div class="stat"><div class="sl">Faltas FNJ</div><div class="sv" style="color:#B71C1C">${FNJ}</div></div>
-<div class="stat"><div class="sl">Total</div><div class="sv">${T+AV+FNJ}</div></div>
+<div class="stat"><div class="sl">Sessões T</div><div class="sv" style="color:#1B5E20">${T}
+</div>
+<div class="stat"><div class="sl">Avaliações</div><div class="sv" style="color:#0D47A1">${AV}
+</div>
+<div class="stat"><div class="sl">Faltas FNJ</div><div class="sv" style="color:#B71C1C">${FNJ}
+</div>
+<div class="stat"><div class="sl">Total</div><div class="sv">${T+AV+FNJ}
+</div>
 </div>
  ${tableHTML}
 <div class="ftr"><span>ConectaSaúde · Desenvolvido por Eduardo Ribeiro</span><span>${periodo}${convLabel}${clinicaLabel}</span></div>
@@ -1911,9 +1931,12 @@ function renderMensalAll(){
  const mR=fR.filter(r=>r.date?.startsWith(`${relAno}-${mm}`));
  const T=mR.filter(r=>r.code==='T').length,AV=mR.filter(r=>r.code==='AV').length,FNJ=mR.filter(r=>r.code==='FNJ').length,OA=mR.filter(r=>r.code==='OA').length;
  document.getElementById('rel-stats').innerHTML=`
-<div class="stat"><div class="stat-label">Sessões T</div><div class="stat-value" style="color:#3B6D11">${T}</div><div class="stat-sub">${MESES[relMes]}</div></div>
-<div class="stat"><div class="stat-label">Outros Atend.</div><div class="stat-value" style="color:#5B21B6">${OA}</div><div class="stat-sub">${MESES[relMes]}</div></div>
-<div class="stat"><div class="stat-label">Avaliações</div><div class="stat-value" style="color:#185FA5">${AV}</div><div class="stat-sub">${MESES[relMes]}</div></div>
+<div class="stat"><div class="stat-label">Sessões T</div><div class="stat-value" style="color:#3B6D11">${T}</div><div class="stat-sub">${MESES[relMes]}
+</div>
+<div class="stat"><div class="stat-label">Outros Atend.</div><div class="stat-value" style="color:#5B21B6">${OA}</div><div class="stat-sub">${MESES[relMes]}
+</div>
+<div class="stat"><div class="stat-label">Avaliações</div><div class="stat-value" style="color:#185FA5">${AV}</div><div class="stat-sub">${MESES[relMes]}
+</div>
 <div class="stat"><div class="stat-label">Total</div><div class="stat-value">${T+OA+AV+FNJ}</div><div class="stat-sub">atendimentos</div></div>`;
  const wrap=document.getElementById('rel-tabela');
  if(!wrap)return;
@@ -1995,10 +2018,14 @@ async function renderClientes(){
 </div>
 </div>
 <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem">
-<div style="background:#F8F7F4;border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:#888780;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Pacientes</div><div style="font-family:var(--FT);font-size:1.4rem;color:#1C1C1A">${uP}</div></div>
-<div style="background:#F8F7F4;border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:#888780;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Sessões T</div><div style="font-family:var(--FT);font-size:1.4rem;color:#3B6D11">${uT}</div></div>
-<div style="background:#F8F7F4;border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:#888780;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Faltas FNJ</div><div style="font-family:var(--FT);font-size:1.4rem;color:#993C1D">${uFNJ}</div></div>
-<div style="background:#F8F7F4;border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:#888780;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Acesso até</div><div style="font-size:13px;font-weight:600;color:#5F5E5A;margin-top:4px">${exp}</div></div>
+<div style="background:#F8F7F4;border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:#888780;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Pacientes</div><div style="font-family:var(--FT);font-size:1.4rem;color:#1C1C1A">${uP}
+</div>
+<div style="background:#F8F7F4;border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:#888780;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Sessões T</div><div style="font-family:var(--FT);font-size:1.4rem;color:#3B6D11">${uT}
+</div>
+<div style="background:#F8F7F4;border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:#888780;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Faltas FNJ</div><div style="font-family:var(--FT);font-size:1.4rem;color:#993C1D">${uFNJ}
+</div>
+<div style="background:#F8F7F4;border-radius:var(--rs);padding:.75rem 1rem"><div style="font-size:10px;color:#888780;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Acesso até</div><div style="font-size:13px;font-weight:600;color:#5F5E5A;margin-top:4px">${exp}
+</div>
 </div>
 </div>`;
  }).join('');

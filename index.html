@@ -41,14 +41,17 @@ body{font-family:var(--FB);background:#F8F7F4;color:#1C1C1A;min-height:100vh;fon
 .login-sub{font-size:13px;color:#8E8E93;margin-bottom:2rem}
 .login-field{margin-bottom:1rem}
 .login-field label{display:block;font-size:11px;font-weight:700;color:#AEAEB2;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
-.login-field input{width:100%;padding:.7rem 1rem;border:1px solid #3A3A3C;border-radius:var(--rs);font-family:var(--FB);font-size:14px;color:#F5F5F7;background:#2C2C2E;outline:none;transition:border-color .15s}
+.login-field input{width:100%;padding:.7rem 1rem;border:1px solid #3A3A3C;border-radius:var(--rs);font-family:var(--FB);font-size:14px;color:#F5F5F7;background:#2C2C2E;outline:none;transition:border-color .15s;letter-spacing:0.3em}
+.login-field input::placeholder{letter-spacing:normal}
 .login-field input:focus{border-color:#7C3AED}
 
-/* ✅ TOGGLE SENHA */
+/* ✅ TOGGLE SENHA - DISCRETO */
 .input-group{position:relative;display:flex;align-items:center}
 .input-group input{flex:1;padding-right:2.5rem}
-.toggle-password{position:absolute;right:12px;background:none;border:none;color:#AEAEB2;cursor:pointer;font-size:18px;padding:4px 8px;transition:color .2s}
-.toggle-password:hover{color:#A78BFA}
+.toggle-password{position:absolute;right:12px;background:none;border:none;color:#6B7280;cursor:pointer;font-size:16px;padding:6px 10px;transition:all .2s;opacity:0.6}
+.toggle-password:hover{color:#A78BFA;opacity:1}
+.login-field .toggle-password{opacity:0.4}
+.login-field .toggle-password:hover{opacity:1}
 
 /* Indicador de força de senha */
 .password-strength{display:none;margin-top:4px;height:4px;background:#3A3A3C;border-radius:2px;overflow:hidden}
@@ -354,7 +357,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
       <div class="login-sub">Sistema de Gestão de Atendimentos</div>
       <div class="login-error" id="login-error"></div>
       <div class="login-field"><label>Usuário</label><input type="text" id="lu" placeholder="seu.usuario" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-      <div class="login-field"><label>Senha</label><div class="input-group"><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/><button type="button" class="toggle-password" onclick="togglePasswordVisibility('lp')" title="Mostrar/ocultar senha">👁️</button></div></div>
+      <div class="login-field"><label>Senha</label><div class="input-group"><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/><button type="button" class="toggle-password" onclick="togglePasswordVisibility('lp')" title="Ver senha">🔍</button></div></div>
       <div class="login-remember">
         <label class="login-remember-label">
           <label class="toggle"><input type="checkbox" id="lembrar-check" onchange="updateLembrarStatus()"/><div class="toggle-track"></div></label>
@@ -391,10 +394,10 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
           </select>
         </div>
         <div class="login-field"><label>Usuário (login) *</label><input type="text" id="reg-login" placeholder="Ex: joao.silva" autocomplete="username" onkeydown="if(event.key==='Enter')doRegister()"/></div>
-        <div class="login-field"><label>Senha *</label><div class="input-group"><input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()" oninput="updatePasswordStrength(this.value)"/><button type="button" class="toggle-password" onclick="togglePasswordVisibility('reg-pass')" title="Mostrar/ocultar senha">👁️</button></div><div class="password-strength" id="strength-meter"><div class="password-strength-bar" id="strength-bar"></div></div></div>
-        <div class="login-field"><label>Confirmar senha *</label><div class="input-group"><input type="password" id="reg-pass2" placeholder="Repita a senha" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/><button type="button" class="toggle-password" onclick="togglePasswordVisibility('reg-pass2')" title="Mostrar/ocultar senha">👁️</button></div></div>
+        <div class="login-field"><label>Senha *</label><div class="input-group"><input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()" oninput="updatePasswordStrength(this.value)"/><button type="button" class="toggle-password" onclick="togglePasswordVisibility('reg-pass')" title="Mostrar/ocultar senha">🔍</button></div><div class="password-strength" id="strength-meter"><div class="password-strength-bar" id="strength-bar"></div></div></div>
+        <div class="login-field"><label>Confirmar senha *</label><div class="input-group"><input type="password" id="reg-pass2" placeholder="Repita a senha" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/><button type="button" class="toggle-password" onclick="togglePasswordVisibility('reg-pass2')" title="Mostrar/ocultar senha">🔍</button></div></div>
         <div style="padding:.75rem 1rem;background:#1E0A3C;border-radius:var(--rs);font-size:12px;color:#C8B8FF;margin-bottom:1rem;border:1px solid #2C1F4A">
-          🩺 Conta criada como <strong id='ocup-preview'>Fisioterapeuta</strong>. O administrador configura seu período de acesso.
+          🏥 Conta criada como <strong id='ocup-preview'>Fisioterapeuta</strong>. O administrador configura seu período de acesso.
         </div>
         <button onclick="doRegister()" id="register-btn" style="width:100%;padding:.85rem;background:#7C3AED;color:#fff;border:none;border-radius:var(--rs);font-family:var(--FB);font-size:15px;font-weight:600;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#6D28D9'" onmouseout="this.style.background='#7C3AED'">Criar conta →</button>
         <button onclick="showLogin()" style="margin-top:.75rem;width:100%;padding:.6rem;background:transparent;color:#8E8E93;border:none;font-family:var(--FB);font-size:13px;cursor:pointer">← Voltar para o login</button>
@@ -438,7 +441,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 <!-- MODAL PACIENTE -->
 <div class="mbd" id="pm" style="display:none" onclick="if(event.target===this)closeM('pm')">
   <div class="modal" style="max-width:560px">
-    <div class="mhdr"><span class="mtitle" id="pm-title">Editar Paciente</span><button class="mclose" onclick="closeM('pm')">✕</button></div>
+    <div class="mhdr"><span class="mtitle" id="pm-title">Editar Paciente</span><button class="mclose" onclick="closeM('pm')">❌</button></div>
     <div class="mbody">
       <div class="msec" style="margin-top:0">Dados Pessoais</div>
       <div class="fgrid">
@@ -477,18 +480,18 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 <!-- MODAL USUÁRIO -->
 <div class="mbd" id="um" style="display:none" onclick="if(event.target===this)closeM('um')">
   <div class="modal">
-    <div class="mhdr"><span class="mtitle" id="um-title">Novo Usuário</span><button class="mclose" onclick="closeM('um')">✕</button></div>
+    <div class="mhdr"><span class="mtitle" id="um-title">Novo Usuário</span><button class="mclose" onclick="closeM('um')">❌</button></div>
     <div class="mbody">
       <div class="fgrid">
         <div class="fg full"><span class="lbl">Nome completo *</span><input id="um-nome" placeholder="Nome do usuário"/></div>
         <div class="fg"><span class="lbl">Login *</span><input id="um-login" placeholder="Ex: joao.silva"/></div>
-        <div class="fg"><span class="lbl">Perfil</span><select id="um-role"><option value="admin">👑 Admin</option><option value="cliente">🩺 Fisioterapeuta</option></select></div>
+        <div class="fg"><span class="lbl">Perfil</span><select id="um-role"><option value="admin">⭐ Admin</option><option value="cliente">🏥 Fisioterapeuta</option></select></div>
         <div class="fg full"><span class="lbl">Senha *</span><input type="password" id="um-pass" placeholder="Mínimo 4 caracteres"/></div>
         <div class="fg full" id="um-pass2-wrap"><span class="lbl">Confirmar senha *</span><input type="password" id="um-pass2" placeholder="Repita a senha"/></div>
       </div>
       <div style="margin-top:1rem;padding:.75rem 1rem;background:#F0EFEB;border-radius:var(--rs);font-size:12px;color:#333333">
-        👑 Admin — acesso total + gerenciar usuários<br>
-        🩺 Fisioterapeuta — registrar, pacientes e relatórios
+        ⭐ Admin — acesso total + gerenciar usuários<br>
+        🏥 Fisioterapeuta — registrar, pacientes e relatórios
       </div>
     </div>
     <div class="mfooter"><button class="btn btn-g btn-sm" onclick="closeM('um')">Cancelar</button><button class="btn btn-p btn-sm" onclick="saveUsuario()">Salvar</button></div>
@@ -498,7 +501,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 <!-- MODAL SENHA -->
 <div class="mbd" id="pwd-m" style="display:none" onclick="if(event.target===this)closeM('pwd-m')">
   <div class="modal" style="max-width:380px">
-    <div class="mhdr"><span class="mtitle">Trocar Senha</span><button class="mclose" onclick="closeM('pwd-m')">✕</button></div>
+    <div class="mhdr"><span class="mtitle">Trocar Senha</span><button class="mclose" onclick="closeM('pwd-m')">❌</button></div>
     <div class="mbody">
       <div class="fg" style="margin-bottom:.85rem"><span class="lbl">Senha atual</span><input type="password" id="pwd-old" placeholder="••••••••"/></div>
       <div class="fg" style="margin-bottom:.85rem"><span class="lbl">Nova senha</span><input type="password" id="pwd-new" placeholder="••••••••"/></div>
@@ -511,7 +514,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 <!-- MODAL ACESSO -->
 <div class="mbd" id="ac-modal" style="display:none" onclick="if(event.target===this)closeM('ac-modal')">
   <div class="modal" style="max-width:380px">
-    <div class="mhdr"><span class="mtitle">Configurar Acesso</span><button class="mclose" onclick="closeM('ac-modal')">✕</button></div>
+    <div class="mhdr"><span class="mtitle">Configurar Acesso</span><button class="mclose" onclick="closeM('ac-modal')">❌</button></div>
     <div class="mbody">
       <input type="hidden" id="ac-uid"/>
       <div style="font-weight:600;font-size:15px;color:#1C1C1A;margin-bottom:1rem" id="ac-nome"></div>
@@ -530,7 +533,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
         O acesso começa a contar a partir de hoje. O fisioterapeuta é bloqueado automaticamente ao expirar.
       </div>
     </div>
-    <div class="mfooter"><button class="btn btn-g btn-sm" onclick="closeM('ac-modal')">Cancelar</button><button class="btn btn-p btn-sm" onclick="saveAcesso()">✓ Confirmar</button></div>
+    <div class="mfooter"><button class="btn btn-g btn-sm" onclick="closeM('ac-modal')">Cancelar</button><button class="btn btn-p btn-sm" onclick="saveAcesso()">✅ Confirmar</button></div>
   </div>
 </div>
 
@@ -539,7 +542,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
   <div class="modal" style="max-width:440px">
     <div class="mhdr">
       <span class="mtitle">Renovar Acesso via PIX</span>
-      <button class="mclose" onclick="closeM('pix-modal')">✕</button>
+      <button class="mclose" onclick="closeM('pix-modal')">❌</button>
     </div>
     <div class="mbody" style="padding:1.25rem 1.5rem">
       <!-- Planos -->
@@ -560,7 +563,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
           </div>
         </div>
         <div id="pix-info-box" style="background:#F0EFEB;border-radius:var(--rs);padding:.75rem 1rem;font-size:13px;color:#333;text-align:left;margin-bottom:1rem"></div>
-        <button id="pix-ja-paguei-btn" class="btn btn-p btn-full" onclick="jaIzPagamento()">✓ Já paguei — Avisar administrador</button>
+        <button id="pix-ja-paguei-btn" class="btn btn-p btn-full" onclick="jaIzPagamento()">✅ Já paguei — Avisar administrador</button>
         <button class="btn btn-g btn-full" style="margin-top:.5rem" onclick="document.getElementById('pix-planos-wrap').style.display='';document.getElementById('pix-qr-wrap').style.display='none'">← Trocar plano</button>
       </div>
     </div>
@@ -660,7 +663,7 @@ function togglePasswordVisibility(fieldId){
   const field=document.getElementById(fieldId);
   const isPassword=field.type==='password';
   field.type=isPassword?'text':'password';
-  event.target.textContent=isPassword?'🙈':'👁️';
+  event.target.textContent=isPassword?'🙈':'🔍';
 }
 
 function updatePasswordStrength(password){
@@ -767,7 +770,7 @@ function addMoreT(){
   }
   // Scroll to show new buttons
   wrap.scrollIntoView({behavior:'smooth',block:'nearest'});
-  toast(`✓ Sessões até T${maxT} disponíveis`);
+  toast(`✅ Sessões até T${maxT} disponíveis`);
 }
 const lastRec=pid=>[...records].filter(r=>r.pat_id===pid).sort((a,b)=>b.date.localeCompare(a.date))[0]||null;
 const can=p=>{if(!session)return false;if(session.role==='admin')return true;return['registro','pacientes','relatorio','perfil'].includes(p);};
@@ -870,7 +873,7 @@ function showPage(p){
   window.scrollTo({top:0,behavior:'smooth'});
   const mc=document.getElementById('main-content');
   if(!can(p)&&!(p==='usuarios'&&session.role==='admin')&&!(p==='clientes'&&session.role==='admin')){
-    mc.innerHTML=`<div class="access-denied"><div style="font-size:3rem;margin-bottom:1rem">🔒</div><div style="font-family:var(--FT);font-size:1.4rem;color:var(--n5);margin-bottom:.5rem">Acesso restrito</div></div>`;return;
+    mc.innerHTML=`<div class="access-denied"><div style="font-size:3rem;margin-bottom:1rem">🔐</div><div style="font-family:var(--FT);font-size:1.4rem;color:var(--n5);margin-bottom:.5rem">Acesso restrito</div></div>`;return;
   }
   if(p==='registro')renderRegistro();
   else if(p==='pacientes')renderPacientes();
@@ -951,7 +954,7 @@ function showWelcomeModal(nome){
   div.id='welcome-modal';
   div.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1.5rem';
   div.innerHTML=`<div style="background:#fff;border-radius:16px;padding:2rem;max-width:380px;width:100%;text-align:center;box-shadow:0 25px 60px rgba(0,0,0,.3)">
-    <div style="font-size:3rem;margin-bottom:.75rem">🎉</div>
+    <div style="font-size:3rem;margin-bottom:.75rem">✨</div>
     <div style="font-family:var(--FB);font-size:1.4rem;font-weight:700;color:#1C1C1E;margin-bottom:.5rem">Bem-vindo(a), ${nome.split(' ')[0]}!</div>
     <div style="font-size:14px;color:#555;margin-bottom:1.25rem">Sua conta foi criada com sucesso.</div>
     <div style="background:linear-gradient(135deg,#7C3AED,#5B21B6);border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;color:#fff">
@@ -1011,7 +1014,7 @@ async function doRegister(){
     session=data;saveSession(session);
     btn.textContent='Criar conta →';btn.disabled=false;
     await bootApp();
-    toast(`✓ Bem-vindo(a), ${data.nome.split(' ')[0]}! Conta criada com sucesso.`);
+    toast(`✅ Bem-vindo(a), ${data.nome.split(' ')[0]}! Conta criada com sucesso.`);
   }catch(e){
     showRegErr('Erro de conexão. Tente novamente.');
     btn.textContent='Criar conta →';btn.disabled=false;
@@ -1031,7 +1034,7 @@ async function bootApp(){
       av.style.cssText=AV_STYLE[session.role]||AV_STYLE.cliente;
     }
     document.getElementById('nav-name').textContent=session.nome||'';
-    document.getElementById('nav-role').textContent=session.role==='admin'?'👑 Admin':(session.ocupacao||'Fisioterapeuta');
+    document.getElementById('nav-role').textContent=session.role==='admin'?'⭐ Admin':(session.ocupacao||'Fisioterapeuta');
     // Plan badge
     const planEl=document.getElementById('nav-plan');
     if(planEl&&session.role!=='admin'){
@@ -1050,7 +1053,7 @@ async function bootApp(){
           planEl.style.cssText='font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:#1E0A3C;color:#C8B8FF;border:1px solid #3D1F78';
         }
       } else {
-        planEl.textContent='✓ Ativo';
+        planEl.textContent='✅ Ativo';
         planEl.style.cssText='font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:#0A2A0A;color:#4ADE80;border:1px solid #166534';
       }
     } else if(planEl){
@@ -1125,7 +1128,7 @@ function renderRegistro(){
           <div class="pd" id="pat-dd" style="display:none"></div>
         </div>
         <div id="pat-sel-box" style="display:none;margin-bottom:.75rem;padding:.75rem 1rem;background:#F0EFEB;border-radius:var(--rs);border:1px solid #D3D1C7;position:relative">
-          <button onclick="clearPatSel()" style="position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;color:#5F5E5A;font-size:12px">✕ Trocar</button>
+          <button onclick="clearPatSel()" style="position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;color:#5F5E5A;font-size:12px">❌ Trocar</button>
           <div style="font-weight:600;font-size:14px;color:#111111" id="psel-name"></div>
           <div style="font-size:12px;color:#5F5E5A;margin-top:2px" id="psel-info"></div>
           <div style="font-size:12px;color:#333333;margin-top:3px;font-weight:500" id="psel-next"></div>
@@ -1138,7 +1141,7 @@ function renderRegistro(){
           </div>
           <div style="display:flex;gap:.5rem;margin-top:.75rem">
             <button class="btn btn-g btn-sm" onclick="cancelNewPat()">Cancelar</button>
-            <button class="btn btn-sm" style="background:var(--amb);color:#000;font-weight:700" onclick="confirmNewPat()">✓ Confirmar</button>
+            <button class="btn btn-sm" style="background:var(--amb);color:#000;font-weight:700" onclick="confirmNewPat()">✅ Confirmar</button>
           </div>
         </div>
         <div class="fg" style="margin-bottom:.75rem">
@@ -1159,7 +1162,7 @@ function renderRegistro(){
           </div>
           <div id="code-prev" style="margin-top:.5rem;font-size:13px;color:var(--n5)"></div>
         </div>
-        <button class="btn btn-p btn-full" id="save-reg-btn" onclick="saveRegistro()">✓ Salvar Atendimento</button>
+        <button class="btn btn-p btn-full" id="save-reg-btn" onclick="saveRegistro()">✅ Salvar Atendimento</button>
       </div>
       <div class="card">
         <div class="card-title">Últimos Registros</div>
@@ -1183,7 +1186,7 @@ function recentHTML(){
       <div><div style="font-size:13px;font-weight:500;color:#1C1C1A">${p?.nome||'?'} ${clinicaTag}</div><div style="font-size:11px;color:var(--n4)">${fmtDate(r.date)}</div></div>
       <div style="display:flex;align-items:center;gap:.4rem">
         <span class="bdg ${cls}">${lbl}</span>
-        ${canDel?`<button class="btn btn-xs btn-d" onclick="deleteRecord('${r.id}')">✕</button>`:''}
+        ${canDel?`<button class="btn btn-xs btn-d" onclick="deleteRecord('${r.id}')">❌</button>`:''}
       </div>
     </div>`;
   }).join('');
@@ -1279,7 +1282,7 @@ async function confirmNewPat(){
   document.getElementById('psel-name').textContent=d.nome;
   document.getElementById('psel-info').textContent=d.convenio||'';
   document.getElementById('psel-next').textContent='Primeira sessão: T1';
-  toast(`✓ Paciente "${d.nome}" cadastrado!`);
+  toast(`✅ Paciente "${d.nome}" cadastrado!`);
   updateCodePrev();
 }
 
@@ -1316,10 +1319,10 @@ async function saveRegistro(){
   const dbCode=tm?(isParticular?'OA':'T'):selCode; // Particular+T → OA
   const clinicaVal=document.getElementById('reg-clinica')?.value.trim()||lastClinica||null;
   const{data,error}=await sb.from('records').insert({pat_id:selPat.id,date,code:dbCode,t_num:tNum,reg_by:session.id,owner_id:session.id,clinica:clinicaVal}).select().single();
-  btn.textContent='✓ Salvar Atendimento';btn.disabled=false;
+  btn.textContent='✅ Salvar Atendimento';btn.disabled=false;
   if(error){toast('Erro ao salvar',true);return;}
   records.unshift(data);
-  toast(`✓ ${selPat.nome.split(' ')[0]} — ${tNum?`T${tNum}`:selCode} em ${fmtDate(date)}`);
+  toast(`✅ ${selPat.nome.split(' ')[0]} — ${tNum?`T${tNum}`:selCode} em ${fmtDate(date)}`);
   selPat=null;selCode=null;
   renderRegistro();
 }
@@ -1342,7 +1345,7 @@ function togglePacSelect(){
   const btn=document.getElementById('pac-sel-btn');
   const delBtn=document.getElementById('pac-del-btn');
   const thChk=document.getElementById('pac-th-chk');
-  if(btn)btn.textContent=_pacSelectMode?'✕ Cancelar':'☑ Selecionar';
+  if(btn)btn.textContent=_pacSelectMode?'❌ Cancelar':'☑ Selecionar';
   document.querySelectorAll('.pac-chk-cell').forEach(el=>el.style.display=_pacSelectMode?'':'none');
   if(thChk)thChk.style.display=_pacSelectMode?'':'none';
   if(delBtn)delBtn.style.display='none';
@@ -1377,7 +1380,7 @@ async function deleteSelectedPacs(){
     patients=patients.filter(p=>p.id!==id);
     records=records.filter(r=>r.pat_id!==id);
   }
-  toast(`✓ ${ids.length} paciente${ids.length!==1?'s':''} excluído${ids.length!==1?'s':''}`);
+  toast(`✅ ${ids.length} paciente${ids.length!==1?'s':''} excluído${ids.length!==1?'s':''}`);
   _pacSelectMode=false;
   renderPacientes();
 }
@@ -1466,8 +1469,8 @@ function pacTbodyHTML(pats){
       <td style="font-weight:700;color:var(--grn)">${tC}</td>
       <td style="color:var(--n4);font-size:12px">${last?fmtDate(last.date):'—'}</td>
       <td><div style="display:flex;gap:.25rem">
-        <button class="btn btn-xs btn-g" onclick="openPatModal('${p.id}')">✏</button>
-        ${session.role==='admin'?`<button class="btn btn-xs btn-d" onclick="deletePaciente('${p.id}')">✕</button>`:''}
+        <button class="btn btn-xs btn-g" onclick="openPatModal('${p.id}')">📝</button>
+        ${session.role==='admin'?`<button class="btn btn-xs btn-d" onclick="deletePaciente('${p.id}')">❌</button>`:''}
       </div></td>
     </tr>`;
   }).join('');
@@ -1507,7 +1510,7 @@ async function savePaciente(){
   const{data:d,error}=await sb.from('patients').update(data).eq('id',editPat.id).select().single();
   if(error){toast('Erro ao salvar',true);return;}
   patients=patients.map(p=>p.id===editPat.id?d:p);
-  toast('✓ Paciente atualizado');closeM('pm');renderPacientes();
+  toast('✅ Paciente atualizado');closeM('pm');renderPacientes();
 }
 
 async function deletePaciente(id){
@@ -1528,7 +1531,7 @@ function renderRelatorio(){
     <div class="sec-hdr">
       <span class="sec-title">Relatório</span>
       <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-        <button class="btn btn-g btn-sm" onclick="exportCSV()">⬇ CSV</button>
+        <button class="btn btn-g btn-sm" onclick="exportCSV()">⬇️ CSV</button>
         <button class="btn btn-g btn-sm" onclick="printReport()">🖨️ Imprimir</button>
         <button class="btn btn-p btn-sm" onclick="printReport()">📄 PDF</button>
       </div>
@@ -1638,10 +1641,10 @@ function renderMensal(){
     // Separar por convênio
     const convs=['IASEP','UNIMED','Particular','Outro'];
     let html=convs.map(c=>_buildMensalSingleTable(relFilter,colorHex,c)).join('');
-    wrap.innerHTML=html||'<div class="empty" style="padding:2rem"><div class="empty-icon">📊</div><div class="empty-text">Nenhum atendimento.</div></div>';
+    wrap.innerHTML=html||'<div class="empty" style="padding:2rem"><div class="empty-icon">📈</div><div class="empty-text">Nenhum atendimento.</div></div>';
   } else {
     const tbl=_buildMensalSingleTable(relFilter,colorHex);
-    wrap.innerHTML=tbl||'<div class="empty" style="padding:2rem"><div class="empty-icon">📊</div><div class="empty-text">Nenhum atendimento.</div></div>';
+    wrap.innerHTML=tbl||'<div class="empty" style="padding:2rem"><div class="empty-icon">📈</div><div class="empty-text">Nenhum atendimento.</div></div>';
   }
 }
 
@@ -1919,12 +1922,12 @@ function renderMensalAll(){
     // Separar por convênio
     const convs=['IASEP','UNIMED','Particular','Outro'];
     let html=convs.map(c=>_buildConvBlock(c,relClinica)).join('');
-    wrap.innerHTML=html||'<div class="empty" style="padding:2rem"><div class="empty-icon">📊</div><div class="empty-text">Nenhum atendimento.</div></div>';
+    wrap.innerHTML=html||'<div class="empty" style="padding:2rem"><div class="empty-icon">📈</div><div class="empty-text">Nenhum atendimento.</div></div>';
   } else {
     const tabelaT=buildMensalTable('T',[`Atendimentos`,relConv,relClinica].filter(Boolean).join(' '),'#111111');
     const tabelaOA=buildMensalTable('OA',[`Outros Atendimentos`,relConv,relClinica].filter(Boolean).join(' '),'#5B21B6');
     const tabelaAV=buildMensalTable('AV',[`Avaliação`,relConv,relClinica].filter(Boolean).join(' '),'#185FA5');
-    wrap.innerHTML=`<div style="padding:0">${tabelaT}${tabelaOA}${tabelaAV}${(!tabelaT&&!tabelaOA&&!tabelaAV)?'<div class="empty" style="padding:2rem"><div class="empty-icon">📊</div><div class="empty-text">Nenhum atendimento.</div></div>':''}</div>`;
+    wrap.innerHTML=`<div style="padding:0">${tabelaT}${tabelaOA}${tabelaAV}${(!tabelaT&&!tabelaOA&&!tabelaAV)?'<div class="empty" style="padding:2rem"><div class="empty-icon">📈</div><div class="empty-text">Nenhum atendimento.</div></div>':''}</div>`;
   }
 }
 
@@ -1949,7 +1952,7 @@ function exportCSV(){
   }
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));
   a.download=`atendimentos_${relTipo==='anual'?relAno:`${MESES[relMes]}_${relAno}`}.csv`;a.click();
-  toast('✓ CSV exportado');
+  toast('✅ CSV exportado');
 }
 
 // ══ VISÃO GERAL ══
@@ -1989,7 +1992,7 @@ async function renderClientes(){
         <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
           ${statusBdg(u)}
           <button class="btn btn-g btn-sm" onclick="toggleAtivo('${u.id}',${u.ativo!==false},'${u.nome}')">${u.ativo===false?'▶ Ativar':'⏸ Suspender'}</button>
-          <button class="btn btn-p btn-sm" onclick="openAcessoModal('${u.id}','${u.nome}')">⏱ Acesso</button>
+          <button class="btn btn-p btn-sm" onclick="openAcessoModal('${u.id}','${u.nome}')">⏰ Acesso</button>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem">
@@ -2010,7 +2013,7 @@ async function toggleAtivo(id,ativo,nome){
   if(!confirm(`Deseja ${ativo?'suspender':'ativar'} o acesso de ${nome}?`))return;
   const{error}=await sb.from('users').update({ativo:!ativo}).eq('id',id);
   if(error){toast('Erro ao atualizar',true);return;}
-  toast(`✓ Acesso de ${nome} ${ativo?'suspenso':'ativado'}`);
+  toast(`✅ Acesso de ${nome} ${ativo?'suspenso':'ativado'}`);
   renderClientes();
 }
 
@@ -2029,7 +2032,7 @@ async function saveAcesso(){
   const{error}=await sb.from('users').update({expires_at:expires,ativo:true}).eq('id',uid);
   if(error){toast('Erro ao salvar',true);return;}
   const labels={'30d':'30 dias','2m':'2 meses','3m':'3 meses','6m':'6 meses','1a':'1 ano','ilimitado':'ilimitado'};
-  toast(`✓ Acesso definido: ${labels[period]}`);
+  toast(`✅ Acesso definido: ${labels[period]}`);
   closeM('ac-modal');renderClientes();
 }
 
@@ -2048,7 +2051,7 @@ function renderPerfil(){
     <div style="background:linear-gradient(135deg,#3D1F78,#7C3AED);border-radius:var(--r);padding:1.25rem 1.5rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
       <div>
         <div style="font-size:12px;color:#C8B8FF;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.2rem">Seu acesso</div>
-        <div style="font-size:1.5rem;font-weight:800;color:#fff;font-family:var(--FT)">${(()=>{if(!session.expires_at)return'Ilimitado ✓';const d=Math.ceil((new Date(session.expires_at)-new Date())/(1000*60*60*24));return d<=0?'Expirado':d===1?'1 dia restante':`${d} dias restantes`;})()}</div>
+        <div style="font-size:1.5rem;font-weight:800;color:#fff;font-family:var(--FT)">${(()=>{if(!session.expires_at)return'Ilimitado ✅';const d=Math.ceil((new Date(session.expires_at)-new Date())/(1000*60*60*24));return d<=0?'Expirado':d===1?'1 dia restante':`${d} dias restantes`;})()}</div>
         ${session.expires_at?`<div style="font-size:12px;color:#C8B8FF;margin-top:2px">Válido até ${new Date(session.expires_at).toLocaleDateString('pt-BR')}</div>`:''}
       </div>
       <button onclick="openPixModal()" style="background:#fff;color:#7C3AED;border:none;border-radius:var(--rs);padding:.7rem 1.4rem;font-family:var(--FB);font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap">💳 Renovar via PIX</button>
@@ -2151,7 +2154,7 @@ function renderPerfil(){
           <div style="font-size:11px;font-weight:700;color:#5B21B6;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem">💡 Dicas rápidas</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem .85rem">
             <div style="font-size:12px;color:#4C1D95">📋 Registre atendimentos pelo menu <strong>Registrar</strong></div>
-            <div style="font-size:12px;color:#4C1D95">📊 Gere relatórios mensais ou anuais por convênio</div>
+            <div style="font-size:12px;color:#4C1D95">📈 Gere relatórios mensais ou anuais por convênio</div>
             <div style="font-size:12px;color:#4C1D95">💳 Renove seu acesso clicando no badge roxo no topo</div>
             <div style="font-size:12px;color:#4C1D95">🐛 Problemas? Fale com o suporte via WhatsApp</div>
           </div>
@@ -2200,7 +2203,7 @@ async function uploadAvatar(){
       nav_av.innerHTML=`<img src="${avatarUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`;
     }
     users=users.map(u=>u.id===session.id?{...u,avatar_url:avatarUrl}:u);
-    toast('✓ Foto atualizada com sucesso!');
+    toast('✅ Foto atualizada com sucesso!');
     renderPerfil();
   }catch(e){
     console.error(e);
@@ -2224,7 +2227,7 @@ async function removeAvatar(){
     nav_av.style.cssText=AV_STYLE[session.role]||AV_STYLE.cliente;
   }
   users=users.map(u=>u.id===session.id?{...u,avatar_url:null}:u);
-  toast('✓ Foto removida');
+  toast('✅ Foto removida');
   renderPerfil();
 }
 
@@ -2233,8 +2236,8 @@ function checkPwdMatch(){
   const nw2=document.getElementById('p-pwd-new2')?.value||'';
   const el=document.getElementById('pwd-match');
   if(!el||!nw2)return;
-  if(nw===nw2){el.textContent='✓ Senhas coincidem';el.style.color='#3B6D11';}
-  else{el.textContent='✕ Senhas não coincidem';el.style.color='#993C1D';}
+  if(nw===nw2){el.textContent='✅ Senhas coincidem';el.style.color='#3B6D11';}
+  else{el.textContent='❌ Senhas não coincidem';el.style.color='#993C1D';}
 }
 
 async function savePerfilSenha(){
@@ -2252,7 +2255,7 @@ async function savePerfilSenha(){
   document.getElementById('p-pwd-new').value='';
   document.getElementById('p-pwd-new2').value='';
   document.getElementById('pwd-match').textContent='';
-  toast('✓ Senha alterada com sucesso!');
+  toast('✅ Senha alterada com sucesso!');
 }
 
 // ══ PIX — RENOVAÇÃO ══
@@ -2344,19 +2347,19 @@ function gerarPix(){
     <div>Valor: <strong>R$ ${_pixPlanoSel.valor.toFixed(2).replace('.',',')}</strong></div>
     <div>Chave PIX: <strong>${PIX_KEY.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4')}</strong></div>
     <div>Beneficiário: <strong>${PIX_NAME}</strong></div>
-    ${diasRestantes>0?`<div style="margin-top:.4rem;color:#3B6D11">✓ Seus ${diasRestantes}d restantes serão somados</div>`:''}
+    ${diasRestantes>0?`<div style="margin-top:.4rem;color:#3B6D11">✅ Seus ${diasRestantes}d restantes serão somados</div>`:''}
     <div style="margin-top:.25rem;color:#3B6D11">Novo acesso até: <strong>${novaData}</strong></div>`;
   desenharQR(document.getElementById('pix-canvas'),brcode);
   // Reset botão
   const btn=document.getElementById('pix-ja-paguei-btn');
-  btn.textContent='✓ Já paguei — Avisar administrador';
+  btn.textContent='✅ Já paguei — Avisar administrador';
   btn.style.background='';btn.disabled=false;
 }
 
 function copiarPix(){
   const v=document.getElementById('pix-code').value;
-  navigator.clipboard?.writeText(v).then(()=>toast('✓ Código PIX copiado!')).catch(()=>{
-    const el=document.getElementById('pix-code');el.select();document.execCommand('copy');toast('✓ Copiado!');
+  navigator.clipboard?.writeText(v).then(()=>toast('✅ Código PIX copiado!')).catch(()=>{
+    const el=document.getElementById('pix-code');el.select();document.execCommand('copy');toast('✅ Copiado!');
   });
 }
 
@@ -2377,15 +2380,15 @@ async function jaIzPagamento(){
   };
   const{error}=await sb.from('renewals').insert(payload);
   if(error){
-    btn.textContent='✓ Já paguei — Avisar administrador';btn.disabled=false;
+    btn.textContent='✅ Já paguei — Avisar administrador';btn.disabled=false;
     // Abre WA mesmo com erro no banco
   }
   const msg=encodeURIComponent(`Olá Eduardo! Acabei de pagar o PIX para renovar meu acesso no ConectaSaúde.\n\n👤 Usuário: ${session.login}\n📦 Plano: ${_pixPlanoSel.label}\n💰 Valor: R$ ${_pixPlanoSel.valor.toFixed(2).replace('.',',')}\n\nPor favor, confirme a renovação. Obrigado!`);
   window.open(`https://wa.me/${PIX_WA}?text=${msg}`,'_blank');
-  btn.textContent='✓ Solicitação enviada!';
+  btn.textContent='✅ Solicitação enviada!';
   btn.style.background='#3B6D11';
   btn.disabled=true;
-  toast('✓ Administrador avisado via WhatsApp!');
+  toast('✅ Administrador avisado via WhatsApp!');
 }
 
 // ══ ADMIN — RENOVAÇÕES PENDENTES ══
@@ -2406,7 +2409,7 @@ async function confirmarRenovacao(rid){
   if(e1||e2){toast('Erro ao confirmar',true);return;}
   renewals=renewals.map(x=>x.id===rid?{...x,status:'confirmado'}:x);
   users=users.map(u=>u.id===r.user_id?{...u,expires_at:novaExp,ativo:true}:u);
-  toast(`✓ Acesso de ${r.user_nome} renovado até ${new Date(novaExp).toLocaleDateString('pt-BR')}`);
+  toast(`✅ Acesso de ${r.user_nome} renovado até ${new Date(novaExp).toLocaleDateString('pt-BR')}`);
   renderUsuarios();
 }
 
@@ -2425,7 +2428,7 @@ function renderUsuarios(){
   const pendingBox=pending.length?`
     <div style="background:#FAEEDA;border:1px solid #FAC775;border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:1.25rem">
       <div style="font-weight:700;font-size:14px;color:#854F0B;margin-bottom:.75rem">
-        🔔 ${pending.length} renovação${pending.length>1?'ões':''} pendente${pending.length>1?'s':''}
+        📢 ${pending.length} renovação${pending.length>1?'ões':''} pendente${pending.length>1?'s':''}
       </div>
       ${pending.map(r=>`
         <div style="background:#fff;border:1px solid #F5C4A0;border-radius:var(--rs);padding:.85rem 1rem;margin-bottom:.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
@@ -2434,8 +2437,8 @@ function renderUsuarios(){
             <div style="font-size:12px;color:#888780;margin-top:2px">@${r.user_login} · Plano: <strong>${r.plano_label}</strong> · R$ ${Number(r.valor).toFixed(2).replace('.',',')} · ${new Date(r.created_at).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</div>
           </div>
           <div style="display:flex;gap:.4rem">
-            <button class="btn btn-grn btn-sm" onclick="confirmarRenovacao('${r.id}')">✓ Confirmar</button>
-            <button class="btn btn-d btn-sm" onclick="rejeitarRenovacao('${r.id}')">✕ Rejeitar</button>
+            <button class="btn btn-grn btn-sm" onclick="confirmarRenovacao('${r.id}')">✅ Confirmar</button>
+            <button class="btn btn-d btn-sm" onclick="rejeitarRenovacao('${r.id}')">❌ Rejeitar</button>
           </div>
         </div>`).join('')}
     </div>`:''  ;
@@ -2484,9 +2487,9 @@ function usrListHTML(){
         <div style="font-size:12px;color:#888780;margin-top:2px">@${u.login} · <span class="bdg ${u.role==='admin'?'bdg-admin':'bdg-fisio'}">${rl}</span> ${sb2}</div>
       </div>
       <div style="display:flex;gap:.4rem;flex-wrap:wrap">
-        ${u.role!=='admin'?`<button class="btn btn-amb btn-sm" onclick="openAcessoModal('${u.id}','${u.nome}')">⏱ Acesso</button>`:''}
-        <button class="btn btn-g btn-sm" onclick="openUsrModal('${u.id}')">✏ Editar</button>
-        ${!isSelf?`<button class="btn btn-d btn-sm" onclick="deleteUser('${u.id}')">✕</button>`:''}
+        ${u.role!=='admin'?`<button class="btn btn-amb btn-sm" onclick="openAcessoModal('${u.id}','${u.nome}')">⏰ Acesso</button>`:''}
+        <button class="btn btn-g btn-sm" onclick="openUsrModal('${u.id}')">📝 Editar</button>
+        ${!isSelf?`<button class="btn btn-d btn-sm" onclick="deleteUser('${u.id}')">❌</button>`:''}
       </div>
     </div>`;
   }).join('');
@@ -2519,12 +2522,12 @@ async function saveUsuario(){
     if(error){toast('Erro ao salvar',true);return;}
     users=users.map(u=>u.id===editUsr.id?data:u);
     if(editUsr.id===session.id){session={...session,...data};saveSession(session);}
-    toast('✓ Usuário atualizado');
+    toast('✅ Usuário atualizado');
   } else {
     if(!pass){toast('⚠ Informe a senha',true);return;}
     const{data,error}=await sb.from('users').insert(payload).select().single();
     if(error){toast('Erro ao salvar',true);return;}
-    users.push(data);toast('✓ Usuário criado');
+    users.push(data);toast('✅ Usuário criado');
   }
   closeM('um');renderUsuarios();
 }
@@ -2558,7 +2561,7 @@ async function deleteUser(id){
   users=users.filter(x=>x.id!==id);
   patients=patients.filter(p=>p.owner_id!==id);
   records=records.filter(r=>r.owner_id!==id&&r.reg_by!==id);
-  toast(`✓ Usuário e ${userPatsCnt} paciente${userPatIds.length!==1?'s':''} removidos`.replace('userPatsCnt',userPatIds.length));
+  toast(`✅ Usuário e ${userPatsCnt} paciente${userPatIds.length!==1?'s':''} removidos`.replace('userPatsCnt',userPatIds.length));
   renderUsuarios();
 }
 
@@ -2573,7 +2576,7 @@ async function saveSenha(){
   const{error}=await sb.from('users').update({pass_hash:hp(nw)}).eq('id',session.id);
   if(error){toast('Erro ao salvar',true);return;}
   users=users.map(x=>x.id===session.id?{...x,pass_hash:hp(nw)}:x);
-  closeM('pwd-m');toast('✓ Senha alterada!');
+  closeM('pwd-m');toast('✅ Senha alterada!');
 }
 
 // ══ INIT ══

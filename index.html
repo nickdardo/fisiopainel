@@ -48,10 +48,9 @@ body{font-family:var(--FB);background:#F8F7F4;color:#1C1C1A;min-height:100vh;fon
 /* TOGGLE SENHA - DISCRETO */
 .input-group{position:relative;display:flex;align-items:center}
 .input-group input{flex:1;padding-right:2.5rem}
-.toggle-password{position:absolute;right:12px;background:none;border:none;color:#6B7280;cursor:pointer;font-size:16px;padding:6px 10px;transition:all .2s;opacity:0.6}
-.toggle-password:hover{color:#A78BFA;opacity:1}
-.login-field .toggle-password{opacity:0.4}
-.login-field .toggle-password:hover{opacity:1}
+.toggle-password{position:absolute;right:10px;background:none;border:none;color:#9CA3AF;cursor:pointer;padding:6px 8px;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.toggle-password:hover{color:#7C3AED}
+.toggle-password svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
 /* Indicador de força de senha */
 .password-strength{display:none;margin-top:4px;height:4px;background:#3A3A3C;border-radius:2px;overflow:hidden}
@@ -357,7 +356,7 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 <div class="login-sub">Sistema de Gestão de Atendimentos</div>
 <div class="login-error" id="login-error"></div>
 <div class="login-field"><label>Usuário</label><input type="text" id="lu" placeholder="seu.usuario" autocomplete="username" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-      <div class="login-field"><label>Senha</label><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <div class="login-field"><label>Senha</label><div class="input-group"><input type="password" id="lp" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/><button type="button" class="toggle-password" onclick="togglePasswordVisibility('lp')" title="Ver/ocultar senha"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div></div>
 <div class="login-remember">
 <label class="login-remember-label">
 <label class="toggle"><input type="checkbox" id="lembrar-check" onchange="updateLembrarStatus()"/><div class="toggle-track"></div></label>
@@ -394,8 +393,8 @@ tbody td{padding:.75rem 1rem;vertical-align:middle;color:#1C1C1A}
 </select>
 </div>
 <div class="login-field"><label>Usuário (login) *</label><input type="text" id="reg-login" placeholder="Ex: joao.silva" autocomplete="username" onkeydown="if(event.key==='Enter')doRegister()"/></div>
-<div class="login-field"><label>Senha *</label><input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()" oninput="updatePasswordStrength(this.value)"/><button type="button" class="toggle-password" onclick="togglePasswordVisibility('reg-pass')" title="Mostrar/ocultar senha"><div class="password-strength" id="strength-meter"><div class="password-strength-bar" id="strength-bar"></div></div></div>
-<div class="login-field"><label>Confirmar senha *</label><input type="password" id="reg-pass2" placeholder="Repita a senha" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/><button type="button" class="toggle-password" onclick="togglePasswordVisibility('reg-pass2')" title="Mostrar/ocultar senha"></div>
+<div class="login-field"><label>Senha *</label><div class="input-group"><input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()" oninput="updatePasswordStrength(this.value)"/><button type="button" class="toggle-password" onclick="togglePasswordVisibility('reg-pass')" title="Ver/ocultar senha"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div><div class="password-strength" id="strength-meter"><div class="password-strength-bar" id="strength-bar"></div></div></div>
+<div class="login-field"><label>Confirmar senha *</label><div class="input-group"><input type="password" id="reg-pass2" placeholder="Repita a senha" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"/><button type="button" class="toggle-password" onclick="togglePasswordVisibility('reg-pass2')" title="Ver/ocultar senha"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button></div></div>
 <div style="padding:.75rem 1rem;background:#1E0A3C;border-radius:var(--rs);font-size:12px;color:#C8B8FF;margin-bottom:1rem;border:1px solid #2C1F4A">
  Conta criada como<strong id='ocup-preview'>Fisioterapeuta</strong>. O administrador configura seu período de acesso.
 </div>

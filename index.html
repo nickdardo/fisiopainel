@@ -695,6 +695,54 @@ function debugHash(senha){
   console.log(`Hash esperado (Eduardo26019089@#): ilutzm`);
   return hash;
 }
+
+// ✅ FUNÇÃO DE DEBUG DE LOGIN (nova)
+async function debugLogin(usuario, senha){
+  console.log('═══════════════════════════════════════');
+  console.log('🔍 DEBUG DE LOGIN');
+  console.log('═══════════════════════════════════════');
+  
+  const loginTrimmed = usuario.trim().toLowerCase();
+  const senhaHash = hp(senha);
+  
+  console.log(`Usuário digitado: "${usuario}"`);
+  console.log(`Usuário processado: "${loginTrimmed}"`);
+  console.log(`Senha digitada: "${senha}"`);
+  console.log(`Hash calculado: "${senhaHash}"`);
+  
+  // Buscar no banco
+  try {
+    const {data, error} = await sb.from('users').select('*').eq('login', loginTrimmed).single();
+    
+    if (error) {
+      console.error(`❌ ERRO ao buscar usuário: ${error.message}`);
+      console.log(`Nenhum usuário encontrado com login: "${loginTrimmed}"`);
+      return;
+    }
+    
+    if (data) {
+      console.log(`✅ Usuário encontrado:`);
+      console.log(`   Nome: ${data.nome}`);
+      console.log(`   Login: ${data.login}`);
+      console.log(`   Hash no banco: "${data.pass_hash}"`);
+      console.log(`   Role: ${data.role}`);
+      
+      const hashBate = data.pass_hash === senhaHash;
+      console.log(`\n${hashBate ? '✅ HASH BATE!' : '❌ HASH NÃO BATE!'}`);
+      console.log(`   Hash calculado: "${senhaHash}"`);
+      console.log(`   Hash no banco:  "${data.pass_hash}"`);
+      
+      if (!hashBate) {
+        console.log(`\n💡 SOLUÇÃO: Atualize o banco com:`);
+        console.log(`   UPDATE users SET pass_hash = '${senhaHash}' WHERE login = '${loginTrimmed}';`);
+      }
+    }
+  } catch (e) {
+    console.error(`Erro de conexão: ${e.message}`);
+  }
+  
+  console.log('═══════════════════════════════════════');
+}
 const fmtDate=d=>d?new Date(d+'T12:00:00').toLocaleDateString('pt-BR'):'—';
 const today=()=>new Date().toISOString().split('T')[0];
 const ini=n=>(n||'?').split(' ').map(p=>p[0]).join('').slice(0,2).toUpperCase();
